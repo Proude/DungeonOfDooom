@@ -1,0 +1,10 @@
+[10:30AM] Meeting started
+[10:30AM] Mattsi presented a presentation about what we needed to decide in week 0 and the process
+[11:04AM] We set up the Trello board
+[11:10AM] We planed sprint 0
+[11:30AM] We setup GitHub
+[11:45AM] We began the "Produce format for project diaries" task
+[12:00PM] We completed the "Produce format for project diaries" task
+[12:00PM] We started requirements analysis
+[13:20PM] We finished requirements analysis.
+[13:20PM] Meeting finished
