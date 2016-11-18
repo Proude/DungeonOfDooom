@@ -1,0 +1,9 @@
+Download MySQL Community Edition installer from https://dev.mysql.com/downloads/windows/installer/5.7.html
+Run the installer, choose Developer Version, click next past any warnings regarding additional requirements
+You’ll be asked about “Type and Networking”. Leave type as Development Machine, TCp/IP as port 3306 and leave “Open Firewall port for network access” ticked.
+When asked for root password use the password Delicate.Sunshine.Twist.Myth32
+On the same screen add a user “dungeonofdoom” with the same password
+Allow the installer to configure MySQL as a Windows service. You may want to un-tick “start MySQL Server at System Startup”
+Next over Plugins and Extensions and through to the end. Click “Execute” when prompted and the installer will configure everything ?
+Next open “backup.sql”- it should open in MySQL Workbench. Press Cntrl+U to open the Connect to Database window. In the top drop-down (“Stored Connetion”) select “Localhost instance…”. Enter the password (you may want to tick Store in Vault to avoid entering it again) and click OK.
+Finally press cntrl+shift+enter to run the script and create the database.
