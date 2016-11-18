@@ -1,11 +1,13 @@
 package com.dod.tests.integration;
 
+import com.dod.db.DatabaseConnection;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -14,23 +16,36 @@ import java.sql.Statement;
 public class database {
 
     @Test
-    //todo: replace this with actual database connection classes once we get that far
-    public void TestBasicConnection() {
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUser("dungeonofdoom");
-        dataSource.setPassword("Delicate.Sunshine.Twist.Myth32");
-        dataSource.setServerName("localhost");
+    public void ShouldConnectToDatabase() {
+        Connection connection = null;
 
         try {
-            Connection conn = dataSource.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT 1");
-
-            rs.close();
-            stmt.close();
-            conn.close();
+            connection = DatabaseConnection.getConnection();
+            Assert.assertFalse(connection.isClosed());
         }
-        catch(Exception e) {
+        catch(SQLException e) {
+            Assert.fail(e.getMessage());
+        }
+        DatabaseConnection.Close();
+    }
+
+    @Test
+    public void ShouldCloseDatabase() {
+        Connection connection = null;
+
+        try {
+            connection = DatabaseConnection.getConnection();
+        }
+        catch(SQLException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        DatabaseConnection.Close();
+
+        try {
+            Assert.assertTrue(connection.isClosed());
+        }
+        catch(SQLException e) {
             Assert.fail(e.getMessage());
         }
     }
