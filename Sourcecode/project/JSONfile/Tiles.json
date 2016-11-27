@@ -1,0 +1,20 @@
+var Tiles = [
+{
+  "id": "tile_wall",
+  "type":"wall",
+  "visibility":true,
+  "touchable":false,
+  "imagesrc":"sources/path_way.jpg",
+  "height":60px, 
+  "width":60px
+},
+{
+  "id": "tile_coin",
+  "type":"coin",
+  "visibility":true,
+  "touchable":true,
+  "imagesrc":"sources/coins.jpg",
+  "height":60px,
+  "width":60px
+}
+];
