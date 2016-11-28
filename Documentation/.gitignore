@@ -12,3 +12,6 @@
 
 # Visio autosave temporary files
 *.~vsdx
+
+#Temp files
+*.tmp
