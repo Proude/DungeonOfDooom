@@ -1,19 +1,16 @@
-package com.dod.tests.integration;
+package dod.test.integration;
 
 import com.dod.db.DatabaseConnection;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Tests database integration
  */
-public class database {
+public class DatabaseConnectionTests {
 
     @Test
     public void ShouldConnectToDatabase() {

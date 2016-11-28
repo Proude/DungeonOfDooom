@@ -3,9 +3,7 @@ package com.dod.db;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Stores a connection to the database using the singleton pattern
@@ -25,6 +23,7 @@ public class DatabaseConnection {
             dataSource.setServerName("localhost");
 
             connection = dataSource.getConnection();
+
             return connection;
         }
     }
