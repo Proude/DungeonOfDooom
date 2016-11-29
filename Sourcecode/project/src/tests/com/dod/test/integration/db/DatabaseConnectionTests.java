@@ -1,4 +1,4 @@
-package dod.test.integration;
+package dod.test.integration.db;
 
 import com.dod.db.DatabaseConnection;
 import org.junit.Assert;
