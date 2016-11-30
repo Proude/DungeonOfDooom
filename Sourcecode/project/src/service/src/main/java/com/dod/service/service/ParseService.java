@@ -1,7 +1,16 @@
 package com.dod.service.service;
 
+import com.dod.models.Map;
+import org.json.simple.JSONObject;
+
 /**
- * Created by tasos on 30/11/2016.
+ * Implementation of IParseService.
  */
 public class ParseService implements IParseService {
+
+    @Override
+    public Map parseMap(JSONObject input) {
+        return null;
+    }
+
 }

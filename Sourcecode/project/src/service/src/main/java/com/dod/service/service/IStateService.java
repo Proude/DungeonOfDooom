@@ -7,6 +7,6 @@ package com.dod.service.service;
  */
 public interface IStateService {
 
-    void GetState(); //todo return 2d array of tile objects- and a Character param
+    void GetState(); //todo return 2d array of tiles objects- and a Character param
 
 }

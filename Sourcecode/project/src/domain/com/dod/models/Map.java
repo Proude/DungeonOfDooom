@@ -8,11 +8,11 @@ public class Map implements Serializable{
 	protected String name;
 	protected int coin_no;
 	protected int coin_win;
-	protected Tile[][] tile;
+	protected Tile[][] tiles;
 	
 	
 	public Map() {
-	
+
 	}
 	
 	public String getName(){
@@ -32,6 +32,9 @@ public class Map implements Serializable{
 	}
 	public void setCoinWin(int coin_win){
 		this.coin_win = coin_win;
+	}
+	public Tile getTile(Point point) {
+		return tiles[point.x][point.y];
 	}
 }
 	

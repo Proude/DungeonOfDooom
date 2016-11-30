@@ -6,6 +6,6 @@ package com.dod.service.service;
  */
 public interface IVisibilityService {
 
-    void getVisibleTilesForCharacter(); //todo return 2d tile obj array and add char param
+    void getVisibleTilesForCharacter(); //todo return 2d tiles obj array and add char param
 
 }
