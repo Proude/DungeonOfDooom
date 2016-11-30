@@ -3,13 +3,17 @@ package com.dod.service.service;
 import com.dod.service.model.LoginModel;
 
 /**
- * Interface for AuthenticationService
- * Handles authentiticating a user against their hashed password/username
- *
+ * Created by tasos on 30/11/2016.
  */
-public interface AuthenticationService {
+public class AuthenticationService implements IAuthenticationService {
 
-    void Register(LoginModel model);
-    void Login(LoginModel model);
+    @Override
+    public void Register(LoginModel model) {
 
+    }
+
+    @Override
+    public void Login(LoginModel model) {
+
+    }
 }
