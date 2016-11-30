@@ -1,4 +1,4 @@
-package DungeonOfDoom;
+package com.dod.models;
 
 import java.io.Serializable;
 

@@ -2,7 +2,6 @@ package com.dod.service.controller;
 
 import com.dod.service.service.StateService;
 
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

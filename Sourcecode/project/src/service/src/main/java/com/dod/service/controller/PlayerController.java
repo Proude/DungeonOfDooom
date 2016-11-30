@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 @Path("player")
 public class PlayerController {
 
-
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Path("login")
