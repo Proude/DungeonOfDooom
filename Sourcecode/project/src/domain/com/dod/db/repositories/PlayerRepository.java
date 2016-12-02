@@ -11,11 +11,19 @@ import java.sql.SQLException;
  */
 public class PlayerRepository extends DatabaseRepository<Player> {
 
-    private final String getQuery = "SELECT * FROM User WHERE username = ?";
+    private final String getQuery = "SELECT username, password FROM player WHERE username = ?";
+    private final String insertQuery = "INSERT INTO player (username, password, level) VALUES (?, ?, 0)";
 
     @Override
-    public void insert(Player object) {
+    public void insert(Player object) throws SQLException{
 
+        PreparedStatement statement = this.getStatement(insertQuery);
+
+        statement.setString(1, object.getUsername());
+        statement.setString(2, object.getPassword());
+
+        statement.executeUpdate();
+        statement.close();
     }
 
     @Override
@@ -25,11 +33,12 @@ public class PlayerRepository extends DatabaseRepository<Player> {
 
     @Override
     public Player get(Player object) throws SQLException {
-        PreparedStatement statement = getStatement(getQuery);
+        PreparedStatement statement = this.getStatement(getQuery);
 
-        statement.setString(0, object.getName());
+        statement.setString(1, object.getUsername());
         ResultSet rs = statement.executeQuery();
+        rs.next();
 
-        return new Player(rs.getString(0));
+        return new Player(rs.getString("username"), rs.getString("password"));
     }
 }

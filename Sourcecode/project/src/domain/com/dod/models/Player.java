@@ -5,17 +5,38 @@ package com.dod.models;
  */
 public class Player {
 
-    private String name;
+    private String username;
+    private String password;
+    private int level;
+    private Score[] scoreData;
 
     public Player(String name) {
-        this.name = name;
+        this.username = name;
     }
 
-    public String getName() {
-        return name;
+    public Player(String name, String password) { this.username = name; this.password = password; }
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String value) {
-        name = value;
+    public void setUsername(String value) {
+        username = value;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

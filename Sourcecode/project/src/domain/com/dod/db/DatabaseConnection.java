@@ -21,6 +21,7 @@ public class DatabaseConnection {
             dataSource.setUser("dungeonofdoom");
             dataSource.setPassword("Delicate.Sunshine.Twist.Myth32");
             dataSource.setServerName("localhost");
+            dataSource.setDatabaseName("dungeonofdoom");
 
             connection = dataSource.getConnection();
 
