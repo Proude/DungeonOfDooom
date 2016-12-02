@@ -1,36 +1,35 @@
 {
  "lev2":
 	{
-	"id":"level2",
 	"name":"level2",
 	"coin_num":25,
 	"coin_win":15,
 	"tiles":
 	[
-	{"id": "tile_wall","name":"wall","type":0,"visibility":true,"touchable":false},
-	{"id": "tile_path","name":"path","type":1,"visibility":true,"touchable":true},
-	{"id": "tile_path2","name":"path2","type":2,"visibility":true,"touchable":true}
+	{"type":0,"visibility":true},
+	{"type":1,"visibility":true},
+	{"type":2,"visibility":true}
 	],
 	"map":
 	[
-	[null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},null,null,{"type":0},{"type":0},{"type":0},{"type”:0},{“type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},null,null],
-    [{"type":2},{"type":2},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":1},{"type":2},{"type":2},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null],
-    [null,null,{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null],
-    [null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},null,null],
-    [null,null,null,null,null,null,null,{"type":2},null,null,null,null,null,null,null,null,null,null,null,{"type":2},null,null,null,null,null,null],
-    [null,null,null,null,null,null,null,{"type":2},null,null,null,null,null,null,null,null,null,null,null,{"type":2},null,null,null,null,null,null],
-    [null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":2},{"type":2},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":2},{"type":2}],
-    [null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null],
-    [null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null,{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},null,null],     
-	[null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},null,null,{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},null,null]
+	[{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type”:0},{“type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":2},{"type":2},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":1},{"type":2},{"type":2},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":2},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":2},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":2},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":2},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":2},{"type":2},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":2},{"type":2}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0}],
+    [{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0},{"type":0},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":1},{"type":0},{"type":0},{"type":0}],     
+	[{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0},{"type":0}]
 	]
 	}
 	
