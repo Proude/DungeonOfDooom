@@ -12,11 +12,11 @@ public class Tile implements Serializable{
 		this.setType(type);
 		this.setVisibility(visibility);
 	}
-	
-	public Tile() {
-	
+
+	public Tile(int type) {
+		this.type = type;
 	}
-	
+
 	public int getType() {
 		return type;
 	}

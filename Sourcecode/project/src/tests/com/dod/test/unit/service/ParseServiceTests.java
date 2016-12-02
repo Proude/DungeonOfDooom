@@ -20,7 +20,7 @@ public class ParseServiceTests {
     private JSONParser parser;
 
     private String validJson =
-            "{ \"testLev\": { \"id\":\"test\", \"name\":\"test\",\"coin_num\":5, \"coin_win\":5, \"tiles\": [" +
+            "{ \"testLev\": { \"id\":\"test\", \"name\":\"test\",\"coin_num\":6, \"coin_win\":5, \"tiles\": [" +
             "{\"id\": \"tile_wall\",\"name\":\"wall\",\"type\":0,\"visibility\":true,\"touchable\":false}," +
             "{\"id\": \"tile_path\",\"name\":\"path\",\"type\":1,\"visibility\":true,\"touchable\":true}," +
             "{\"id\": \"tile_path2\",\"name\":\"path2\",\"type\":2,\"visibility\":true,\"touchable\":true}" +
@@ -58,8 +58,8 @@ public class ParseServiceTests {
             }
         }
         catch(Exception e) {
-            Assert.fail("Unexepected exception thrown by service:" + e.toString());
             e.printStackTrace();
+            Assert.fail("Unexepected exception thrown by service:" + e.toString());
         }
     }
 
@@ -70,7 +70,7 @@ public class ParseServiceTests {
             Map result = service.parseMap(input);
             Assert.fail("Test did not throw expected exception.");
         }
-        catch(ParseException e) {
+        catch(NullPointerException e) {
             //Passed!
         }
         catch(Exception e) {

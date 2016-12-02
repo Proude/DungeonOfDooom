@@ -7,5 +7,5 @@ import org.json.simple.JSONObject;
  *
  */
 public interface IParseService {
-    Map parseMap(JSONObject input);
+    Map parseMap(JSONObject input) throws NullPointerException;
 }

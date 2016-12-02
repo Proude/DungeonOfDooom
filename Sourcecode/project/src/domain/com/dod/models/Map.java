@@ -9,12 +9,19 @@ public class Map implements Serializable{
 	protected int coin_no;
 	protected int coin_win;
 	protected Tile[][] tiles;
-	
-	
-	public Map() {
 
+
+	public Map(String name, int coin_no, int coin_win, Point mapSize) {
+		this.name = name;
+		this.coin_no = coin_no;
+		this.coin_win = coin_win;
+		tiles = new Tile[mapSize.x][mapSize.y];
 	}
-	
+
+	public void setTile(Point position, Tile tile) {
+		tiles[position.x][position.y] = tile;
+	}
+
 	public String getName(){
 		return name;
 	}	
