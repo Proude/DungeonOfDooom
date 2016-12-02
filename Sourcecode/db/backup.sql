@@ -1,1 +1,7 @@
-CREATE DATABASE `dungeonofdoom` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE database dungeonofdoom;
+USE dungeonofdoom;
+CREATE table player (username char(40) primary key, password char(40), level int);
+CREATE table score (id int primary key auto_increment, username char(40), value int);
+
+
+

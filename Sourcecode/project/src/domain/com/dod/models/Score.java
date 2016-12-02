@@ -5,8 +5,20 @@ package com.dod.models;
  */
 public class Score {
     private int id;
+    private String username;
     private int value;
-    // might need relation with player
+
+    public Score(int id, String username, int value) {
+        this.id = id;
+        this.username = username;
+        this.value = value;
+    }
+
+    public Score(String username, int value) {
+        this.id = -1;
+        this.username = username;
+        this.value = value;
+    }
 
     public int getId() {
         return id;
@@ -22,5 +34,13 @@ public class Score {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

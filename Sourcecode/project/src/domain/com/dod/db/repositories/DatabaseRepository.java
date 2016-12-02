@@ -11,8 +11,8 @@ import java.sql.SQLException;
  */
 public class DatabaseRepository<T> {
 
-    public void insert(T object) throws SQLException  {    }
-    public void delete(T object) throws SQLException {     }
+    public boolean insert(T object) throws SQLException  {  return true;  }
+    public boolean delete(T object) throws SQLException {  return true;   }
     public T get(T object) throws SQLException { return  null;  }
 
     protected PreparedStatement ps;
