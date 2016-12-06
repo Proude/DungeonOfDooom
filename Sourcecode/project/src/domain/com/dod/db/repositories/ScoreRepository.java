@@ -11,7 +11,7 @@ import java.sql.SQLException;
  *  ScoreRepository is used to establish connection with database
  *  and store, delete or get items from it.
  */
-public class ScoreRepository extends DatabaseRepository<Score> {
+public class ScoreRepository extends DatabaseRepository<Score> implements IScoreRepository {
 
     private final String getPlayerQuery = "SELECT * FROM score WHERE username='?' ORDER BY value DESC LIMIT 10";
     private final String deleteQuery = "DELETE FROM score WHERE id = ?";

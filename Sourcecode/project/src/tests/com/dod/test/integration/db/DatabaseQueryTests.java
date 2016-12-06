@@ -19,7 +19,7 @@ public class DatabaseQueryTests {
     public void shouldReturnTrueIfNewPlayerValueIsAddedInDatabase() {
         PlayerRepository pr = new PlayerRepository();
         String pass = DigestUtils.sha1Hex("1234");
-        Player pl = new Player("test", pass);
+        Player pl = new Player("test", pass, new byte[0]);
         try {
             Assert.assertTrue(pr.insert(pl));
         } catch (SQLException e) {
@@ -33,9 +33,9 @@ public class DatabaseQueryTests {
 
         PlayerRepository pr = new PlayerRepository();
         String pass = DigestUtils.sha1Hex("1234");
-        Player pl = new Player("test", pass);
+        Player pl = new Player("test", pass, new byte[0]);
         try {
-            Assert.assertTrue(pl.getUsername().equals(pr.get(pl).getUsername()) && pl.getPassword().equals(pr.get(pl).getPassword()));
+            Assert.assertTrue(pl.getUsername().equals(pr.get(pl).getUsername()) && pl.getHashedPassword().equals(pr.get(pl).getHashedPassword()));
         } catch (SQLException e) {
             Assert.fail(e.toString());
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class DatabaseQueryTests {
     public void shouldReturnTrueIfPlayerValueIsDeleted() {
         PlayerRepository pr = new PlayerRepository();
         String pass = DigestUtils.sha1Hex("1234");
-        Player pl = new Player("test", pass);
+        Player pl = new Player("test", pass, new byte[0]);
         try {
             Assert.assertTrue(pr.delete(pl));
         } catch (SQLException e) {
@@ -58,7 +58,7 @@ public class DatabaseQueryTests {
     @Test
     public void shouldReturnTrueIfNewScoreValueIsAdded() {
         ScoreRepository pr = new ScoreRepository();
-        Player nPlayer = new Player("test", "1234");
+        Player nPlayer = new Player("test", "1234", new byte[0]);
         Score temp = new Score(nPlayer.getUsername(), 20);
         try {
             Assert.assertTrue(pr.insert(nPlayer, temp));

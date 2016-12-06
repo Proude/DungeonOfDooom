@@ -1,7 +1,6 @@
 package com.dod.db.repositories;
 
 import com.dod.models.Player;
-import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,11 +10,11 @@ import java.sql.SQLException;
  * PlayeRepository is used to establish connection with database
  *  and store, delete or get items from it.
  */
-public class PlayerRepository extends DatabaseRepository<Player> {
+public class PlayerRepository extends DatabaseRepository<Player> implements IPlayerRepository {
 
     private final String deleteQuery = "DELETE FROM player WHERE username = ?";
-    private final String getQuery = "SELECT username, password FROM player WHERE username = ?";
-    private final String insertQuery = "INSERT INTO player (username, password, level) VALUES (?, ?, 0)";
+    private final String getQuery = "SELECT username, password, salt FROM player WHERE username = ?";
+    private final String insertQuery = "INSERT INTO player (username, password, level, salt) VALUES (?, ?, 0, ?)";
 
     /**
      * Inserts a player info to player table of database.
@@ -29,7 +28,8 @@ public class PlayerRepository extends DatabaseRepository<Player> {
         PreparedStatement statement = getStatement(insertQuery);
 
         statement.setString(1, object.getUsername());
-        statement.setString(2, object.getPassword());
+        statement.setString(2, object.getHashedPassword());
+        statement.setBytes(3, object.getSalt());
         try {
             statement.executeUpdate();
         }
@@ -73,7 +73,7 @@ public class PlayerRepository extends DatabaseRepository<Player> {
         statement.setString(1, object.getUsername());
         ResultSet rs = statement.executeQuery();
         if (rs.next())
-            return new Player(rs.getString("username"), rs.getString("password"));
+            return new Player(rs.getString("username"), rs.getString("password"), rs.getBytes("salt"));
         else
             return null;
     }

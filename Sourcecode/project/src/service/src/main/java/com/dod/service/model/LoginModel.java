@@ -1,12 +1,14 @@
 package com.dod.service.model;
 
+import com.dod.models.Player;
+
 /**
  * Used for logging in and registering.
  */
 public class LoginModel {
 
-    public String userName;
-    public String password;
+    private String userName;
+    private String password;
 
     public LoginModel(String userName, String password) {
         this.userName = userName;
@@ -27,5 +29,9 @@ public class LoginModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Player asPlayer() {
+        return new Player(userName);
     }
 }

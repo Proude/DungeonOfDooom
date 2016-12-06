@@ -2,6 +2,8 @@ package com.dod.service.service;
 
 import com.dod.service.model.LoginModel;
 
+import java.sql.SQLException;
+
 /**
  * Interface for AuthenticationService
  * Handles authentiticating a user against their hashed password/username
@@ -9,7 +11,7 @@ import com.dod.service.model.LoginModel;
  */
 public interface IAuthenticationService {
 
-    void Register(LoginModel model);
-    void Login(LoginModel model);
+    boolean Register(LoginModel model) throws SQLException;
+    boolean Login(LoginModel model);
 
 }
