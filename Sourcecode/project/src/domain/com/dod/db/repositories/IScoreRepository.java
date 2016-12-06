@@ -5,7 +5,7 @@ import com.dod.models.Score;
 import java.sql.SQLException;
 
 /**
- * Created by Fortnox on 06/12/2016.
+ * An interface to make testing components that depend on ScoreRepository easier
  */
 public interface IScoreRepository {
     Score get(Score object) throws SQLException;
