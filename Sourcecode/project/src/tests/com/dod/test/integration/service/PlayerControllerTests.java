@@ -55,12 +55,6 @@ public class PlayerControllerTests {
     }
 
     @Test
-    public void shouldRespondToLogin() {
-        String responseMsg = target.path("player/login").request().post(null).readEntity(String.class);
-        assertEquals("unimplemented", responseMsg);
-    }
-
-    @Test
     public void whenDetailsAreValidShouldRegisterPlayer() throws Exception {
         MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
         formData.add("username", testUsername);
@@ -105,7 +99,7 @@ public class PlayerControllerTests {
     public void whenPasswordTooLongRegisterShouldReturnValidationError() {
         MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
         formData.add("username", testUsername);
-        formData.add("password", generateStringOfSize(256));
+        formData.add("password", generateStringOfSize(257));
 
         Response response = target.path("player/register")
                 .request()
@@ -219,8 +213,12 @@ public class PlayerControllerTests {
         assertEquals(400, response.getStatus());
     }
 
+    /**
+     * We don't want to return validation here- we don't want to inform a malicious user
+     * when they do or don't randomly guess a correct username
+     */
     @Test
-    public void whenUsernameDoesNotExistLoginShouldReturnBlankValidationError() {
+    public void whenUsernameDoesNotExistLoginShouldReturnBlankAuthorisationError() {
         MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
         formData.add("username", testNonExistantusername);
         formData.add("password", testPassword);
@@ -229,7 +227,7 @@ public class PlayerControllerTests {
                 .request()
                 .post(Entity.form(formData));
 
-        assertEquals(400, response.getStatus());
+        assertEquals(403, response.getStatus());
         assertEquals("", response.readEntity(String.class));
     }
 

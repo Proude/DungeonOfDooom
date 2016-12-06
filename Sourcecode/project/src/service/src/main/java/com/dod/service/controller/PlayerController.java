@@ -6,6 +6,9 @@ import com.dod.service.service.AuthenticationService;
 import com.dod.service.service.IAuthenticationService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import org.glassfish.grizzly.http.server.Request;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * Manages registering and logging in a player
@@ -31,10 +35,19 @@ public class PlayerController {
         service = new AuthenticationService(new PlayerRepository());
     }
 
+    /**
+     * Authorises a user and starts a session with them
+     * @param username must be unique, not empty and less than 256 characters
+     * @param password must not be empty and less than 256 characters
+     * @return blank http response, 200 if successful
+     */
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Path("login")
-    public Response login(@FormParam("username") String username, @FormParam("password") String password) {
+    public Response login(
+            @NotNull @Length(min = 1, max =255) @FormParam("username") String username,
+            @NotNull @Length(min = 1, max =255) @FormParam("password") String password
+    ) {
         boolean isAuthorised = service.Login(new LoginModel(username, password));
         if(isAuthorised) {
             request.getSession(true);
@@ -52,12 +65,15 @@ public class PlayerController {
      * Registers a user for the service. Username must be unique.
      * @param username must be unique, not empty and less than 256 characters
      * @param password must not be empty and less than 256 characters
-     * @return
+     * @return blank http response, 200 if successful
      */
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Path("register")
-    public Response register(@FormParam("username") String username, @FormParam("password") String password) {
+    public Response register(
+            @NotNull @Length(min = 1, max =255) @FormParam("username") String username,
+            @NotNull @Length(min = 1, max = 255) @FormParam("password") String password
+    ) {
         try {
             boolean success = service.Register(new LoginModel(username,password));
             if(success) {
@@ -72,7 +88,6 @@ public class PlayerController {
             e.printStackTrace();
             return Response
                     .serverError()
-                    .entity(e.getMessage())
                     .build();
         }
 
