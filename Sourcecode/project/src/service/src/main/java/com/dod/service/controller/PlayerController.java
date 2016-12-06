@@ -66,7 +66,7 @@ public class PlayerController {
                 return Response.ok().build();
             }
             else {
-                return Response.status(409).build();
+                return Response.status(400).build();
             }
         } catch (SQLException e) {
             e.printStackTrace();
