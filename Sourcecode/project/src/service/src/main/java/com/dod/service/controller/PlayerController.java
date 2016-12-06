@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import org.glassfish.grizzly.http.server.Request;
 
 /**
  * Manages registering and logging in a player
@@ -23,7 +24,7 @@ import java.sql.SQLException;
 public class PlayerController {
 
     @Context
-    private HttpServletRequest request;
+    private Request request;
     IAuthenticationService service;
 
     public PlayerController() {
