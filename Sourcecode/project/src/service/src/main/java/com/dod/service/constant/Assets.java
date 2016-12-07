@@ -6,4 +6,5 @@ package com.dod.service.constant;
  */
 public class Assets {
     public static final String MapLevelOne = "/maps/level1.json";
+    public static final String MapLevelFormat = "/maps/level%s.json";
 }

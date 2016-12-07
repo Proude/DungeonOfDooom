@@ -1,11 +1,22 @@
 package com.dod.service.controller;
 
+import com.dod.db.repositories.IPlayerRepository;
+import com.dod.db.repositories.PlayerRepository;
+import com.dod.game.MatchList;
+import com.dod.models.Map;
+import com.dod.models.Match;
+import com.dod.models.Player;
+import com.dod.service.constant.Assets;
 import com.dod.service.model.MatchStatus;
+import com.dod.service.service.*;
+import org.glassfish.grizzly.http.server.Request;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -14,21 +25,49 @@ import java.util.UUID;
 @Path("match")
 public class MatchController {
 
+    @Context
+    private Request request;
+
+    private MatchService matchService;
+
+
+    public MatchController() {
+        this.matchService = new MatchService(new IOService(), new ParseService(), new PlayerRepository());
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("status")
     public MatchStatus status() {
-        return new MatchStatus(new String[] {"wat", "wot"}, UUID.randomUUID());
+        String userName = (String)request.getSession().getAttribute("player");
+
+        if(!MatchList.playerHasMatch(userName)) {
+            return new MatchStatus();
+        } else {
+            Match match = MatchList.getMatchForPlayer(userName);
+            return new MatchStatus(match);
+        }
     }
 
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("new")
-    public Response newMatch() {
-        return Response
-                .ok()
-                .entity("unimplemented")
-                .build();
+    public Response newMatch(
+            @NotNull @FormParam("level") int level
+    ) {
+        String userName = (String)request.getSession().getAttribute("player");
+
+        MatchStatus newMatch = matchService.createMatch(userName, level);
+
+        if(newMatch != null) {
+            return Response
+                    .ok()
+                    .entity(newMatch)
+                    .build();
+        }
+        else {
+            return Response.serverError().build();
+        }
     }
 
     @POST
@@ -38,6 +77,18 @@ public class MatchController {
         return Response
                 .ok()
                 .entity("unimplemented")
+                .build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("list")
+    public Response list() {
+        MatchStatus[] matches = matchService.getLobbyingMatches();
+
+        return Response
+                .ok()
+                .entity(matches)
                 .build();
     }
 

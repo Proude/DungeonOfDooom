@@ -1,5 +1,7 @@
 package com.dod.service.model;
 
+import com.dod.models.Match;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.UUID;
 
@@ -9,11 +11,21 @@ import java.util.UUID;
 @XmlRootElement
 public class MatchStatus
 {
-    String[] playerNames;
-    UUID id;
+    private String[] playerNames;
+    private UUID id;
 
-    public MatchStatus(String[] playerNames, UUID id) {
-        this.playerNames = playerNames;
-        this.id = id;
+    public MatchStatus() {}
+
+    public MatchStatus(Match match) {
+        this.playerNames = match.getPlayerNames();
+        this.id = match.getId();
+    }
+
+    public String[] getPlayerNames() {
+        return playerNames;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }

@@ -1,5 +1,6 @@
 package com.dod.models;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -40,6 +41,16 @@ public class Match {
         }
 
         return result;
+    }
+
+    public String[] getPlayerNames() {
+        String[] names = new String[characters.size()];
+
+        for(int i = 0; i < characters.size(); i++) {
+            names[i] = characters.get(i).getPlayer().getUsername();
+        }
+
+        return names;
     }
 
     public boolean hasCharacter(String userName) {

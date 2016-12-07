@@ -1,16 +1,18 @@
 package com.dod.service.service;
 
+import com.dod.service.model.MatchStatus;
+
 /**
  * Interface for the MatchService
  * Handles game logic regarding match. Manages joining/starting/ending matches.
  */
 public interface IMatchService {
 
-    int createMatch();
+    MatchStatus createMatch(String userName, int level);
     void initMatch();
     void getStatus(); //todo return Match model
-    void LeaveMatch();
-    void EndMatch();
-    void JoinMatch();
-
+    void leaveMatch();
+    void endMatch();
+    void joinMatch();
+    MatchStatus[] getLobbyingMatches();
 }
