@@ -28,7 +28,8 @@ game.auth.registerHook = function( data ) {
 
 game.auth.loginHook = function( data ) {
     game.menu.clearValidation();
-    alert('test hook');
+    game.menu.login.css('display','none');
+    game.menu.menu.css('display','block');
 };
 
 game.menu.loginFormValidation = function(message ) {
