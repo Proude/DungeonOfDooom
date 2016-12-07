@@ -19,6 +19,10 @@ section {
     display:none;
 }
 
+.validation {
+    color:red;
+}
+
 @media screen and (max-width: 768px) {
     /* Phone settings */
 }
