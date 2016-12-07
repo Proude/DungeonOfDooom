@@ -1,6 +1,7 @@
 package com.dod.game;
 
 import com.dod.models.Match;
+import com.dod.models.MatchState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,36 @@ public class MatchList {
 
     private static List<Match> ongoingMatches = new ArrayList();
 
-    private static void addMatch(Match match) {
+    public static void addMatch(Match match) {
         ongoingMatches.add(match);
     }
 
-    private static Match getMatchForPlayer(String username) {
+    public static List<Match> getLobbyingMatches() {
+        List<Match> result = new ArrayList();
+
+        for(Match match : ongoingMatches) {
+            if(match.getState() == MatchState.Lobbying) {
+                result.add(match);
+            }
+        }
+
+        return result;
+    }
+
+    public static Match getMatch(UUID id) {
+        Match result = null;
+
+        for(Match match : ongoingMatches) {
+            if(match.getId().equals(id)) {
+                result = match;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public static Match getMatchForPlayer(String username) {
         Match result = null;
 
         for(Match match: ongoingMatches) {
@@ -30,11 +56,11 @@ public class MatchList {
         return result;
     }
 
-    private static boolean playerHasMatch(String username) {
+    public static boolean playerHasMatch(String username) {
         return getMatchForPlayer(username) != null;
     }
 
-    private static void removeMatch(UUID id) {
+    public static void removeMatch(UUID id) {
         for(Match match: ongoingMatches) {
             if(match.getId().equals(id)) {
                 ongoingMatches.remove(match);

@@ -12,11 +12,13 @@ public class Match {
     private UUID id;
     private Map map;
     private List<Character> characters;
+    private MatchState state;
 
     public Match(Map map) {
         this.id = UUID.randomUUID();
         this.map = map;
         this.characters = new ArrayList();
+        state = MatchState.Lobbying;
     }
 
     public Map getMap() {
@@ -46,5 +48,13 @@ public class Match {
 
     public UUID getId() {
         return id;
+    }
+
+    public void startGame() {
+        state = MatchState.Ingame;
+    }
+
+    public MatchState getState() {
+        return state;
     }
 }
