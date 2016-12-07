@@ -26,12 +26,11 @@
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
         </dependency>
-        <!-- uncomment this to get JSON support:
+
          <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
-        -->
 
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
@@ -64,6 +63,12 @@
             <groupId>org.glassfish.jersey.ext</groupId>
             <artifactId>jersey-bean-validation</artifactId>
             <version>2.24.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.owlike</groupId>
+            <artifactId>genson</artifactId>
+            <version>1.4</version>
         </dependency>
 
     </dependencies>
