@@ -20,7 +20,7 @@ public class ParseServiceTests {
     private JSONParser parser;
 
     private String validJson =
-            "{ \"testLev\": { \"id\":\"test\", \"name\":\"test\",\"coin_num\":6, \"coin_win\":5, \"tiles\": [" +
+            "{ \"testLev\": { \"id\":\"test\", \"name\":\"test\",\"coin_num\":6, \"coin_win\":5, \"Width\" : 26, \"Height\" : 18, \"tiles\": [" +
             "{\"id\": \"tile_wall\",\"name\":\"wall\",\"type\":0,\"visibility\":true,\"touchable\":false}," +
             "{\"id\": \"tile_path\",\"name\":\"path\",\"type\":1,\"visibility\":true,\"touchable\":true}," +
             "{\"id\": \"tile_path2\",\"name\":\"path2\",\"type\":2,\"visibility\":true,\"touchable\":true}" +

@@ -5,16 +5,23 @@ import java.io.Serializable;
 public class Map implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	protected int width;
+	protected int height;
 	protected String name;
 	protected int coin_no;
 	protected int coin_win;
 	protected Tile[][] tiles;
 
+	public Map(int width, int height) {
+		tiles = new Tile[width][height];
+	}
 
-	public Map(String name, int coin_no, int coin_win, Point mapSize) {
+	public Map(String name, int coin_no, int coin_win, int width, int height, Point mapSize) {
 		this.name = name;
 		this.coin_no = coin_no;
 		this.coin_win = coin_win;
+		this.width = width;
+		this.height = height;
 		tiles = new Tile[mapSize.x][mapSize.y];
 	}
 
@@ -43,6 +50,8 @@ public class Map implements Serializable{
 	public Tile getTile(Point point) {
 		return tiles[point.x][point.y];
 	}
+	public int getWidth() {return width; }
+	public int getHeight() { return height; }
 }
 	
 	

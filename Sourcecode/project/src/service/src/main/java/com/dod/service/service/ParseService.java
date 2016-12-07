@@ -24,6 +24,8 @@ public class ParseService implements IParseService {
                 (String) level.get("name"),
                 ((Long) (level.get("coin_num"))).intValue(),
                 ((Long) (level.get("coin_win"))).intValue(),
+                ((Long) (level.get("Width"))).intValue(),
+                ((Long) (level.get("Height"))).intValue(),
                 new Point(xSize, ySize));
 
         for (int y = 0; y < ySize; y++) {

@@ -9,6 +9,11 @@ public class Character {
     private Player player;
     private int collectedCoins;
 
+    public Character (Point position, Player player, int collectedCoins) {
+        this.position = position;
+        this.player = player;
+        this.collectedCoins = collectedCoins;
+    }
     public Point getPosition() {
         return position;
     }
