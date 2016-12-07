@@ -19,18 +19,22 @@ game.func.error = function( data, exception ) {
     console.log(exception);
 }
 
-game.auth.registerHook = function( data ) {
+game.auth.registerHook = function( data, moredata ) {
     alert('test hook');
 };
 
 game.auth.register = function() {
-    var path = game.func.getApiPath("player","register");
+    var endpoint = game.func.getApiPath("player","register");
     var username = $("#username").val();
     var password = $("#password").val();
+    var formData = new FormData();
+    formData.append("username",username);
+    formData.append("password",password);
 
-    $.post(path, { "username" : username, "password" : password })
-        .done(game.auth.registerHook)
-        .fail(game.func.error);
+    $.post(endpoint,
+        { "username" : username, "password" : password },
+        game.auth.registerHook)
+        .fail(game.func.error)
 };
 
 $( document ).ready(function() {
