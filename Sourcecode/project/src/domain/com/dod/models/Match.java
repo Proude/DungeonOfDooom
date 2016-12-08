@@ -30,6 +30,15 @@ public class Match {
         characters.add(new Character(position, player));
     }
 
+    public void removeCharacter(Player player) {
+        for(Character character : characters) {
+            if(character.getPlayer().getUsername() == player.getUsername()) {
+                characters.remove(character);
+                break;
+            }
+        }
+    }
+
     public Character getCharacter(String username) {
         Character result = null;
 

@@ -60,6 +60,7 @@ public class MatchServiceTests {
         when(playerRepositoryMock.get(any(Player.class))).thenReturn(new Player(testUsername));
         when(mapMock.getRandomFreeTilePoint()).thenReturn(testPoint);
         when(mapMock.getCoinNo()).thenReturn(testNumberOfCoins);
+        when(mapMock.getTile(any(Point.class))).thenReturn(new Tile(0));
 
 
         MatchStatus result = service.createMatch(testUsername,testLevelNo);
@@ -78,6 +79,7 @@ public class MatchServiceTests {
         when(playerRepositoryMock.get(any(Player.class))).thenReturn(new Player(testUsername));
         when(mapMock.getRandomFreeTilePoint()).thenReturn(testPoint);
         when(mapMock.getCoinNo()).thenReturn(testNumberOfCoins);
+        when(mapMock.getTile(any(Point.class))).thenReturn(new Tile(0));
 
 
         MatchStatus result = service.createMatch(testUsername,testLevelNo);
@@ -96,7 +98,7 @@ public class MatchServiceTests {
 
         verify(matchListSpy, times(1)).getMatch(matchSpy.getId());
         verify(matchSpy, times(1)).setState(MatchState.Ingame);
-        Assert.assertEquals(MatchState.Ingame, matchSpy.getId());
+        Assert.assertEquals(MatchState.Ingame, matchSpy.getState());
     }
 
     @Test
@@ -108,8 +110,9 @@ public class MatchServiceTests {
 
         MatchStatus result = service.getStatus(playerMock);
 
-        verify(playerMock, times(1)).getUsername();
+        verify(playerMock, atLeastOnce()).getUsername();
         verify(matchListSpy, times(1)).playerHasMatch(testUsername);
+        Assert.assertEquals(matchSpy.getId(), result.getId());
     }
 
     @Test
@@ -146,7 +149,8 @@ public class MatchServiceTests {
 
     @Test
     public void joinMatchShoulAddPlayerToMatch() {
-        Match matchSpy = spy(new Match(null));
+        when(mapMock.getRandomFreeTilePoint()).thenReturn(testPoint);
+        Match matchSpy = spy(new Match(mapMock));
         matchListSpy.addMatch(matchSpy);
 
         service.joinMatch(playerMock, matchSpy.getId());

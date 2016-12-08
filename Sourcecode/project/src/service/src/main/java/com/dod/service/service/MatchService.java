@@ -3,9 +3,7 @@ package com.dod.service.service;
 import com.dod.db.repositories.IPlayerRepository;
 import com.dod.game.IMatchList;
 import com.dod.game.MatchList;
-import com.dod.models.Map;
-import com.dod.models.Match;
-import com.dod.models.Player;
+import com.dod.models.*;
 import com.dod.service.constant.Assets;
 import com.dod.service.model.MatchStatus;
 
@@ -46,6 +44,9 @@ public class MatchService implements IMatchService {
 
         Match match = new Match(map);
         match.addCharacter(player, map.getRandomFreeTilePoint());
+        for(int i = 0; i < map.getCoinNo(); i++) {
+            map.getTile(map.getRandomFreeTilePoint()).setType(TileType.Coin.getValue());
+        }
         matchList.addMatch(match);
 
         return new MatchStatus(match);
@@ -53,13 +54,14 @@ public class MatchService implements IMatchService {
 
     @Override
     public void startMatch(UUID id) {
-
+        Match match = matchList.getMatch(id);
+        match.setState(MatchState.Ingame);
     }
 
     @Override
     public MatchStatus getStatus(Player player) {
         if(!matchList.playerHasMatch(player.getUsername())) {
-            return new MatchStatus();
+            return null;
         } else {
             Match match = matchList.getMatchForPlayer(player.getUsername());
             return new MatchStatus(match);
@@ -68,17 +70,21 @@ public class MatchService implements IMatchService {
 
     @Override
     public void leaveMatch(Player player) {
+        Match match = matchList.getMatchForPlayer(player.getUsername());
 
+        match.removeCharacter(player);
     }
 
     @Override
     public void endMatch(Player player) {
-
+        Match match = matchList.getMatchForPlayer(player.getUsername());
+        matchList.removeMatch(match.getId());
     }
 
     @Override
-    public void joinMatch(Player player, UUID matchID) {
-
+    public void joinMatch(Player player, UUID matchId) {
+        Match match = matchList.getMatch(matchId);
+        match.addCharacter(player, match.getMap().getRandomFreeTilePoint());
     }
 
     @Override
