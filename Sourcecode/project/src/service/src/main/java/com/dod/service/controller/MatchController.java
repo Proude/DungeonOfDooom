@@ -3,6 +3,7 @@ package com.dod.service.controller;
 import com.dod.db.repositories.PlayerRepository;
 import com.dod.game.MatchList;
 import com.dod.models.Match;
+import com.dod.models.Player;
 import com.dod.service.model.MatchStatus;
 import com.dod.service.service.IOService;
 import com.dod.service.service.MatchService;
@@ -41,7 +42,7 @@ public class MatchController {
     @Path("status")
     public MatchStatus status() {
         String username = (String)request.getSession().getAttribute("player");
-        return matchService.getStatus(username);
+        return matchService.getStatus(new Player(username));
     }
 
     @POST

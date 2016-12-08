@@ -68,4 +68,8 @@ public class Match {
     public MatchState getState() {
         return state;
     }
+
+    public void setState(MatchState state) {
+        this.state = state;
+    }
 }

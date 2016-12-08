@@ -10,6 +10,7 @@ import com.dod.service.constant.Assets;
 import com.dod.service.model.MatchStatus;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Implementation of IMatchService signiature
@@ -51,37 +52,32 @@ public class MatchService implements IMatchService {
     }
 
     @Override
-    public void startMatch() {
+    public void startMatch(UUID id) {
 
     }
 
     @Override
-    public MatchStatus getStatus(String username) {
-        if(!matchList.playerHasMatch(username)) {
+    public MatchStatus getStatus(Player player) {
+        if(!matchList.playerHasMatch(player.getUsername())) {
             return new MatchStatus();
         } else {
-            Match match = matchList.getMatchForPlayer(username);
+            Match match = matchList.getMatchForPlayer(player.getUsername());
             return new MatchStatus(match);
         }
     }
 
     @Override
-    public void leaveMatch() {
+    public void leaveMatch(Player player) {
 
     }
 
     @Override
-    public void endMatch() {
+    public void endMatch(Player player) {
 
     }
 
     @Override
-    public void joinMatch() {
-
-    }
-
-    @Override
-    public void joinMatch(Player player) {
+    public void joinMatch(Player player, UUID matchID) {
 
     }
 
