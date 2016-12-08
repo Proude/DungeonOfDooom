@@ -28,4 +28,12 @@ public class MatchStatus
     public UUID getId() {
         return id;
     }
+
+    public void setPlayerNames(String[] playerNames) {
+        this.playerNames = playerNames;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

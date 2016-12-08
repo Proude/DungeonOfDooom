@@ -71,15 +71,15 @@ public class Map implements Serializable{
 		Point point = null;
 
 		while(point == null) {
-			int x = random.nextInt(width);
-			int y = random.nextInt(height);
+			int x = random.nextInt(width-1);
+			int y = random.nextInt(height-1);
 
 			if(tiles[x][y].getType() == TileType.Empty.getValue()) {
 				point = new Point(x,y);
 			}
 		}
 
-		return null;
+		return point;
 	}
 }
 	
