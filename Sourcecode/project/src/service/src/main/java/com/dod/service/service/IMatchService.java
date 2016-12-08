@@ -1,5 +1,6 @@
 package com.dod.service.service;
 
+import com.dod.models.Player;
 import com.dod.service.model.MatchStatus;
 
 /**
@@ -9,10 +10,16 @@ import com.dod.service.model.MatchStatus;
 public interface IMatchService {
 
     MatchStatus createMatch(String userName, int level);
-    void initMatch();
-    void getStatus(); //todo return Match model
+
+    void startMatch();
+
+    MatchStatus getStatus(String username);
+
     void leaveMatch();
     void endMatch();
     void joinMatch();
+
+    void joinMatch(Player player);
+
     MatchStatus[] getLobbyingMatches();
 }

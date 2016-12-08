@@ -1,14 +1,12 @@
 package com.dod.service.controller;
 
-import com.dod.db.repositories.IPlayerRepository;
 import com.dod.db.repositories.PlayerRepository;
 import com.dod.game.MatchList;
-import com.dod.models.Map;
 import com.dod.models.Match;
-import com.dod.models.Player;
-import com.dod.service.constant.Assets;
 import com.dod.service.model.MatchStatus;
-import com.dod.service.service.*;
+import com.dod.service.service.IOService;
+import com.dod.service.service.MatchService;
+import com.dod.service.service.ParseService;
 import org.glassfish.grizzly.http.server.Request;
 
 import javax.validation.constraints.NotNull;
@@ -16,7 +14,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,21 +29,19 @@ public class MatchController {
 
 
     public MatchController() {
-        this.matchService = new MatchService(new IOService(), new ParseService(), new PlayerRepository());
+        this.matchService = new MatchService(
+                new IOService(),
+                new ParseService(),
+                new PlayerRepository(),
+                MatchList.instance());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("status")
     public MatchStatus status() {
-        String userName = (String)request.getSession().getAttribute("player");
-
-        if(!MatchList.playerHasMatch(userName)) {
-            return new MatchStatus();
-        } else {
-            Match match = MatchList.getMatchForPlayer(userName);
-            return new MatchStatus(match);
-        }
+        String username = (String)request.getSession().getAttribute("player");
+        return matchService.getStatus(username);
     }
 
     @POST

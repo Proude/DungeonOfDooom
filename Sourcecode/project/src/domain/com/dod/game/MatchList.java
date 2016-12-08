@@ -8,17 +8,28 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Stores the current ongoing matches in memory
+ * Implementation of IMatchList
+ * Uses a singleton (instance()) so that we can fetch the same object between requests
+ *  (And because this is much easier to test than making all methods static)
  */
-public class MatchList {
+public class MatchList implements IMatchList {
 
-    private static List<Match> ongoingMatches = new ArrayList();
+    private static IMatchList instance;
 
-    public static void addMatch(Match match) {
+    public static IMatchList instance() {
+        if(instance == null) {
+            instance = new MatchList();
+        }
+        return instance;
+    }
+
+    private List<Match> ongoingMatches = new ArrayList();
+
+    public void addMatch(Match match) {
         ongoingMatches.add(match);
     }
 
-    public static List<Match> getLobbyingMatches() {
+    public List<Match> getLobbyingMatches() {
         List<Match> result = new ArrayList();
 
         for(Match match : ongoingMatches) {
@@ -30,7 +41,7 @@ public class MatchList {
         return result;
     }
 
-    public static Match getMatch(UUID id) {
+    public Match getMatch(UUID id) {
         Match result = null;
 
         for(Match match : ongoingMatches) {
@@ -43,7 +54,7 @@ public class MatchList {
         return result;
     }
 
-    public static Match getMatchForPlayer(String username) {
+    public Match getMatchForPlayer(String username) {
         Match result = null;
 
         for(Match match: ongoingMatches) {
@@ -56,11 +67,11 @@ public class MatchList {
         return result;
     }
 
-    public static boolean playerHasMatch(String username) {
+    public boolean playerHasMatch(String username) {
         return getMatchForPlayer(username) != null;
     }
 
-    public static void removeMatch(UUID id) {
+    public void removeMatch(UUID id) {
         for(Match match: ongoingMatches) {
             if(match.getId().equals(id)) {
                 ongoingMatches.remove(match);

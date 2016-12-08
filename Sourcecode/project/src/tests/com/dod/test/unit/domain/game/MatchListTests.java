@@ -19,6 +19,13 @@ public class MatchListTests {
 
     private final String testUsername = "testUsername";
 
+    private MatchList matchList;
+
+    @Before
+    public void Setup() {
+        matchList = new MatchList();
+    }
+
     @Test
     public void shouldGetLobbyingMatches() {
         Match lobbyingMatch = mock(Match.class);
@@ -29,24 +36,14 @@ public class MatchListTests {
         when(ingameMatch.getState()).thenReturn(MatchState.Ingame);
         when(anotherIngameMatch.getState()).thenReturn(MatchState.Ingame);
 
-        MatchList.addMatch(lobbyingMatch);
-        MatchList.addMatch(ingameMatch);
-        MatchList.addMatch(anotherIngameMatch);
+        matchList.addMatch(lobbyingMatch);
+        matchList.addMatch(ingameMatch);
+        matchList.addMatch(anotherIngameMatch);
 
-        List<Match> result = MatchList.getLobbyingMatches();
+        List<Match> result = matchList.getLobbyingMatches();
 
         Assert.assertEquals(1, result.size());
         Assert.assertEquals(lobbyingMatch, result.get(0));
-
-        //Cleanup (because static)
-        UUID id = UUID.randomUUID();
-        when(lobbyingMatch.getId()).thenReturn(id);
-        when(ingameMatch.getId()).thenReturn(id);
-        when(anotherIngameMatch.getId()).thenReturn(id);
-
-        MatchList.removeMatch(id);
-        MatchList.removeMatch(id);
-        MatchList.removeMatch(id);
     }
 
     @Test
@@ -59,16 +56,12 @@ public class MatchListTests {
         when(matchOne.getId()).thenReturn(idOne);
         when(matchTwo.getId()).thenReturn(idTwo);
 
-        MatchList.addMatch(matchOne);
-        MatchList.addMatch(matchTwo);
+        matchList.addMatch(matchOne);
+        matchList.addMatch(matchTwo);
 
-        Match result = MatchList.getMatch(idOne);
+        Match result = matchList.getMatch(idOne);
 
         Assert.assertEquals(matchOne, result);
-
-        //Cleanup (because static)
-        MatchList.removeMatch(idOne);
-        MatchList.removeMatch(idTwo);
     }
 
     @Test
@@ -76,15 +69,10 @@ public class MatchListTests {
         Match match = mock(Match.class);
         when(match.hasCharacter(testUsername)).thenReturn(true);
 
-        MatchList.addMatch(match);
+        matchList.addMatch(match);
 
-        Match result = MatchList.getMatchForPlayer(testUsername);
+        Match result = matchList.getMatchForPlayer(testUsername);
 
         Assert.assertEquals(match,result);
-
-        //Cleanup
-        UUID id = UUID.randomUUID();
-        when(match.getId()).thenReturn(id);
-        MatchList.removeMatch(id);
     }
 }

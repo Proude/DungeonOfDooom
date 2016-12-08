@@ -1,6 +1,7 @@
 package com.dod.service.service;
 
 import com.dod.db.repositories.IPlayerRepository;
+import com.dod.game.IMatchList;
 import com.dod.game.MatchList;
 import com.dod.models.Map;
 import com.dod.models.Match;
@@ -8,7 +9,6 @@ import com.dod.models.Player;
 import com.dod.service.constant.Assets;
 import com.dod.service.model.MatchStatus;
 
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -19,11 +19,13 @@ public class MatchService implements IMatchService {
     private IIOService ioService;
     private IParseService parseService;
     private IPlayerRepository playerRepository;
+    private IMatchList matchList;
 
-    public MatchService(IIOService ioService, IParseService parseService, IPlayerRepository playerRepository) {
+    public MatchService(IIOService ioService, IParseService parseService, IPlayerRepository playerRepository, IMatchList matchList) {
         this.ioService = ioService;
         this.parseService = parseService;
         this.playerRepository = playerRepository;
+        this.matchList = matchList;
     }
 
     @Override
@@ -43,19 +45,24 @@ public class MatchService implements IMatchService {
 
         Match match = new Match(map);
         match.addCharacter(player, map.getRandomFreeTilePoint());
-        MatchList.addMatch(match);
+        matchList.addMatch(match);
 
         return new MatchStatus(match);
     }
 
     @Override
-    public void initMatch() {
+    public void startMatch() {
 
     }
 
     @Override
-    public void getStatus() {
-
+    public MatchStatus getStatus(String username) {
+        if(!matchList.playerHasMatch(username)) {
+            return new MatchStatus();
+        } else {
+            Match match = matchList.getMatchForPlayer(username);
+            return new MatchStatus(match);
+        }
     }
 
     @Override
@@ -74,8 +81,13 @@ public class MatchService implements IMatchService {
     }
 
     @Override
+    public void joinMatch(Player player) {
+
+    }
+
+    @Override
     public MatchStatus[] getLobbyingMatches() {
-        List<Match> matches = MatchList.getLobbyingMatches();
+        List<Match> matches = matchList.getLobbyingMatches();
         MatchStatus[] matchStatuses = new MatchStatus[matches.size()];
 
         for(int i = 0; i < matches.size(); i++) {
