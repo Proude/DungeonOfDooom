@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -14,8 +15,13 @@ import java.nio.file.Paths;
  */
 public class IOService implements IIOService {
 
-    private String pathToAssets = ".\\assets";
+    private String pathToAssets = "..\\..\\assets";
     private JSONParser parser;
+
+    public IOService(String pathToAssets) {
+        this.pathToAssets = pathToAssets;
+        parser = new JSONParser();
+    }
 
     public IOService() {
         parser= new JSONParser();

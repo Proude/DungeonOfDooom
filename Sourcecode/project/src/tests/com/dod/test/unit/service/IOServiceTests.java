@@ -25,7 +25,7 @@ public class IOServiceTests {
 
     @Before
     public void Setup() {
-        service = new IOService();
+        service = new IOService(".\\assets");
     }
 
     @Test

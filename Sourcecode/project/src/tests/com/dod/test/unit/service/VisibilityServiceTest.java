@@ -38,7 +38,7 @@ public class VisibilityServiceTest {
         }
         parService = new ParseService();
         dungeonMap = parService.parseMap(jobject);
-        pChar = new Character(new Point(4, 4), new Player("test"), 0);
+        pChar = new Character(new Point(4, 4), new Player("test"));
     }
 
     @Test
