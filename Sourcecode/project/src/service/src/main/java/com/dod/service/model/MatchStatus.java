@@ -2,6 +2,7 @@ package com.dod.service.model;
 
 import com.dod.models.Match;
 
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 public class MatchStatus
 {
     private String[] playerNames;
+    @XmlID
     private UUID id;
 
     public MatchStatus() {}
