@@ -1,7 +1,7 @@
 package com.dod.models;
 
 /**
- * Created by Fortnox on 07/12/2016.
+ * The state of a match, allowing us to know whether it's started or lobbying.
  */
 public enum MatchState {
     Lobbying,

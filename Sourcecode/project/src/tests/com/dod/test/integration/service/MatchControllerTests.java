@@ -91,10 +91,14 @@ public class MatchControllerTests extends AuthenticatedClientTestBase {
 
         MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
         formData.add("matchId", matchStatus.getId().toString());
-        Response result = request.post(Entity.form(formData));
+        Response response = request.post(Entity.form(formData));
 
-        assertEquals(200, result.getStatus());
+        assertEquals(200, response.getStatus());
         Assert.assertTrue(MatchList.instance().getMatch(matchStatus.getId()).hasCharacter(newTestUsername));
+
+        MatchStatus result = response.readEntity(MatchStatus.class);
+        assertNotNull(result);
+        assertEquals(matchStatus.getId(), result.getId());
     }
 
     //todo improve this test so that it doesn't break other tests if it fails

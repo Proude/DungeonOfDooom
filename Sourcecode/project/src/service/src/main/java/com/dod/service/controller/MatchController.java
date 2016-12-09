@@ -96,7 +96,7 @@ public class MatchController {
     }
 
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("join")
     public Response join(
             @NotNull @FormParam("matchId") UUID matchId
@@ -106,7 +106,7 @@ public class MatchController {
             matchService.joinMatch(new Player(username), matchId);
             return Response
                     .ok()
-                    .entity("unimplemented")
+                    .entity(matchService.getStatus(new Player(username)))
                     .build();
         }
         catch(SQLException e) {

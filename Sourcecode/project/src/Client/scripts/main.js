@@ -7,6 +7,7 @@ game.menu = [];
 game.auth = [];
 game.constants = [];
 game.func = [];
+game.match = [];
 
 game.constants.api = "http://localhost:8080/";
 game.constants.loginFailed = "Oops, that didn't work. Make sure your username/password are correct.";
@@ -51,7 +52,7 @@ game.auth.register = function() {
     $.post(endpoint,
         { "username" : username, "password" : password })
         .done(game.auth.registerHook)
-        .fail(new function() { game.menu.loginFormValidation(game.constants.registrationFailed)})
+        .fail(function() { game.menu.loginFormValidation(game.constants.registrationFailed)})
 };
 
 game.auth.login = function() {
@@ -62,8 +63,65 @@ game.auth.login = function() {
     $.post(endpoint,
         { "username" : username, "password" : password })
         .done(game.auth.loginHook)
-        .fail(new function() { game.menu.loginFormValidation(game.constants.loginFailed)})
+        .fail(function() { game.menu.loginFormValidation(game.constants.loginFailed)})
 };
+
+game.menu.openMatchLobby = function() {
+    game.menu.menu.css('display','none');
+    game.menu.lobby.css('display','block');
+    game.match.list();
+};
+
+game.match.list = function() {
+    //todo what if the webservice thinks you're already in a match?
+    var endpoint = game.func.getApiPath("match","list");
+    $.getJSON(endpoint)
+        .done(game.menu.displayMatchList)
+        .fail(game.menu.error)
+};
+
+game.menu.displayMatchList = function( data ) {
+    var matchList = $('#match-list');
+    matchList.empty();
+
+    $.each( data, function( i, match ) {
+        var entry = $( String.format("<p><a data-id='{2}' class='join-link'>Join</a> {0}'s game with {1} players</p>", match.playerNames[0], match.playerNames.length, match.id) );
+        matchList.append(entry);
+    });
+
+    $(".join-link").click(game.match.join);
+};
+
+game.match.join = function( data ) {
+    var id = $(data.currentTarget).data("id");
+
+    var endpoint = game.func.getApiPath("match","join");
+    $.post(endpoint, { "matchId" : id })
+        .done(game.menu.displayMatchMenu)
+        .fail(game.menu.error);
+}
+
+game.match.new = function() {
+    var endpoint = game.func.getApiPath("match","new");
+    //todo add level choosing
+    $.post(endpoint, { "level" : "1" }, game.menu.displayMatchMenu, "json");
+}
+
+game.menu.displayMatchMenu = function( data ) {
+    game.menu.lobby.css('display','none');
+    game.menu.match.css('display','block');
+
+    var matchDeatils = $("#match-details");
+    matchDeatils.empty();
+
+    matchDeatils.append($("<h2>Waiting to start.</h2>"));
+    matchDeatils.append($("<h3>Players</h3>"));
+
+    $.each( data.playerNames, function( i, name ) {
+        var entry = $( String.format("<p>{0}</p>", name) );
+        matchDeatils.append(entry);
+    });
+}
 
 $( document ).ready(function() {
     game.menu.login = $('#login');
@@ -76,5 +134,7 @@ $( document ).ready(function() {
 
     $('#register-btn').click(game.auth.register);
     $('#login-btn').click(game.auth.login);
+    $('#menu-match-btn').click(game.menu.openMatchLobby);
+    $('#start-match').click(game.match.new);
 });
 

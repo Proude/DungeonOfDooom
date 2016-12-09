@@ -23,6 +23,11 @@ section {
     color:red;
 }
 
+.join-link {
+    color:#11D;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
     /* Phone settings */
 }
