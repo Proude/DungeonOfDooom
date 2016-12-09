@@ -65,6 +65,7 @@ public class StateServiceTests {
 
         Assert.assertEquals(testPoint, result.getCharacters()[0].getPosition());
         Assert.assertEquals(map.getWidth() * map.getHeight(), result.getTiles().length);
+        Assert.assertEquals(1, result.getCharacters().length);
     }
 
     @Test

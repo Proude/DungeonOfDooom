@@ -1,8 +1,8 @@
 package com.dod.service.service;
 
-import com.dod.game.MatchList;
-import com.dod.models.*;
+import com.dod.game.IMatchList;
 import com.dod.models.Character;
+import com.dod.models.*;
 import com.dod.service.model.CharacterModel;
 import com.dod.service.model.GameStateModel;
 import com.dod.service.model.TileModel;
@@ -16,9 +16,9 @@ import java.util.List;
 public class StateService implements IStateService {
 
     IVisibilityService visibilityService;
-    MatchList matchList;
+    IMatchList matchList;
 
-    public StateService(IVisibilityService visibilityService, MatchList matchList) {
+    public StateService(IVisibilityService visibilityService, IMatchList matchList) {
         this.visibilityService = visibilityService;
         this.matchList = matchList;
     }

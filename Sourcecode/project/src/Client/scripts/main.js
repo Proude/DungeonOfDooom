@@ -23,7 +23,8 @@ game.func.error = function( data, exception ) {
 
 game.auth.registerHook = function( data ) {
     game.menu.clearValidation();
-    alert('test hook');
+    game.menu.login.css('display','none');
+    game.menu.menu.css('display','block');
 };
 
 game.auth.loginHook = function( data ) {
@@ -33,7 +34,7 @@ game.auth.loginHook = function( data ) {
 };
 
 game.menu.loginFormValidation = function(message ) {
-    $('#loginValidation').html(message);
+    $('#login-validation').html(message);
 };
 
 game.menu.clearValidation = function() {
@@ -73,7 +74,7 @@ $( document ).ready(function() {
 
     game.menu.login.css('display', 'block');
 
-    $('#registerBtn').click(game.auth.register);
-    $('#loginBtn').click(game.auth.login);
+    $('#register-btn').click(game.auth.register);
+    $('#login-btn').click(game.auth.login);
 });
 

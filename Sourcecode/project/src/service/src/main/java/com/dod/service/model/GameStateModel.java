@@ -10,6 +10,8 @@ public class GameStateModel {
     TileModel[] tiles;
     CharacterModel[] characters;
 
+    public GameStateModel() { }
+
     public GameStateModel(TileModel[] tiles, CharacterModel[] characters) {
         this.tiles = tiles;
         this.characters = characters;

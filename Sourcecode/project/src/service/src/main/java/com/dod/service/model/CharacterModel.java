@@ -13,6 +13,8 @@ public class CharacterModel {
     private int noCoins;
     private Point position;
 
+    public CharacterModel() { }
+
     public CharacterModel(String playerName, int noCoins, Point position) {
         this.playerName = playerName;
         this.noCoins = noCoins;

@@ -12,6 +12,8 @@ public class TileModel {
     private int type;
     private Point position;
 
+    public TileModel() { }
+
     public TileModel(int type, Point position) {
         this.type = type;
         this.position = position;

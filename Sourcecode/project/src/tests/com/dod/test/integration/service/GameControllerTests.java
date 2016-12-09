@@ -1,42 +1,40 @@
 package dod.test.integration.service;
 
-import com.dod.service.Main;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.junit.After;
-import org.junit.Before;
+import com.dod.game.MatchList;
+import com.dod.models.Player;
+import com.dod.models.Point;
+import com.dod.service.model.GameStateModel;
+import com.dod.service.model.MatchStatus;
+import org.junit.Assert;
 import org.junit.Test;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Tests the GameController
  */
-public class GameControllerTests {
-
-    private HttpServer server;
-    private WebTarget target;
-
-    @Before
-    public void setUp() {
-        server = Main.startServer();
-        Client c = ClientBuilder.newClient();
-
-        target = c.target(Main.BASE_URI);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        server.stop();
-    }
+public class GameControllerTests extends AuthenticatedClientTestBase {
 
     @Test
     public void shouldRespondToStatus() {
-        String responseMsg = target.path("game/status").request().get(String.class);
-        assertEquals("unimplemented", responseMsg);
+        MatchStatus matchStatus = startNewMatch();
+        matchesToRemove.add(matchStatus.getId());
+
+        Invocation.Builder request = target.path("game/status").request();
+        request.cookie("JSESSIONID",sessionId);
+
+        Response response = request.buildGet().invoke();
+
+        Assert.assertEquals(200, response.getStatus());
+        GameStateModel result = response.readEntity(GameStateModel.class);
+        assertNotNull(result);
+        assertEquals(1, result.getCharacters().length);
+        assertEquals(468, result.getTiles().length);
+        assertNotNull(result.getTiles()[0].getPosition());
     }
 
     @Test
