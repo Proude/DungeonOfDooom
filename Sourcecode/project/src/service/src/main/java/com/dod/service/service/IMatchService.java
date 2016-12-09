@@ -3,6 +3,7 @@ package com.dod.service.service;
 import com.dod.models.Player;
 import com.dod.service.model.MatchStatus;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 /**
@@ -13,13 +14,13 @@ public interface IMatchService {
 
     MatchStatus createMatch(String userName, int level);
 
-    void startMatch(UUID id);
+    void startMatch(Player player);
 
     MatchStatus getStatus(Player player);
 
     void leaveMatch(Player player);
     void endMatch(Player player);
-    void joinMatch(Player player, UUID matchID);
+    void joinMatch(Player player, UUID matchID) throws SQLException;
 
     MatchStatus[] getLobbyingMatches();
 }

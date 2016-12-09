@@ -15,6 +15,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 import java.util.UUID;
 
 /**
@@ -40,9 +41,12 @@ public class MatchController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("status")
-    public MatchStatus status() {
+    public Response status() {
         String username = (String)request.getSession().getAttribute("player");
-        return matchService.getStatus(new Player(username));
+        return Response
+            .ok()
+            .entity(matchService.getStatus(new Player(username)))
+            .build();
     }
 
     @POST
@@ -70,9 +74,12 @@ public class MatchController {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("start")
     public Response start() {
+        String username = (String)request.getSession().getAttribute("player");
+
+        matchService.startMatch(new Player(username));
+
         return Response
                 .ok()
-                .entity("unimplemented")
                 .build();
     }
 
@@ -94,10 +101,20 @@ public class MatchController {
     public Response join(
             @NotNull @FormParam("matchId") UUID matchId
     ) {
-        return Response
-                .ok()
-                .entity("unimplemented")
-                .build();
+        String username = (String)request.getSession().getAttribute("player");
+        try {
+            matchService.joinMatch(new Player(username), matchId);
+            return Response
+                    .ok()
+                    .entity("unimplemented")
+                    .build();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            return Response
+                    .serverError()
+                    .build();
+        }
     }
 
     //todo: add bot endpoint?

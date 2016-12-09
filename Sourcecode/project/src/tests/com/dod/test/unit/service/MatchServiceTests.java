@@ -16,8 +16,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 /**
@@ -93,10 +95,11 @@ public class MatchServiceTests {
     public void shouldStartMatch() {
         Match matchSpy = spy(new Match(null));
         matchListSpy.addMatch(matchSpy);
+        matchSpy.addCharacter(playerMock, testPoint);
 
-        service.startMatch(matchSpy.getId());
+        service.startMatch(playerMock);
 
-        verify(matchListSpy, times(1)).getMatch(matchSpy.getId());
+        verify(matchListSpy, times(1)).getMatchForPlayer(testUsername);
         verify(matchSpy, times(1)).setState(MatchState.Ingame);
         Assert.assertEquals(MatchState.Ingame, matchSpy.getState());
     }
@@ -148,14 +151,34 @@ public class MatchServiceTests {
     }
 
     @Test
-    public void joinMatchShoulAddPlayerToMatch() {
+    public void joinMatchShoulAddPlayerToMatch() throws Exception {
         when(mapMock.getRandomFreeTilePoint()).thenReturn(testPoint);
+        when(playerRepositoryMock.get(any(Player.class))).thenReturn(playerMock);
         Match matchSpy = spy(new Match(mapMock));
         matchListSpy.addMatch(matchSpy);
 
         service.joinMatch(playerMock, matchSpy.getId());
 
         Assert.assertTrue(matchSpy.hasCharacter(testUsername));
+    }
+
+    @Test
+    public void whenSqlExceptionoccursJoinMatchShouldThrowException() throws Exception {
+        when(mapMock.getRandomFreeTilePoint()).thenReturn(testPoint);
+        when(playerRepositoryMock.get(any(Player.class))).thenThrow(new SQLException());
+        Match matchSpy = spy(new Match(mapMock));
+        matchListSpy.addMatch(matchSpy);
+
+        try {
+            service.joinMatch(playerMock, matchSpy.getId());
+            fail();
+        }
+        catch(SQLException e) {
+            //success!
+        }
+        catch(Exception e) {
+            fail();
+        }
     }
 
     @Test

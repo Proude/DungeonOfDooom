@@ -7,6 +7,7 @@ import com.dod.models.*;
 import com.dod.service.constant.Assets;
 import com.dod.service.model.MatchStatus;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,8 +54,8 @@ public class MatchService implements IMatchService {
     }
 
     @Override
-    public void startMatch(UUID id) {
-        Match match = matchList.getMatch(id);
+    public void startMatch(Player player) {
+        Match match = matchList.getMatchForPlayer(player.getUsername());
         match.setState(MatchState.Ingame);
     }
 
@@ -82,8 +83,9 @@ public class MatchService implements IMatchService {
     }
 
     @Override
-    public void joinMatch(Player player, UUID matchId) {
+    public void joinMatch(Player player, UUID matchId) throws SQLException {
         Match match = matchList.getMatch(matchId);
+        player = playerRepository.get(player);
         match.addCharacter(player, match.getMap().getRandomFreeTilePoint());
     }
 

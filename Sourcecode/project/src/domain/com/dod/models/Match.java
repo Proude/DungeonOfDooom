@@ -42,7 +42,7 @@ public class Match {
         Character result = null;
 
         for(Character character : characters) {
-            if(character.getPlayer().getUsername() == username) {
+            if(character.getPlayer().getUsername().equals(username)) {
                 result = character;
                 break;
             }
