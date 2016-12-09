@@ -40,7 +40,7 @@ public class GameController {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Path("leave")
-    public Response seave() {
+    public Response leave() {
         return Response
                 .ok()
                 .entity("unimplemented")

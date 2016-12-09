@@ -46,6 +46,6 @@ public class VisibilityServiceTest {
         VisibilityService vService = new VisibilityService();
         Map visibleMap = vService.getVisibleTilesForCharacter(dungeonMap, pChar);
 
-        Assert.assertTrue(visibleMap.getTile(new Point(3, 4)).getVisibility());
+        Assert.assertTrue(visibleMap.getTile(new Point(3, 4)).isVisible());
     }
 }

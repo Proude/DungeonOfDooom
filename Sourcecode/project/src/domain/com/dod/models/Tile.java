@@ -23,7 +23,7 @@ public class Tile implements Serializable{
 	public void setType(int type) {
 		this.type = type;
 	}
-	public boolean getVisibility() {
+	public boolean isVisible() {
 		return visibility;
 	}
 	public void setVisibility(boolean visibility) {

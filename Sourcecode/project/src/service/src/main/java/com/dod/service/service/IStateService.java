@@ -1,5 +1,8 @@
 package com.dod.service.service;
 
+import com.dod.models.Player;
+import com.dod.service.model.GameStateModel;
+
 /**
  * Interface for State Service
  * Generates a representation of the current game state form the perspective of
@@ -7,6 +10,6 @@ package com.dod.service.service;
  */
 public interface IStateService {
 
-    void GetState(); //todo return 2d array of tiles objects- and a Character param
+    GameStateModel GetState(Player player);
 
 }

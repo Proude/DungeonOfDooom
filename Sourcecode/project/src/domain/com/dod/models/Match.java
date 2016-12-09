@@ -80,4 +80,16 @@ public class Match {
     public void setState(MatchState state) {
         this.state = state;
     }
+
+    public List<Character> getCharactersOnTile(Point point) {
+        List<Character> charactersOnTile = new ArrayList();
+
+        for(Character character :characters) {
+            if(character.getPosition().equals(point)) {
+                charactersOnTile.add(character);
+            }
+        }
+
+        return charactersOnTile;
+    }
 }
