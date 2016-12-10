@@ -101,7 +101,7 @@ public class MatchController {
     public Response join(
             @NotNull @FormParam("matchId") UUID matchId
     ) {
-        String username = (String)request.getSession().getAttribute("player");
+        String username = (String)request.getSession(false).getAttribute("player");
         try {
             matchService.joinMatch(new Player(username), matchId);
             return Response

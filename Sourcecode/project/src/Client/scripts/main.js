@@ -11,14 +11,41 @@ game.match = [];
 
 game.constants.api = "http://localhost:8080/";
 game.constants.loginFailed = "Oops, that didn't work. Make sure your username/password are correct.";
-game.constants.registrationFailed = "Oops, that didn't work. Fields cannot be empty or more than 255 characters."
+game.constants.registrationFailed = "Oops, that didn't work. Fields cannot be empty or more than 255 characters.";
+
+game.func.get = function(url, data, success, error) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: data,
+        success: success,
+        error: error,
+        xhrFields: {
+            withCredentials: true
+        }
+    });
+};
+
+game.func.post = function(url, data, success, error) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: success,
+        error: error,
+        xhrFields: {
+            withCredentials: true
+        }
+    });
+};
 
 game.func.getApiPath = function(controller, action) {
     return game.constants.api + controller + "/" + action;
 };
 
-game.func.error = function( data, exception ) {
+game.func.error = function( data, reason, exception ) {
     alert(' an error occurred :(');
+    console.log(reason);
     console.log(exception);
 };
 
@@ -49,10 +76,10 @@ game.auth.register = function() {
     var username = $("#username").val();
     var password = $("#password").val();
 
-    $.post(endpoint,
-        { "username" : username, "password" : password })
-        .done(game.auth.registerHook)
-        .fail(function() { game.menu.loginFormValidation(game.constants.registrationFailed)})
+    game.func.post(endpoint,
+        { "username" : username, "password" : password },
+        game.auth.registerHook,
+        function() { game.menu.loginFormValidation(game.constants.registrationFailed)});
 };
 
 game.auth.login = function() {
@@ -60,10 +87,11 @@ game.auth.login = function() {
     var username = $("#username").val();
     var password = $("#password").val();
 
-    $.post(endpoint,
-        { "username" : username, "password" : password })
-        .done(game.auth.loginHook)
-        .fail(function() { game.menu.loginFormValidation(game.constants.loginFailed)})
+    game.func.post(endpoint,
+        { "username" : username, "password" : password },
+        game.auth.loginHook,
+        game.func.error);
+        //function() { game.menu.loginFormValidation(game.constants.loginFailed)});
 };
 
 game.menu.openMatchLobby = function() {
@@ -75,9 +103,7 @@ game.menu.openMatchLobby = function() {
 game.match.list = function() {
     //todo what if the webservice thinks you're already in a match?
     var endpoint = game.func.getApiPath("match","list");
-    $.getJSON(endpoint)
-        .done(game.menu.displayMatchList)
-        .fail(game.menu.error)
+    game.func.get(endpoint, {}, game.menu.displayMatchList, game.menu.error);
 };
 
 game.menu.displayMatchList = function( data ) {
@@ -96,16 +122,14 @@ game.match.join = function( data ) {
     var id = $(data.currentTarget).data("id");
 
     var endpoint = game.func.getApiPath("match","join");
-    $.post(endpoint, { "matchId" : id })
-        .done(game.menu.displayMatchMenu)
-        .fail(game.menu.error);
-}
+    game.func.post(endpoint, { "matchId" : id }, game.menu.displayMatchMenu, game.menu.error);
+};
 
 game.match.new = function() {
     var endpoint = game.func.getApiPath("match","new");
     //todo add level choosing
-    $.post(endpoint, { "level" : "1" }, game.menu.displayMatchMenu, "json");
-}
+    game.func.post(endpoint, { "level" : "1" }, game.menu.displayMatchMenu);
+};
 
 game.menu.displayMatchMenu = function( data ) {
     game.menu.lobby.css('display','none');
