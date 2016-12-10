@@ -8,6 +8,18 @@ game.auth = [];
 game.constants = [];
 game.func = [];
 game.match = [];
+game.var = [];
+
+game.var.xSize = 1400;
+game.var.ySize = 900;
+game.var.status = {};
+game.var.scale = 50;
+game.var.tiles = [];
+game.var.characters = [];
+game.var.renderer = {};
+game.var.stage = {};
+game.var.graphics = {};
+
 
 game.constants.api = "http://localhost:8080/";
 game.constants.loginFailed = "Oops, that didn't work. Make sure your username/password are correct.";
@@ -90,8 +102,8 @@ game.auth.login = function() {
     game.func.post(endpoint,
         { "username" : username, "password" : password },
         game.auth.loginHook,
-        game.func.error);
-        //function() { game.menu.loginFormValidation(game.constants.loginFailed)});
+        //game.func.error);
+        function() { game.menu.loginFormValidation(game.constants.loginFailed)});
 };
 
 game.menu.openMatchLobby = function() {
@@ -131,6 +143,82 @@ game.match.new = function() {
     game.func.post(endpoint, { "level" : "1" }, game.menu.displayMatchMenu);
 };
 
+game.match.start = function() {
+    var endpoint = game.func.getApiPath("match","start");
+    game.func.post(endpoint, null, game.menu.initGameScreen, game.func.error);
+};
+
+game.menu.initGameScreen = function() {
+    game.menu.game.empty();
+
+    game.var.renderer = PIXI.autoDetectRenderer(game.var.xSize, game.var.ySize);
+    game.var.renderer.backgroundColor = 0x8c8c8c;
+    game.menu.game.append(game.var.renderer.view);
+
+    game.var.stage = new PIXI.Container();
+    game.var.graphics = new PIXI.Graphics();
+    game.var.stage.addChild(game.var.graphics);
+
+    game.fetchStatus();
+    game.menu.match.css('display', 'none');
+    game.menu.game.css('display', 'block');
+};
+
+game.render = function() {
+    game.var.graphics.clear();
+
+    for(x = 0; x < game.var.tiles.length; x++) {
+        var row = game.var.tiles[x];
+        if(typeof row !== 'undefined') {
+            for (y = 0; y < game.var.tiles[x].length; y++) {
+                if (game.var.tiles[x][y].type == 0) {
+                    game.var.graphics.beginFill(0x000000);
+                    game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
+                    game.var.graphics.endFill();
+                }
+                else if (game.var.tiles[x][y].type == 1) {
+                    game.var.graphics.beginFill(0xbf8040);
+                    game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
+                    game.var.graphics.endFill();
+                }
+                else if (game.var.tiles[x][y].type == 2) {
+                    game.var.graphics.beginFill(0xffff66);
+                    game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
+                    game.var.graphics.endFill();
+                }
+            }
+        }
+    }
+
+    game.var.renderer.render(game.var.stage);
+};
+
+game.updateStatus = function( status ) {
+    game.var.characters = status.characters;
+
+    $.each( status.tiles, function ( i, tile ) {
+        game.var.addTile(tile);
+    });
+
+    game.render();
+    console.log(status);
+};
+
+game.var.addTile = function( tile ) {
+    var pos = tile.position;
+
+    if(typeof game.var.tiles[pos.x] === 'undefined') {
+        game.var.tiles[pos.x] = [];
+    }
+
+    game.var.tiles[pos.x][pos.y] = tile;
+};
+
+game.fetchStatus = function() {
+    var endpoint = game.func.getApiPath("game","status");
+    game.var.status = game.func.get(endpoint, {}, game.updateStatus, game.func.error);
+};
+
 game.menu.displayMatchMenu = function( data ) {
     game.menu.lobby.css('display','none');
     game.menu.match.css('display','block');
@@ -145,7 +233,7 @@ game.menu.displayMatchMenu = function( data ) {
         var entry = $( String.format("<p>{0}</p>", name) );
         matchDeatils.append(entry);
     });
-}
+};
 
 $( document ).ready(function() {
     game.menu.login = $('#login');
@@ -159,6 +247,7 @@ $( document ).ready(function() {
     $('#register-btn').click(game.auth.register);
     $('#login-btn').click(game.auth.login);
     $('#menu-match-btn').click(game.menu.openMatchLobby);
-    $('#start-match').click(game.match.new);
+    $('#new-match-btn').click(game.match.new);
+    $('#start-match-btn').click(game.match.start);
 });
 
