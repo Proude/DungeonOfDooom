@@ -19,6 +19,7 @@ game.var.characters = [];
 game.var.renderer = {};
 game.var.stage = {};
 game.var.graphics = {};
+game.var.playerTitles = [];
 
 
 game.constants.api = "http://localhost:8080/";
@@ -164,6 +165,27 @@ game.menu.initGameScreen = function() {
     game.menu.game.css('display', 'block');
 };
 
+game.initPlayerTitles = function( characters ) {
+    var style = {
+        fontFamily : 'Arial',
+        fontSize : '18px',
+        fontStyle : 'italic',
+        fontWeight : 'bold',
+        fill : '#F7EDCA',
+        stroke : '#4a1850',
+        strokeThickness : 5,
+        dropShadow : true,
+        dropShadowColor : '#000000',
+        dropShadowAngle : Math.PI / 6,
+        dropShadowDistance : 4
+    };
+
+    $.each( characters, function(i, character) {
+        game.var.playerTitles[character.playerName] = new PIXI.Text(character.playerName, style);
+        game.var.stage.addChild(game.var.playerTitles[character.playerName]);
+    });
+}
+
 game.render = function() {
     game.var.graphics.clear();
 
@@ -186,6 +208,18 @@ game.render = function() {
                     game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
                     game.var.graphics.endFill();
                 }
+
+                if(game.var.tiles[x][y].character !== null) {
+                    var posx = x * game.var.scale - game.var.scale / 2;
+                    var posy = y * game.var.scale - game.var.scale / 2;
+
+                    game.var.graphics.beginFill(0xff2222);
+                    game.var.graphics.drawCircle(posx, posy, game.var.scale / 2);
+                    game.var.graphics.endFill();
+
+                    game.var.playerTitles[game.var.tiles[x][y].character.playerName].x = posx - game.var.scale / 2;
+                    game.var.playerTitles[game.var.tiles[x][y].character.playerName].y = posy - game.var.scale;
+                }
             }
         }
     }
@@ -197,8 +231,17 @@ game.updateStatus = function( status ) {
     game.var.characters = status.characters;
 
     $.each( status.tiles, function ( i, tile ) {
+        tile.character = null;
         game.var.addTile(tile);
     });
+
+    $.each( status.characters, function( i, character) {
+        game.var.tiles[character.position.x][character.position.y].character = character;
+    });
+
+    if(game.var.playerTitles.length == 0) {
+        game.initPlayerTitles(status.characters);
+    }
 
     game.render();
     console.log(status);
