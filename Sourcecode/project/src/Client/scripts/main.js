@@ -25,6 +25,11 @@ game.var.isRunning = false;
 game.var.delta = 0;
 game.var.timeStep = 1000 / 20;
 game.var.lastFrameTimestamp = 0;
+game.var.colours = [];
+game.var.colours.wall = 0x000000;
+game.var.colours.floor = 0xbf8040;
+game.var.colours.gold = 0xffff66;
+game.var.colours.player = 0xff2222;
 
 game.match.var.isLobbying = false;
 game.match.var.isWaitingTostart = false;
@@ -214,17 +219,17 @@ game.render = function() {
         if(typeof row !== 'undefined') {
             for (y = 0; y < game.var.tiles[x].length; y++) {
                 if (game.var.tiles[x][y].type == 0) {
-                    game.var.graphics.beginFill(0x000000);
+                    game.var.graphics.beginFill(game.var.colours.wall);
                     game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
                     game.var.graphics.endFill();
                 }
                 else if (game.var.tiles[x][y].type == 1) {
-                    game.var.graphics.beginFill(0xbf8040);
+                    game.var.graphics.beginFill(game.var.colours.floor);
                     game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
                     game.var.graphics.endFill();
                 }
                 else if (game.var.tiles[x][y].type == 2) {
-                    game.var.graphics.beginFill(0xffff66);
+                    game.var.graphics.beginFill(game.var.colours.gold);
                     game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
                     game.var.graphics.endFill();
                 }
@@ -233,7 +238,7 @@ game.render = function() {
                     var posx = x * game.var.scale - game.var.scale / 2;
                     var posy = y * game.var.scale - game.var.scale / 2;
 
-                    game.var.graphics.beginFill(0xff2222);
+                    game.var.graphics.beginFill(game.var.colours.player);
                     game.var.graphics.drawCircle(posx, posy, game.var.scale / 2);
                     game.var.graphics.endFill();
 
