@@ -1,0 +1,98 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #000000;
+}
+
+.active {
+  background-color: #af222a;
+}
+
+body {
+  background-image: url('../img/header.jpg');
+  background-color: #cccccc;
+  background-size: cover;
+}
+
+.divcenter{
+  position: fixed;
+  border: #333333;
+  background-color: rgba(52, 7, 5, 0.55);
+  margin-right: 7%;
+  margin-left: 7%;
+  margin-top: 3%;
+  width: 87%;
+  height: 80%;
+  text-align: center;
+
+}
+
+
+.center {
+  position :relative;
+  margin-left: 30%;
+  width: 45%;
+  padding: 20px;
+}
+
+#homeHeading {
+
+  text-decoration: underline;
+  color: rgba(175, 69, 19, 0.71);
+  font-size: 40px;
+
+}
+
+#score {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#score td, #score th {
+  border: 1px solid #ddd;
+  font-size: 20px;
+  text-align: center;
+  padding: 8px;
+  color: #2e6da4;
+}
+
+
+
+#score tr:hover {background-color: #ddd;}
+
+#score th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  font-size: 30px;
+
+  color: white;
+}
+
+
+footer {
+  background-color: rgba(0, 0, 0, 0.77);
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+}
+

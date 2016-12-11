@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    <link href="css/style.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+    <ul>
+
+         <li >Dungeon of Doom</li>
+    </ul>
+    <div class="divcenter">
+
+        <div class="container">
+            <label><b>Username</b></label>&nbsp;&nbsp;
+             <input type="text" placeholder="Enter Username" name="uname"  required><br><br>
+
+             <label><b>Password</b></label>&nbsp;&nbsp;
+            <input type="password" placeholder="Enter Password" name="psw" required><br><br>
+            <a href="../menu/menu.html">
+                <button type="submit" >Login</button><br><br>
+            </a>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             Not Registered?<br><br>
+            <button onclick="document.getElementById('idPopUp').style.display='block'">Register</button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div id="idPopUp" class="modal">
+
+        <form class="modalCnt" >
+
+
+            <div class="detailsContainer">
+                <label><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required> <br><br>
+
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required><br><br>
+
+
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Re-enter Password" name="cpsw" required><br><br>
+
+
+                <button type="submit">Sign Up</button><br><br>
+                <button type="button" onclick="document.getElementById('idPopUp').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+
+        </form>
+    </div>
+
+
+</body>
+</html>
