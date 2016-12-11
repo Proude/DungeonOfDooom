@@ -31,7 +31,7 @@ public class Match {
 
     public void removeCharacter(Player player) {
         for(Character character : characters) {
-            if(character.getPlayer().getUsername() == player.getUsername()) {
+            if(character.getPlayer().getUsername().equals(player.getUsername())) {
                 characters.remove(character);
                 break;
             }

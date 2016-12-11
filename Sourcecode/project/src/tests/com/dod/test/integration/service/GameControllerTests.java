@@ -42,10 +42,4 @@ public class GameControllerTests extends AuthenticatedClientTestBase {
         String responseMsg = target.path("game/move").request().post(null).readEntity(String.class);
         assertEquals("unimplemented", responseMsg);
     }
-
-    @Test
-    public void shouldRespondToLeave() {
-        String responseMsg = target.path("game/leave").request().post(null).readEntity(String.class);
-        assertEquals("unimplemented", responseMsg);
-    }
 }

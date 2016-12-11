@@ -51,14 +51,4 @@ public class GameController {
                 .entity("unimplemented")
                 .build();
     }
-
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("leave")
-    public Response leave() {
-        return Response
-                .ok()
-                .entity("unimplemented")
-                .build();
-    }
 }

@@ -117,5 +117,17 @@ public class MatchController {
         }
     }
 
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("leave")
+    public Response leave() {
+        String username = (String)request.getSession(false).getAttribute("player");
+        matchService.leaveMatch(new Player(username));
+
+        return Response
+                .ok()
+                .build();
+    }
+
     //todo: add bot endpoint?
 }

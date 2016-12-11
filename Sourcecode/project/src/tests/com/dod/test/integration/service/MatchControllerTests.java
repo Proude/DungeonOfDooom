@@ -3,6 +3,8 @@ package dod.test.integration.service;
 import com.dod.game.MatchList;
 import com.dod.models.Match;
 import com.dod.models.MatchState;
+import com.dod.models.Player;
+import com.dod.models.Point;
 import com.dod.service.model.MatchStatus;
 import org.junit.Assert;
 import org.junit.Test;
@@ -119,5 +121,18 @@ public class MatchControllerTests extends AuthenticatedClientTestBase {
         matchesToRemove.add(response[0].getId());
         matchesToRemove.add(response[1].getId());
         matchesToRemove.add(response[2].getId());
+    }
+
+    @Test
+    public void leaveShouldRemovePlayerFromMatch() {
+        MatchStatus matchStatus = startNewMatch();
+        matchesToRemove.add(matchStatus.getId());
+
+        Invocation.Builder request = target.path("match/leave").request();
+        request.cookie("JSESSIONID",sessionId);
+        Response result = request.post(null);
+
+        assertEquals(200, result.getStatus());
+        assertEquals(false, MatchList.instance().getMatch(matchStatus.getId()).hasCharacter(testUsername));
     }
 }

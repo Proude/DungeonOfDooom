@@ -366,7 +366,7 @@ game.menu.displayMatchMenu = function( data ) {
 game.match.leave = function() {
     game.var.isRunning = false;
 
-    var endpoint =  game.func.getApiPath("game","leave");
+    var endpoint =  game.func.getApiPath("match","leave");
     requestAnimationFrame(function() {game.func.post(endpoint, { }, game.menu.returnToMenu(), game.func.error)});
 };
 
@@ -392,5 +392,5 @@ $( document ).ready(function() {
     $('#new-match-btn').click(game.match.new);
     $('#start-match-btn').click(game.match.start);
     $('#match-leave-btn').click(game.match.leave);
+    $('#return-btn').click(game.menu.returnToMenu);
 });
-
