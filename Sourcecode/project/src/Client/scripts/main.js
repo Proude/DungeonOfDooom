@@ -20,6 +20,10 @@ game.var.renderer = {};
 game.var.stage = {};
 game.var.graphics = {};
 game.var.playerTitles = [];
+game.var.isRunning = false;
+game.var.delta = 0;
+game.var.timeStep = 1000 / 20;
+game.var.lastFrameTimestamp = 0;
 
 
 game.constants.api = "http://localhost:8080/";
@@ -160,9 +164,11 @@ game.menu.initGameScreen = function() {
     game.var.graphics = new PIXI.Graphics();
     game.var.stage.addChild(game.var.graphics);
 
-    game.fetchStatus();
     game.menu.match.css('display', 'none');
     game.menu.game.css('display', 'block');
+
+    game.var.isRunning = true;
+    requestAnimationFrame(game.updateGame);
 };
 
 game.initPlayerTitles = function( characters ) {
@@ -184,7 +190,7 @@ game.initPlayerTitles = function( characters ) {
         game.var.playerTitles[character.playerName] = new PIXI.Text(character.playerName, style);
         game.var.stage.addChild(game.var.playerTitles[character.playerName]);
     });
-}
+};
 
 game.render = function() {
     game.var.graphics.clear();
@@ -224,6 +230,7 @@ game.render = function() {
         }
     }
 
+    game.var.isRunning = true;
     game.var.renderer.render(game.var.stage);
 };
 
@@ -244,7 +251,6 @@ game.updateStatus = function( status ) {
     }
 
     game.render();
-    console.log(status);
 };
 
 game.var.addTile = function( tile ) {
@@ -261,6 +267,20 @@ game.fetchStatus = function() {
     var endpoint = game.func.getApiPath("game","status");
     game.var.status = game.func.get(endpoint, {}, game.updateStatus, game.func.error);
 };
+
+game.updateGame = function( timestamp ) {
+    game.var.delta += timestamp - game.var.lastFrameTimestamp;
+    game.var.lastFrameTimestamp = timestamp;
+
+    if(game.var.delta > game.var.timeStep) {
+        game.fetchStatus();
+        game.var.delta -= game.var.timeStep;
+    }
+
+    if(game.var.isRunning) {
+        requestAnimationFrame(game.updateGame);
+    }
+}
 
 game.menu.displayMatchMenu = function( data ) {
     game.menu.lobby.css('display','none');
