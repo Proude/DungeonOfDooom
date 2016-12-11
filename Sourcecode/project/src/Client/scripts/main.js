@@ -366,7 +366,7 @@ game.menu.displayMatchMenu = function( data ) {
 game.match.leave = function() {
     game.var.isRunning = false;
 
-    var endpoint =  game.func.getApiPath("match","leave");
+    var endpoint =  game.func.getApiPath("game","leave");
     requestAnimationFrame(function() {game.func.post(endpoint, { }, game.menu.returnToMenu(), game.func.error)});
 };
 
