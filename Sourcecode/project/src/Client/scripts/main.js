@@ -229,8 +229,12 @@ game.render = function() {
                     game.var.graphics.endFill();
                 }
                 else if (game.var.tiles[x][y].type == 2) {
-                    game.var.graphics.beginFill(game.var.colours.gold);
+                    game.var.graphics.beginFill(game.var.colours.floor);
                     game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
+                    game.var.graphics.endFill();
+
+                    game.var.graphics.beginFill(game.var.colours.gold);
+                    game.var.graphics.drawCircle(x * game.var.scale + game.var.scale / 2, y * game.var.scale + game.var.scale / 2, game.var.scale / 4);
                     game.var.graphics.endFill();
                 }
 
