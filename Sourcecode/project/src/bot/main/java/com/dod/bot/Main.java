@@ -1,3 +1,5 @@
+package com.dod.bot;
+
 import java.util.UUID;
 
 /**

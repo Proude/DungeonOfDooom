@@ -1,4 +1,4 @@
-package communicators;
+package com.dod.bot.communicators;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;

@@ -1,4 +1,4 @@
-package communicators;
+package com.dod.bot.communicators;
 
 import com.dod.service.model.GameStateModel;
 

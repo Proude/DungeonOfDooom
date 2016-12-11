@@ -1,7 +1,9 @@
+package com.dod.bot;
+
 import com.dod.service.model.GameStateModel;
-import communicators.MatchCommunicator;
-import communicators.MoveCommunicator;
-import communicators.stateCommunicator;
+import com.dod.bot.communicators.MatchCommunicator;
+import com.dod.bot.communicators.MoveCommunicator;
+import com.dod.bot.communicators.stateCommunicator;
 
 import java.util.UUID;
 
@@ -11,7 +13,7 @@ import java.util.UUID;
 public class Bot {
     private MatchCommunicator matchCommunicator;
     private MoveCommunicator moveCommunicator;
-    private communicators.stateCommunicator stateCommunicator;
+    private com.dod.bot.communicators.stateCommunicator stateCommunicator;
 
     private boolean isPlaying = false;
     private GameStateModel state;
