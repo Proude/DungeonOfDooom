@@ -9,6 +9,7 @@ game.constants = [];
 game.func = [];
 game.match = [];
 game.var = [];
+game.match.var = []
 
 game.var.xSize = 1400;
 game.var.ySize = 900;
@@ -25,6 +26,11 @@ game.var.delta = 0;
 game.var.timeStep = 1000 / 20;
 game.var.lastFrameTimestamp = 0;
 
+game.match.var.isLobbying = false;
+game.match.var.isWaitingTostart = false;
+game.match.var.delta = 0;
+game.match.var.timeStep = 1000 / 5;
+game.match.var.lastFrameTimestamp = 0;
 
 game.constants.api = "http://localhost:8080/";
 game.constants.loginFailed = "Oops, that didn't work. Make sure your username/password are correct.";
@@ -114,7 +120,8 @@ game.auth.login = function() {
 game.menu.openMatchLobby = function() {
     game.menu.menu.css('display','none');
     game.menu.lobby.css('display','block');
-    game.match.list();
+    game.match.var.isLobbying = true;
+    requestAnimationFrame(game.match.updateMatchList);
 };
 
 game.match.list = function() {
@@ -137,6 +144,8 @@ game.menu.displayMatchList = function( data ) {
 
 game.match.join = function( data ) {
     var id = $(data.currentTarget).data("id");
+    game.match.var.isLobbying = false;
+    game.match.isWaitingTostart = true;
 
     var endpoint = game.func.getApiPath("match","join");
     game.func.post(endpoint, { "matchId" : id }, game.menu.displayMatchMenu, game.menu.error);
@@ -269,6 +278,9 @@ game.fetchStatus = function() {
 };
 
 game.updateGame = function( timestamp ) {
+    if(game.var.lastFrameTimestamp == 0) {
+        game.var.lastFrameTimestamp = timestamp + game.var.timeStep;
+    }
     game.var.delta += timestamp - game.var.lastFrameTimestamp;
     game.var.lastFrameTimestamp = timestamp;
 
@@ -279,6 +291,23 @@ game.updateGame = function( timestamp ) {
 
     if(game.var.isRunning) {
         requestAnimationFrame(game.updateGame);
+    }
+};
+
+game.match.updateMatchList = function( timestamp ) {
+    if(game.match.var.lastFrameTimestamp == 0) {
+        game.match.var.lastFrameTimestamp = timestamp + game.match.var.timeStep;
+    }
+    game.match.var.delta += timestamp - game.match.var.lastFrameTimestamp;
+    game.match.var.lastFrameTimestamp = timestamp;
+
+    if(game.match.var.delta >= game.match.var.timeStep) {
+        game.match.list();
+        game.match.var.delta -= game.match.var.timeStep;
+    }
+
+    if(game.match.var.isLobbying) {
+        requestAnimationFrame(game.match.updateMatchList);
     }
 }
 
