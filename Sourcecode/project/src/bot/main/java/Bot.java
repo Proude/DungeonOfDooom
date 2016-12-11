@@ -1,6 +1,7 @@
+import com.dod.service.model.GameStateModel;
 import communicators.MatchCommunicator;
 import communicators.MoveCommunicator;
-import communicators.StatusCommunicator;
+import communicators.stateCommunicator;
 
 import java.util.UUID;
 
@@ -10,21 +11,24 @@ import java.util.UUID;
 public class Bot {
     private MatchCommunicator matchCommunicator;
     private MoveCommunicator moveCommunicator;
-    private StatusCommunicator statusCommunicator;
+    private communicators.stateCommunicator stateCommunicator;
 
     private boolean isPlaying = false;
+    private GameStateModel state;
 
     public Bot() {
         this.matchCommunicator = new MatchCommunicator();
         this.moveCommunicator = new MoveCommunicator();
-        this.statusCommunicator = new StatusCommunicator();
+        this.stateCommunicator = new stateCommunicator();
     }
 
     public void play(UUID matchId) {
         isPlaying = true;
+        matchCommunicator.joinMatch(matchId);
+        state = stateCommunicator.getState();
 
         while(isPlaying) {
-            ///...
+            isPlaying = false;
         }
     }
 }

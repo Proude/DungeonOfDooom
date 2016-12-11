@@ -56,14 +56,14 @@ public class CommunicatorBase {
         MultivaluedMap<String, String> formData = new MultivaluedHashMap<String, String>();
         formData.add("username", username);
         formData.add("password", password);
-        Response registerResponse = target.path("player/register").request().post(Entity.form(formData));
+        Response registerResponse = getTarget().path("player/register").request().post(Entity.form(formData));
 
         //get the sessionId so we can send authorised session cookies with requests
         return registerResponse.getCookies().get("JSESSIONID").getValue();
     }
 
     protected Invocation.Builder request(String path) {
-        Invocation.Builder request = target.path("match/join").request();
+        Invocation.Builder request = getTarget().path(path).request();
         request.cookie("JSESSIONID",sessionId);
 
         return request;
