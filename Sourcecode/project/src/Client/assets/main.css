@@ -28,6 +28,11 @@ section {
     cursor: pointer;
 }
 
+.game-container {
+    width: 1400px;
+    height: 900px;
+}
+
 @media screen and (max-width: 768px) {
     /* Phone settings */
 }

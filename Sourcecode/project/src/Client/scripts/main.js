@@ -9,7 +9,7 @@ game.constants = [];
 game.func = [];
 game.match = [];
 game.var = [];
-game.match.var = []
+game.match.var = [];
 
 game.var.xSize = 1400;
 game.var.ySize = 900;
@@ -94,9 +94,9 @@ game.menu.loginFormValidation = function(message ) {
 };
 
 game.menu.clearValidation = function() {
-    var validatorelements = $('.validation');
-    validatorelements.html('');
-    validatorelements.css('display', 'none');
+    var validatorElements = $('.validation');
+    validatorElements.html('');
+    validatorElements.css('display', 'none');
 };
 
 game.auth.register = function() {
@@ -173,11 +173,11 @@ game.match.start = function() {
 };
 
 game.menu.initGameScreen = function() {
-    game.menu.game.empty();
+    game.menu.gameContainer.empty();
 
     game.var.renderer = PIXI.autoDetectRenderer(game.var.xSize, game.var.ySize);
     game.var.renderer.backgroundColor = 0x8c8c8c;
-    game.menu.game.append(game.var.renderer.view);
+    game.menu.gameContainer.append(game.var.renderer.view);
 
     game.var.stage = new PIXI.Container();
     game.var.graphics = new PIXI.Graphics();
@@ -363,12 +363,26 @@ game.menu.displayMatchMenu = function( data ) {
     });
 };
 
+game.match.leave = function() {
+    game.var.isRunning = false;
+
+    var endpoint =  game.func.getApiPath("match","leave");
+    requestAnimationFrame(function() {game.func.post(endpoint, { }, game.menu.returnToMenu(), game.func.error)});
+};
+
+game.menu.returnToMenu = function() {
+    game.menu.gameContainer.empty();
+    game.menu.game.css('display', 'none');
+    game.menu.menu.css('display', 'block');
+};
+
 $( document ).ready(function() {
     game.menu.login = $('#login');
     game.menu.menu = $('#menu');
     game.menu.lobby = $('#lobby');
     game.menu.match = $('#match');
     game.menu.game = $('#game');
+    game.menu.gameContainer = $('#game-container');
 
     game.menu.login.css('display', 'block');
 
@@ -377,5 +391,6 @@ $( document ).ready(function() {
     $('#menu-match-btn').click(game.menu.openMatchLobby);
     $('#new-match-btn').click(game.match.new);
     $('#start-match-btn').click(game.match.start);
+    $('#match-leave-btn').click(game.match.leave);
 });
 
