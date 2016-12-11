@@ -4,7 +4,9 @@ import com.dod.service.model.GameStateModel;
 import com.dod.bot.communicators.MatchCommunicator;
 import com.dod.bot.communicators.MoveCommunicator;
 import com.dod.bot.communicators.stateCommunicator;
+import com.dod.service.model.TileModel;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -30,6 +32,7 @@ public class Bot {
         state = stateCommunicator.getState();
 
         while(isPlaying) {
+
             isPlaying = false;
         }
     }
