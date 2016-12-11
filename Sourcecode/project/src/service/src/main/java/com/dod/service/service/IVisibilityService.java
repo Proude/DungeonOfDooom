@@ -9,6 +9,7 @@ import com.dod.models.Character;
  */
 public interface IVisibilityService {
 
-    Map getVisibleTilesForCharacter(Map dungeonMap, Character pchar); //todo return 2d tiles obj array and add char param
+    Map createVisibleMap(Map deungeonMap, Character pchar);
+    Map getVisibleTilesForCharacter(Map visibleMap, Map dungeonMap, Character pchar); //todo return 2d tiles obj array and add char param
 
 }

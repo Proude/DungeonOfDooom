@@ -20,17 +20,19 @@ import java.io.IOException;
  */
 public class VisibilityServiceTest {
 
-    IOService ioService;
-    ParseService parService;
+    private IOService ioService;
+    private ParseService parService;
     private Map dungeonMap;
-    JSONObject jobject;
-    Character pChar;
+    private JSONObject jobject;
+    private Character pChar;
+    private Map visibleMap;
 
     @Before
     public void Setup() {
-        ioService = new IOService();
+        ioService = new IOService(".\\assets");
+        visibleMap = new Map("level1", 30, 20, 26, 18, new Point(26, 18));
         try {
-            jobject = ioService.getJsonObject("\\maps\\level1.json");
+            jobject = ioService.getJsonObject("\\maps\\Level1.json");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -42,10 +44,30 @@ public class VisibilityServiceTest {
     }
 
     @Test
-    public void shouldReturnTrueIfTheTile34IsVisiblie() {
+    public void shouldReturnTrueIfTheTile34IsVisible() {
         VisibilityService vService = new VisibilityService();
-        Map visibleMap = vService.getVisibleTilesForCharacter(dungeonMap, pChar);
+        visibleMap = vService.createVisibleMap(dungeonMap, pChar);
 
         Assert.assertTrue(visibleMap.getTile(new Point(3, 4)).isVisible());
+    }
+
+    @Test
+    public void shouldReturnFalseIfTheTile77IsNotVisible() {
+        VisibilityService vService = new VisibilityService();
+        visibleMap = vService.createVisibleMap(dungeonMap, pChar);
+
+        Assert.assertFalse(visibleMap.getTile(new Point(7,7)).isVisible());
+    }
+
+    @Test
+    public void shouldReturnTrueIfTheTile77BecomeVisible() {
+        VisibilityService vService = new VisibilityService();
+        visibleMap = vService.createVisibleMap(dungeonMap, pChar);
+
+        Assert.assertFalse(visibleMap.getTile(new Point(7, 7)).isVisible());
+        pChar.setPosition(new Point(5,5));
+
+        visibleMap = vService.getVisibleTilesForCharacter(visibleMap, dungeonMap, pChar);
+        Assert.assertTrue(visibleMap.getTile(new Point(7,7)).isVisible());
     }
 }
