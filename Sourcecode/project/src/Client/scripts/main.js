@@ -169,7 +169,7 @@ game.match.new = function() {
 game.match.start = function() {
     game.match.var.isWaitingTostart = false;
     var endpoint = game.func.getApiPath("match","start");
-    game.func.post(endpoint, null, game.menu.initGameScreen, game.func.error);
+    requestAnimationFrame(function() {game.func.post(endpoint, null, game.menu.initGameScreen, game.func.error) });
 };
 
 game.menu.initGameScreen = function() {
