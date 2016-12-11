@@ -23,6 +23,7 @@ public class VisibilityService implements IVisibilityService {
         }
         return returnValue;
     }
+
     @Override
     public Map getVisibleTilesForCharacter(Map returnValue, Map dungeonMap, Character pchar) {
 

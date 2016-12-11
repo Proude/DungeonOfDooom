@@ -26,7 +26,7 @@ public class StateService implements IStateService {
     @Override
     public GameStateModel GetState(Player player) {
         Match match = matchList.getMatchForPlayer(player.getUsername());
-        Map map = match.getMap(); //visibilitySerivce.get...
+        Map map = visibilityService.createVisibleMap(match.getMap(), match.getCharacter(player.getUsername()));
 
         List<TileModel> tiles = new ArrayList();
         List<CharacterModel> characters = new ArrayList();
@@ -36,7 +36,7 @@ public class StateService implements IStateService {
                 Point point = new Point(x,y);
                 Tile tile = map.getTile(point);
 
-                //if(tile.isVisible()) {
+                if(tile.isVisible()) {
                     tiles.add(new TileModel(tile.getType(), point));
                     List<Character> charactersOnTile = match.getCharactersOnTile(point);
                     for(Character character : charactersOnTile) {
@@ -45,9 +45,7 @@ public class StateService implements IStateService {
                                 character.getCollectedCoins(),
                                 character.getPosition()));
                     }
-                //}
-
-
+                }
             }
         }
 

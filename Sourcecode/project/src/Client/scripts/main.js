@@ -26,7 +26,8 @@ game.var.delta = 0;
 game.var.timeStep = 1000 / 20;
 game.var.lastFrameTimestamp = 0;
 game.var.colours = [];
-game.var.colours.wall = 0x000000;
+game.var.colours.background = 0x000000;
+game.var.colours.wall = 0x8c8c8c;
 game.var.colours.floor = 0xbf8040;
 game.var.colours.gold = 0xffff66;
 game.var.colours.player = 0xff2222;
@@ -153,7 +154,6 @@ game.match.join = function( data ) {
     game.match.isWaitingTostart = true;
 
     var endpoint = game.func.getApiPath("match","join");
-    game.match.var.isWaitingTostart = true;
     game.func.post(endpoint, { "matchId" : id }, game.menu.displayMatchMenu, game.menu.error);
     requestAnimationFrame(game.match.updateStatus);
 };
@@ -161,7 +161,9 @@ game.match.join = function( data ) {
 game.match.new = function() {
     var endpoint = game.func.getApiPath("match","new");
     //todo add level choosing
+    game.match.var.isLobbying = false;
     game.match.var.isWaitingTostart = true;
+
     game.func.post(endpoint, { "level" : "1" }, game.menu.displayMatchMenu);
     requestAnimationFrame(game.match.updateStatus);
 };
@@ -176,7 +178,7 @@ game.menu.initGameScreen = function() {
     game.menu.gameContainer.empty();
 
     game.var.renderer = PIXI.autoDetectRenderer(game.var.xSize, game.var.ySize);
-    game.var.renderer.backgroundColor = 0x8c8c8c;
+    game.var.renderer.backgroundColor = game.var.colours.background;
     game.menu.gameContainer.append(game.var.renderer.view);
 
     game.var.stage = new PIXI.Container();
@@ -218,36 +220,39 @@ game.render = function() {
         var row = game.var.tiles[x];
         if(typeof row !== 'undefined') {
             for (y = 0; y < game.var.tiles[x].length; y++) {
-                if (game.var.tiles[x][y].type == 0) {
-                    game.var.graphics.beginFill(game.var.colours.wall);
-                    game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
-                    game.var.graphics.endFill();
-                }
-                else if (game.var.tiles[x][y].type == 1) {
-                    game.var.graphics.beginFill(game.var.colours.floor);
-                    game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
-                    game.var.graphics.endFill();
-                }
-                else if (game.var.tiles[x][y].type == 2) {
-                    game.var.graphics.beginFill(game.var.colours.floor);
-                    game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
-                    game.var.graphics.endFill();
+                var tile = game.var.tiles[x][y];
+                if(typeof tile !== 'undefined') {
+                    if (tile.type == 0) {
+                        game.var.graphics.beginFill(game.var.colours.wall);
+                        game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
+                        game.var.graphics.endFill();
+                    }
+                    else if (tile.type == 1) {
+                        game.var.graphics.beginFill(game.var.colours.floor);
+                        game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
+                        game.var.graphics.endFill();
+                    }
+                    else if (tile.type == 2) {
+                        game.var.graphics.beginFill(game.var.colours.floor);
+                        game.var.graphics.drawRect(x * game.var.scale, y * game.var.scale, game.var.scale, game.var.scale);
+                        game.var.graphics.endFill();
 
-                    game.var.graphics.beginFill(game.var.colours.gold);
-                    game.var.graphics.drawCircle(x * game.var.scale + game.var.scale / 2, y * game.var.scale + game.var.scale / 2, game.var.scale / 4);
-                    game.var.graphics.endFill();
-                }
+                        game.var.graphics.beginFill(game.var.colours.gold);
+                        game.var.graphics.drawCircle(x * game.var.scale + game.var.scale / 2, y * game.var.scale + game.var.scale / 2, game.var.scale / 4);
+                        game.var.graphics.endFill();
+                    }
 
-                if(game.var.tiles[x][y].character !== null) {
-                    var posx = x * game.var.scale - game.var.scale / 2;
-                    var posy = y * game.var.scale - game.var.scale / 2;
+                    if (tile.character !== null) {
+                        var posx = x * game.var.scale - game.var.scale / 2;
+                        var posy = y * game.var.scale - game.var.scale / 2;
 
-                    game.var.graphics.beginFill(game.var.colours.player);
-                    game.var.graphics.drawCircle(posx, posy, game.var.scale / 2);
-                    game.var.graphics.endFill();
+                        game.var.graphics.beginFill(game.var.colours.player);
+                        game.var.graphics.drawCircle(posx, posy, game.var.scale / 2);
+                        game.var.graphics.endFill();
 
-                    game.var.playerTitles[game.var.tiles[x][y].character.playerName].x = posx - game.var.scale / 2;
-                    game.var.playerTitles[game.var.tiles[x][y].character.playerName].y = posy - game.var.scale;
+                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].x = posx - game.var.scale / 2;
+                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].y = posy - game.var.scale;
+                    }
                 }
             }
         }
