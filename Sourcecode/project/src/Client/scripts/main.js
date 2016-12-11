@@ -148,16 +148,21 @@ game.match.join = function( data ) {
     game.match.isWaitingTostart = true;
 
     var endpoint = game.func.getApiPath("match","join");
+    game.match.var.isWaitingTostart = true;
     game.func.post(endpoint, { "matchId" : id }, game.menu.displayMatchMenu, game.menu.error);
+    requestAnimationFrame(game.match.updateStatus);
 };
 
 game.match.new = function() {
     var endpoint = game.func.getApiPath("match","new");
     //todo add level choosing
+    game.match.var.isWaitingTostart = true;
     game.func.post(endpoint, { "level" : "1" }, game.menu.displayMatchMenu);
+    requestAnimationFrame(game.match.updateStatus);
 };
 
 game.match.start = function() {
+    game.match.var.isWaitingTostart = false;
     var endpoint = game.func.getApiPath("match","start");
     game.func.post(endpoint, null, game.menu.initGameScreen, game.func.error);
 };
@@ -309,7 +314,29 @@ game.match.updateMatchList = function( timestamp ) {
     if(game.match.var.isLobbying) {
         requestAnimationFrame(game.match.updateMatchList);
     }
-}
+};
+
+game.match.updateStatus = function( timestamp ) {
+    if(game.match.var.lastFrameTimestamp == 0) {
+        game.match.var.lastFrameTimestamp = timestamp + game.match.var.timeStep;
+    }
+    game.match.var.delta += timestamp - game.match.var.lastFrameTimestamp;
+    game.match.var.lastFrameTimestamp = timestamp;
+
+    if(game.match.var.delta >= game.match.var.timeStep) {
+        game.match.fetchStatus();
+        game.match.var.delta -= game.match.var.timeStep;
+    }
+
+    if(game.match.var.isWaitingTostart) {
+        requestAnimationFrame(game.match.updateStatus);
+    }
+};
+
+game.match.fetchStatus = function() {
+    var endpoint = game.func.getApiPath("match","status");
+    game.var.status = game.func.get(endpoint, {}, game.menu.displayMatchMenu, game.func.error);
+};
 
 game.menu.displayMatchMenu = function( data ) {
     game.menu.lobby.css('display','none');
