@@ -161,7 +161,7 @@ game.menu.displayMatchList = function( data ) {
 game.match.join = function( data ) {
     var id = $(data.currentTarget).data("id");
     game.match.var.isLobbying = false;
-    game.match.isWaitingTostart = true;
+    game.match.var.isWaitingTostart = true;
 
     var endpoint = game.func.getApiPath("match","join");
     game.func.post(endpoint, { "matchId" : id }, game.menu.displayMatchMenu, game.menu.error);
