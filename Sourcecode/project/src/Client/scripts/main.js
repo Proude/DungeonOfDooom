@@ -144,7 +144,7 @@ game.menu.openScoreboard = function() {
 game.menu.displayScoreboard = function( scoreBoard ) {
     $.each(scoreBoard.scores, function(i, score) {
         if(score != null) {
-            $('#score-table').append($(String.format("<td>{0}</td><td>{1}</td>", score.username, score.value)))
+            $('#score-table').append($(String.format("<tr><td>{0}</td><td>{1}</td></tr>", score.username, score.value)))
         }
     });
 
@@ -242,17 +242,19 @@ game.render = function() {
         if(typeof row !== 'undefined') {
             for (y = 0; y < game.var.tiles[x].length; y++) {
                 var tile = game.var.tiles[x][y];
+
                 if(typeof tile !== 'undefined') {
+                    var visibility = tile.visible ? 0 : -2;
                     var tilePositionX = (x * game.var.scale) - game.camera.x;
                     var tilePositionY = (y * game.var.scale) - game.camera.y;
 
                     if (tile.type == 0) {
-                        game.var.graphics.beginFill(game.var.colours.wall);
+                        game.var.graphics.beginFill(game.var.colours.wall + visibility);
                         game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
                         game.var.graphics.endFill();
                     }
                     else if (tile.type == 1) {
-                        game.var.graphics.beginFill(game.var.colours.floor);
+                        game.var.graphics.beginFill(game.var.colours.floor + visibility);
                         game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
                         game.var.graphics.endFill();
                     }
@@ -304,6 +306,18 @@ game.render = function() {
     game.var.renderer.render(game.var.stage);
 };
 
+game.setAllTilesNotVisible = function() {
+    $.each(game.var.tiles, function(x, row) {
+        if(typeof row != 'undefined') {
+            $.each(row, function(y, tile) {
+                if(typeof tile != 'undefined')
+                tile.visible = false;
+            });
+        }
+    });
+};
+
+
 game.updateStatus = function( status ) {
     game.var.characters = status.characters;
     game.var.playerCharacter = status.playerCharacter;
@@ -311,6 +325,7 @@ game.updateStatus = function( status ) {
     game.camera.x = (game.var.playerCharacter.position.x * game.var.scale) - (game.var.xSize / 2);
     game.camera.y = (game.var.playerCharacter.position.y * game.var.scale) - (game.var.ySize / 2);
 
+    game.setAllTilesNotVisible();
     $.each( status.tiles, function ( i, tile ) {
         tile.character = null;
         game.var.addTile(tile);
@@ -336,6 +351,7 @@ game.var.addTile = function( tile ) {
         game.var.tiles[pos.x] = [];
     }
 
+    tile.visible = true;
     game.var.tiles[pos.x][pos.y] = tile;
 };
 
