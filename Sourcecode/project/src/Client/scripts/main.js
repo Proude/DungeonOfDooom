@@ -36,6 +36,12 @@ game.var.colours.floor = 0xbf8040;
 game.var.colours.gold = 0xffff66;
 game.var.colours.player = 0xff2222;
 game.var.colours.exit = 0x2222ff;
+game.var.colours.shaded = [];
+game.var.colours.shaded.wall = 0x565656;
+game.var.colours.shaded.floor = 0x8c5010;
+game.var.colours.shaded.gold = 0xcccc33;
+game.var.colours.shaded.player = 0xcc0000;
+game.var.colours.shaded.exit = 0x0000cc;
 
 game.match.var.isLobbying = false;
 game.match.var.isWaitingTostart = false;
@@ -244,35 +250,34 @@ game.render = function() {
                 var tile = game.var.tiles[x][y];
 
                 if(typeof tile !== 'undefined') {
-                    var visibility = tile.visible ? 0 : -2;
                     var tilePositionX = (x * game.var.scale) - game.camera.x;
                     var tilePositionY = (y * game.var.scale) - game.camera.y;
 
                     if (tile.type == 0) {
-                        game.var.graphics.beginFill(game.var.colours.wall + visibility);
+                        game.var.graphics.beginFill(tile.visible ? game.var.colours.wall : game.var.colours.shaded.wall);
                         game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
                         game.var.graphics.endFill();
                     }
                     else if (tile.type == 1) {
-                        game.var.graphics.beginFill(game.var.colours.floor + visibility);
+                        game.var.graphics.beginFill(tile.visible ? game.var.colours.floor : game.var.colours.shaded.floor);
                         game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
                         game.var.graphics.endFill();
                     }
                     else if (tile.type == 2) {
-                        game.var.graphics.beginFill(game.var.colours.floor);
+                        game.var.graphics.beginFill(tile.visible ? game.var.colours.floor : game.var.colours.shaded.floor);
                         game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
                         game.var.graphics.endFill();
 
-                        game.var.graphics.beginFill(game.var.colours.gold);
+                        game.var.graphics.beginFill(tile.visible ? game.var.colours.gold : game.var.colours.shaded.gold);
                         game.var.graphics.drawCircle(tilePositionX + game.var.scale / 2, tilePositionY + game.var.scale / 2, game.var.scale / 4);
                         game.var.graphics.endFill();
                     }
                     else if(tile.type == 3) {
-                        game.var.graphics.beginFill(game.var.colours.floor);
+                        game.var.graphics.beginFill(tile.visible ? game.var.colours.floor : game.var.colours.shaded.floor);
                         game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
                         game.var.graphics.endFill();
 
-                        game.var.graphics.beginFill(game.var.colours.exit);
+                        game.var.graphics.beginFill(tile.visible ? game.var.colours.exit : game.var.colours.shaded.exit);
                         game.var.graphics.moveTo(tilePositionX, tilePositionY + game.var.scale);
                         game.var.graphics.lineTo(tilePositionX + game.var.scale, tilePositionY);
                         game.var.graphics.lineTo(tilePositionX + game.var.scale, tilePositionY + game.var.scale);
@@ -280,7 +285,7 @@ game.render = function() {
                         game.var.graphics.endFill();
                     }
 
-                    if (tile.character !== null) {
+                    if (tile.visible && tile.character !== null) {
                         var positionX = tilePositionX + game.var.scale / 2;
                         var positionY = tilePositionY + game.var.scale / 2;
 

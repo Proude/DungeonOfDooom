@@ -159,3 +159,8 @@ ul#guest-header li {
 h3 {
   text-decoration: underline;
 }
+
+.validation {
+  color:red;
+  font-weight:bold;
+}
