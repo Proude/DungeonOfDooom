@@ -35,6 +35,7 @@ game.var.colours.wall = 0x8c8c8c;
 game.var.colours.floor = 0xbf8040;
 game.var.colours.gold = 0xffff66;
 game.var.colours.player = 0xff2222;
+game.var.colours.exit = 0x2222ff;
 
 game.match.var.isLobbying = false;
 game.match.var.isWaitingTostart = false;
@@ -252,6 +253,19 @@ game.render = function() {
                         game.var.graphics.beginFill(game.var.colours.gold);
                         game.var.graphics.drawCircle(tilePositionX + game.var.scale / 2, tilePositionY + game.var.scale / 2, game.var.scale / 4);
                         game.var.graphics.endFill();
+                    }
+                    else if(tile.type == 3) {
+                        game.var.graphics.beginFill(game.var.colours.floor);
+                        game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
+                        game.var.graphics.endFill();
+
+                        game.var.graphics.beginFill(game.var.colours.exit);
+                        game.var.graphics.moveTo(tilePositionX, tilePositionY + game.var.scale);
+                        game.var.graphics.lineTo(tilePositionX + game.var.scale, tilePositionY);
+                        game.var.graphics.lineTo(tilePositionX + game.var.scale, tilePositionY + game.var.scale);
+                        game.var.graphics.lineTo(tilePositionX, tilePositionY + game.var.scale);
+                        game.var.graphics.endFill();
+
                     }
 
                     if (tile.character !== null) {

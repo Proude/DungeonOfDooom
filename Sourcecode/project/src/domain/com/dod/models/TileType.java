@@ -6,7 +6,8 @@ package com.dod.models;
 public enum TileType {
     Wall(0),
     Empty(1),
-    Coin(2);
+    Coin(2),
+    Exit(3);
 
     private final int value;
     private TileType(int value) {
