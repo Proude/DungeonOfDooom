@@ -247,11 +247,11 @@ game.render = function() {
                         var positionY = tilePositionY + game.var.scale / 2;
 
                         game.var.graphics.beginFill(game.var.colours.player);
-                        game.var.graphics.drawCircle(posx, posy, game.var.scale / 2);
+                        game.var.graphics.drawCircle(positionX, positionY, game.var.scale / 2);
                         game.var.graphics.endFill();
 
-                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].x = posx - game.var.scale / 2;
-                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].y = posy - game.var.scale;
+                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].x = positionX - game.var.scale / 2;
+                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].y = positionY - game.var.scale;
                     }
                 }
             }
