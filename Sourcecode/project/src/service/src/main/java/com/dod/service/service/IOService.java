@@ -15,7 +15,7 @@ import java.nio.file.Paths;
  */
 public class IOService implements IIOService {
 
-    private String pathToAssets = ".//assets";
+    private String pathToAssets = "..//..//assets";
     private JSONParser parser;
 
     public IOService(String pathToAssets) {

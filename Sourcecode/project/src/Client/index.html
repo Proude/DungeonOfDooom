@@ -3,56 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title>Dungeon of Dooom</title>
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="assets/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="assets/style.css" rel="stylesheet">
 </head>
 <body>
+    <ul id="logged-in-header">
+        <li><a id="lobby-link">Lobby</a></li>
+        <li><a id="tutorial-link">How to play</a></li>
+        <li><a id="score-link">Score Table</a></li>
+        <li style="float:right"><a class="active">Dungeon of Doom</a></li>
+    </ul>
+    <ul id="guest-header">
+        <li >Dungeon of Doom</li>
+    </ul>
+
     <section id="login">
-        <h1>Login/Register</h1>
-        <p>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
-        </p>
-        <p>
-            <label for="password">Password</label>
-            <input type="text" id="password" name="password">
-        </p>
-        <p>
-            <button id="login-btn">Login</button>
-        </p>
-        <p>
-            <button id="register-btn">Register</button>
-        </p>
-
-        <p id="login-validation" class="validation"></p>
-    </section>
-
-    <section id="menu">
-        <h1>menu</h1>
-        <button id="menu-match-btn">Join a Match</button>
+        <div class="col-md-5 col-md-offset-3">
+            <div class="row">
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" id="username" name="username"  required>
+            </div>
+            <div class="row">
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" id="password" name="password" required>
+            </div>
+            <div class="row">
+                <p id="login-validation" class="validation"></p>
+            </div>
+            <div class="row">
+                <button id="login-btn" class="btn btn-danger btn-lg">Login</button>
+            </div>
+            <div class="row">
+                <button id="register-btn" class="btn btn-danger btn-lg">Register</button>
+            </div>
+        </div>
     </section>
 
     <section id="lobby">
         <h1>Matches</h1>
         <p id="match-list"></p>
-        <button id="new-match-btn">New Match</button>
+        <button id="new-match-btn" class="btn btn-danger btn-lg">New Match</button>
     </section>
 
     <section id="match">
         <h1>Match</h1>
         <p id="match-details"></p>
-        <button id="start-match-btn">Start</button>
+        <button id="start-match-btn" class="btn btn-danger btn-lg">Start</button>
     </section>
 
     <section id="game">
         <div id="game-container"></div>
-        <button id="match-leave-btn">Leave</button>
+        <div clas="row">
+            <button id="match-leave-btn" class="btn btn-danger btn-lg">Leave</button>
+        </div>
     </section>
 
     <section id="end-game">
 
-        <button id="return-btn">Return</button>
+        <button id="return-btn" class="btn btn-danger btn-lg">Return</button>
     </section>
+
+    <section id="tutorial">
+        <aside class="left">
+            <h1> Instructions </h1><br>
+            The dungeon of doom is an online multiplayer game, which starts with registration of player.
+            The game icludes the functionality to choose either single player or multi-player as well as an option to view top score achivied by player.
+            <br><br>
+            The objective of the game is to collect the specified amount of gold in the dungeon and get to the exit before other player.
+
+        </aside>
+
+        <div class="right">
+            <img src="assets/layout.jpeg"/>
+        </div>
+    </section>
+
+    <section id="score">
+        <h1 id="homeHeading"> Score Table</h1>
+        <table id= "score-table">
+              <tr>
+                <th>Username</th>
+                <th>Score</th>
+               
+              </tr>
+            <tr>
+                <td>Neon</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Blue</td>
+                <td>78</td>
+            </tr>
+            <tr>
+                <td>Nick</td>
+                <td>56</td>
+            </tr>
+        </table>
+    </section>
+
+    <footer>
+        <br>.<br>
+
+    </footer>
 
     <script type="text/javascript" src="scripts/lib/stringformat.js"></script>
     <script type="text/javascript" src="scripts/lib/jquery.min.js"></script>

@@ -1,9 +1,19 @@
+/* Dungon of Doom CSS stylesheet 2016 University of Bath */
+
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
+}
+
+ul#logged-in-header {
+  display: none;
+}
+
+ul#logged-in-header li {
+  cursor: pointer;
 }
 
 li {
@@ -22,17 +32,24 @@ li a:hover:not(.active) {
   background-color: #000000;
 }
 
+.join-link {
+  color:#11D;
+  cursor: pointer;
+}
+
 .active {
   background-color: #af222a;
 }
 
 body {
-  background-image: url('../img/header.jpg');
+  background-image: url('header.jpg');
   background-color: #cccccc;
   background-size: cover;
+
+  color: rgba(175, 69, 19, 0.71);
 }
 
-.divcenter{
+section {
   position: fixed;
   border: #333333;
   background-color: rgba(52, 7, 5, 0.55);
@@ -42,9 +59,8 @@ body {
   width: 87%;
   height: 80%;
   text-align: center;
-
+  display:none; !important
 }
-
 
 .center {
   position :relative;
@@ -53,21 +69,20 @@ body {
   padding: 20px;
 }
 
-#homeHeading {
-
+h1 {
   text-decoration: underline;
   color: rgba(175, 69, 19, 0.71);
   font-size: 40px;
 
 }
 
-#score {
+#score-table {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-#score td, #score th {
+#score-table td, #score-table th {
   border: 1px solid #ddd;
   font-size: 20px;
   text-align: center;
@@ -75,11 +90,9 @@ body {
   color: #2e6da4;
 }
 
+#score-table tr:hover {background-color: #ddd;}
 
-
-#score tr:hover {background-color: #ddd;}
-
-#score th {
+#score-table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
@@ -88,7 +101,6 @@ body {
   color: white;
 }
 
-
 footer {
   background-color: rgba(0, 0, 0, 0.77);
   width: 100%;
@@ -96,3 +108,46 @@ footer {
   position: fixed;
 }
 
+.container {
+  margin-left: 30%;
+  padding: 40px;
+  position: relative;
+  margin-top: 9%;
+  width: 72%;
+  font-size: large;
+}
+
+input[type=text], input[type=password] {
+  width: 40%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: medium;
+}
+
+button {
+  background-color: rgba(0, 0, 0, 0.69);
+  color: white;
+  padding: 14px 20px;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+  margin-left: 8%;
+}
+
+ul#guest-header {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+ul#guest-header li {
+  text-align: center;
+  color:white;
+  font-size: 32px;
+}
