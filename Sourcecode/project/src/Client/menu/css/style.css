@@ -33,7 +33,7 @@ body {
 }
 
 .divcenter{
-  position: fixed;
+  position: absolute;
   border: #333333;
   background-color: rgba(52, 7, 5, 0.55);
   margin-right: 7%;

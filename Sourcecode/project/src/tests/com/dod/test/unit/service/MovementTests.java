@@ -23,7 +23,7 @@ public class MovementTests {
     private IOService ioService;
     private ParseService parService;
     private Map dungeonMap;
-    private Character pChar;
+    private Character pChar, pChar2;
     private JSONObject jobject;
 
     @Before
@@ -39,13 +39,30 @@ public class MovementTests {
         parService = new ParseService();
         dungeonMap = parService.parseMap(jobject);
         pChar = new Character(new Point(4, 4), new Player("test"));
+        pChar2 = new Character(new Point(3, 1), new Player("dadasda"));
     }
 
     @Test
     public void shouldReturnTrueIfPlayerMovedToRightTile() {
         MovementService moveService = new MovementService();
-        moveService.Move("D", pChar, dungeonMap);
+        Assert.assertTrue(moveService.Move("D", pChar, dungeonMap).equals(new Point(5,4)));
+    }
 
-        Assert.assertTrue(pChar.getPosition().equals(new Point(5,4)));
+    @Test
+    public void shouldReturnFalseIfPlayerMovedToRightTile() {
+        MovementService moveService = new MovementService();
+        Assert.assertFalse(moveService.Move("D", pChar, dungeonMap).equals(new Point(4,4)));
+    }
+
+    @Test
+    public void shouldReturnFalseIfPlayerMovesToWall() {
+        MovementService moveService = new MovementService();
+        Assert.assertFalse(moveService.Move("D", pChar2, dungeonMap).equals(new Point(3,0)));
+    }
+
+    @Test
+    public void shouldReturnTrueIfPlayerCantMoveToWall() {
+        MovementService moveService = new MovementService();
+        Assert.assertFalse(moveService.Move("D", pChar2, dungeonMap).equals(new Point(3,1)));
     }
 }

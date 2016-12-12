@@ -5,7 +5,7 @@
     <title>Menu</title>
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <link rel="stylesheet" type="text/css" href="../assets/main.css">
 </head>
 <body>
 <ul>
@@ -20,16 +20,41 @@
     <h1 id="homeHeading"> Player selection </h1>
 <br><br>
 
-    <button type="button" class="btn btn-danger btn-lg">Single Player</button> &nbsp;&nbsp;&nbsp;
+    <section id="choice">
+        <button type="button" id="single-btn" class="btn btn-danger btn-lg">Single Player</button>
+        <button type="button" id="multi-btn" class="btn btn-danger btn-lg">Multi-player</button>
+    </section>
+    <section id="menu">
+        <h1>menu</h1>
+        <button id="menu-match-btn">Join a Match</button>
+    </section>
 
-    <button type="button" class="btn btn-danger btn-lg">Multi-player</button>
+    <section id="lobby">
+        <h1>Matches</h1>
+        <p id="match-list"></p>
+        <button id="new-match-btn">New Match</button>
+    </section>
 
+    <section id="match">
+        <h1>Match</h1>
+        <p id="match-details"></p>
+        <button id="start-match-btn">Start</button>
+    </section>
+
+    <section id="game">
+        <div id="game-container"></div>
+        <button id="match-leave-btn">Leave</button>
+    </section>
+
+    <section id="end-game">
+
+        <button id="return-btn">Return</button>
+    </section>
 </div>
 
-
-<footer>
- <br>.<br>
-
-</footer>
+<script type="text/javascript" src="../scripts/lib/stringformat.js"></script>
+<script type="text/javascript" src="../scripts/lib/jquery.min.js"></script>
+<script type="text/javascript" src="../scripts/lib/pixi.js"></script>
+<script type="text/javascript" src="../scripts/functions/menu.js"></script>
 </body>
 </html>
