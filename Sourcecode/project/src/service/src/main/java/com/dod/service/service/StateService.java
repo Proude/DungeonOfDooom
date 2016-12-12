@@ -51,6 +51,7 @@ public class StateService implements IStateService {
 
         return new GameStateModel(tiles.toArray(
                 new TileModel[tiles.size()]),
-                characters.toArray(new CharacterModel[characters.size()]));
+                characters.toArray(new CharacterModel[characters.size()]),
+                match.getCharacter(player.getUsername()));
     }
 }
