@@ -9,10 +9,8 @@ import com.dod.service.service.StateService;
 import com.dod.service.service.VisibilityService;
 import org.glassfish.grizzly.http.server.Request;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -45,9 +43,9 @@ public class GameController {
     }
 
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("move")
-    public Response move(String direction) {
+    public Response move(@NotNull @FormParam("key") String direction) {
         MovementService moveService = new MovementService();
         String username = (String)request.getSession().getAttribute("player");
         moveService.Move(direction, new Player(username));

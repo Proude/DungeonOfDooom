@@ -414,5 +414,33 @@ $( document ).ready(function() {
     $('#return-btn').click(game.menu.openMatchLobby);
     $('#lobby-link').click(game.menu.openMatchLobby);
     $('#tutorial-link').click(game.menu.openTutorial);
-    $('#score-link').click(game.menu.openScoreboard)
+    $('#score-link').click(game.menu.openScoreboard);
+
+    window.addEventListener('keydown', function(event) {
+        if (game.var.isRunning) {
+            switch (event.keyCode) {
+                case 65: // Left
+                    game.menu.move('A');
+                    break;
+
+                case 87: // Up
+                    game.menu.move('W');
+                    break;
+
+                case 68: // Right
+                    game.menu.move('D');
+                    break;
+
+                case 83: // Down
+                    game.menu.move('S');
+                    break;
+            }
+        }
+    }, false);
 });
+
+game.menu.move = function( key ) {
+    var endpoint = game.func.getApiPath("game","move");
+    console.log(key);
+    game.var.status = game.func.post(endpoint, {"key" : key}, game.updateStatus, game.func.error);
+}

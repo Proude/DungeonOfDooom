@@ -1,6 +1,7 @@
 package com.dod.service.service;
 
 import com.dod.game.IMatchList;
+import com.dod.game.MatchList;
 import com.dod.models.*;
 import com.dod.models.Character;
 
@@ -11,7 +12,7 @@ public class MovementService implements IMovementService {
 
     IMatchList matchList;
 
-    public MovementService() { }
+    public MovementService() { this.matchList = MatchList.instance(); }
 
     @Override
     public Point Move(String direction, Player player) {
