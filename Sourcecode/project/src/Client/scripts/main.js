@@ -137,6 +137,17 @@ game.menu.openTutorial = function() {
 
 game.menu.openScoreboard = function() {
     game.match.var.isLobbying = false;
+    var endpoint = game.func.getApiPath("score","top");
+    game.func.get(endpoint, { }, game.menu.displayScoreboard, game.func.error);
+};
+
+game.menu.displayScoreboard = function( scoreBoard ) {
+    $.each(scoreBoard.scores, function(i, score) {
+        if(score != null) {
+            $('#score-table').append($(String.format("<td>{0}</td><td>{1}</td>", score.username, score.value)))
+        }
+    });
+
     game.menu.allSections.css('display','none');
     game.menu.scoreboard.css('display','block');
 };
