@@ -170,11 +170,11 @@ game.match.join = function( data ) {
 
 game.match.new = function() {
     var endpoint = game.func.getApiPath("match","new");
-    //todo add level choosing
     game.match.var.isLobbying = false;
     game.match.var.isWaitingTostart = true;
 
-    game.func.post(endpoint, { "level" : "1" }, game.menu.displayMatchMenu);
+    var level = game.menu.levelChooser.val();
+    game.func.post(endpoint, { "level" : level }, game.menu.displayMatchMenu);
     requestAnimationFrame(game.match.updateStatus);
 };
 
@@ -264,7 +264,7 @@ game.render = function() {
                         game.var.graphics.drawCircle(positionX, positionY, game.var.scale / 2);
                         game.var.graphics.endFill();
 
-                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].x = positionX - game.var.scale / 2;
+                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].x = positionX - game.var.scale;
                         game.var.playerTitles[game.var.tiles[x][y].character.playerName].y = positionY - game.var.scale;
                     }
                 }
@@ -292,7 +292,7 @@ game.updateStatus = function( status ) {
         game.var.tiles[character.position.x][character.position.y].character = character;
     });
 
-    if(game.var.playerTitles.length == 0) {
+    if(Object.keys(game.var.playerTitles).length == 0) {
         game.initPlayerTitles(status.characters);
     }
 
@@ -396,6 +396,7 @@ game.match.leave = function() {
 $( document ).ready(function() {
     game.menu.login = $('#login');
     game.menu.lobby = $('#lobby');
+    game.menu.levelChooser = $('#level');
     game.menu.match = $('#match');
     game.menu.tutorial = $('#tutorial');
     game.menu.end = $('#end-game');

@@ -4,6 +4,8 @@
 	"name":"level2",
 	"coin_num":25,
 	"coin_win":15,
+    "Width" : 26,
+	"Height" : 18,
 	"tiles":
 	[
 	{"type":0,"visibility":true},
