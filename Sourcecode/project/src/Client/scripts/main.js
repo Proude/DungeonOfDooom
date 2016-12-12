@@ -243,8 +243,8 @@ game.render = function() {
                     }
 
                     if (tile.character !== null) {
-                        var posx = x * game.var.scale - game.var.scale / 2;
-                        var posy = y * game.var.scale - game.var.scale / 2;
+                        var positionX = tilePositionX + game.var.scale / 2;
+                        var positionY = tilePositionY + game.var.scale / 2;
 
                         game.var.graphics.beginFill(game.var.colours.player);
                         game.var.graphics.drawCircle(posx, posy, game.var.scale / 2);
