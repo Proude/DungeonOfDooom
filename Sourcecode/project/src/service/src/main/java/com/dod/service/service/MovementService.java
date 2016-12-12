@@ -41,12 +41,18 @@ public class MovementService implements IMovementService {
     }
 
     private Point updatePosition(Point newPoint, Map dungeonMap, Character pChar) {
-        if (dungeonMap.getTile(newPoint).getType() == 1) {
+        if (dungeonMap.getTile(newPoint).getType() == TileType.Empty.getValue()) {
             pChar.setPosition(newPoint);
-        } else if (dungeonMap.getTile(newPoint).getType() == 2){
+        } else if (dungeonMap.getTile(newPoint).getType() == TileType.Coin.getValue()){
             pChar.setPosition(newPoint);
             pChar.setCollectedCoins(pChar.getCollectedCoins() + 1);
             dungeonMap.setTile(newPoint, new Tile(1, true));
+        }
+        else if(dungeonMap.getTile(newPoint).getType() == TileType.Exit.getValue()) {
+            if(pChar.getCollectedCoins() > dungeonMap.getCoinWin()) {
+                pChar.setPosition(newPoint);
+                matchList.getMatchForPlayer(pChar.getPlayer().getUsername()).setState(MatchState.Over);
+            }
         }
         return pChar.getPosition();
     }

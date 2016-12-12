@@ -92,4 +92,16 @@ public class Match {
 
         return charactersOnTile;
     }
+
+    public Character getCharacterWithHighestCoins() {
+        Character character = null;
+
+        for(Character c : characters) {
+            if(character == null || c.getCollectedCoins() > character.getCollectedCoins()) {
+                character = c;
+            }
+        }
+
+        return character;
+    }
 }

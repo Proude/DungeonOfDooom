@@ -1,6 +1,7 @@
 package com.dod.service.service;
 
 import com.dod.models.Player;
+import com.dod.service.model.MatchResultModel;
 import com.dod.service.model.MatchStatus;
 
 import java.sql.SQLException;
@@ -23,4 +24,6 @@ public interface IMatchService {
     void joinMatch(Player player, UUID matchID) throws SQLException;
 
     MatchStatus[] getLobbyingMatches();
+
+    MatchResultModel getMatchResult(Player player);
 }

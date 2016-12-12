@@ -10,14 +10,16 @@ import com.dod.models.Character;
 public class GameStateModel {
     private TileModel[] tiles;
     private CharacterModel[] characters;
-    private Character playerCharacter;
+    private CharacterModel playerCharacter;
+    private boolean hasEnded;
 
     public GameStateModel() { }
 
-    public GameStateModel(TileModel[] tiles, CharacterModel[] characters, Character playerCharacter) {
+    public GameStateModel(TileModel[] tiles, CharacterModel[] characters, CharacterModel playerCharacter, boolean hasEnded) {
         this.tiles = tiles;
         this.characters = characters;
         this.playerCharacter = playerCharacter;
+        this.hasEnded = hasEnded;
     }
 
     public TileModel[] getTiles() {
@@ -36,11 +38,19 @@ public class GameStateModel {
         this.characters = characters;
     }
 
-    public Character getPlayerCharacter() {
+    public CharacterModel getPlayerCharacter() {
         return playerCharacter;
     }
 
-    public void setPlayerCharacter(Character playerCharacter) {
+    public void setPlayerCharacter(CharacterModel playerCharacter) {
         this.playerCharacter = playerCharacter;
+    }
+
+    public boolean isHasEnded() {
+        return hasEnded;
+    }
+
+    public void setHasEnded(boolean hasEnded) {
+        this.hasEnded = hasEnded;
     }
 }

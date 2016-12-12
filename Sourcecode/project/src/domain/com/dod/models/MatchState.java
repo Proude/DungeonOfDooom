@@ -5,5 +5,6 @@ package com.dod.models;
  */
 public enum MatchState {
     Lobbying,
-    Ingame
+    Ingame,
+    Over
 }

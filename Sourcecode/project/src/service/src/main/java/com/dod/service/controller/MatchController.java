@@ -129,5 +129,15 @@ public class MatchController {
                 .build();
     }
 
-    //todo: add bot endpoint?
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("result")
+    public Response result() {
+        String username = (String)request.getSession(false).getAttribute("player");
+
+        return Response
+                .ok()
+                .entity(matchService.getMatchResult(new Player(username)))
+                .build();
+    }
 }

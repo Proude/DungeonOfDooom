@@ -49,9 +49,14 @@ public class StateService implements IStateService {
             }
         }
 
+        Character character = match.getCharacter(player.getUsername());
         return new GameStateModel(tiles.toArray(
                 new TileModel[tiles.size()]),
                 characters.toArray(new CharacterModel[characters.size()]),
-                match.getCharacter(player.getUsername()));
+                new CharacterModel(
+                        character.getPlayer().getUsername(),
+                        character.getCollectedCoins(),
+                        character.getPosition()),
+                match.getState() == MatchState.Over);
     }
 }

@@ -27,7 +27,7 @@ game.var.init = function() {
     game.var.delta = 0;
     game.var.timeStep = 1000 / 20;
     game.var.lastFrameTimestamp = 0;
-}
+};
 game.var.init();
 game.var.colours = [];
 game.var.colours.background = 0x000000;
@@ -265,7 +265,6 @@ game.render = function() {
                         game.var.graphics.lineTo(tilePositionX + game.var.scale, tilePositionY + game.var.scale);
                         game.var.graphics.lineTo(tilePositionX, tilePositionY + game.var.scale);
                         game.var.graphics.endFill();
-
                     }
 
                     if (tile.character !== null) {
@@ -310,7 +309,13 @@ game.updateStatus = function( status ) {
         game.var.tiles[character.position.x][character.position.y].character = character;
     });
 
-    game.render();
+    if(status.hasEnded) {
+        game.var.isRunning = false;
+        game.end();
+    }
+    else {
+        game.render();
+    }
 };
 
 game.var.addTile = function( tile ) {
@@ -407,6 +412,31 @@ game.match.leave = function() {
     requestAnimationFrame(function() {game.func.post(endpoint, { }, game.menu.openMatchLobby, game.func.error)});
 };
 
+game.menu.move = function( key ) {
+    var endpoint = game.func.getApiPath("game","move");
+    console.log(key);
+    game.var.status = game.func.post(endpoint, {"key" : key}, game.updateStatus, game.func.error);
+};
+
+game.menu.showEndGameScreen = function( result ) {
+    if(result.winner == game.var.playerCharacter.playerName) {
+        $('#end-game-title').html("YOU WIN!")
+    }
+    else {
+        $('#end-game-title').html("YOU LOOSE!")
+    }
+    $('#end-game-detail').html(String.format("{0} wins with {1} coins", result.winner, result.winnerCoins));
+    game.menu.game.empty();
+    game.menu.game.css('display','none');
+    game.menu.end.css('display','block');
+};
+
+game.end = function() {
+    game.var.isRunning = false;
+    var endpoint = game.func.getApiPath("match","result");
+    game.func.get(endpoint, { }, game.menu.showEndGameScreen, game.func.error);
+};
+
 $( document ).ready(function() {
     game.menu.login = $('#login');
     game.menu.lobby = $('#lobby');
@@ -453,9 +483,3 @@ $( document ).ready(function() {
         }
     }, false);
 });
-
-game.menu.move = function( key ) {
-    var endpoint = game.func.getApiPath("game","move");
-    console.log(key);
-    game.var.status = game.func.post(endpoint, {"key" : key}, game.updateStatus, game.func.error);
-}

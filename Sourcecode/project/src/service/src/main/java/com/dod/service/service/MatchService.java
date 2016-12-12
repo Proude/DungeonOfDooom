@@ -2,9 +2,10 @@ package com.dod.service.service;
 
 import com.dod.db.repositories.IPlayerRepository;
 import com.dod.game.IMatchList;
-import com.dod.game.MatchList;
 import com.dod.models.*;
+import com.dod.models.Character;
 import com.dod.service.constant.Assets;
+import com.dod.service.model.MatchResultModel;
 import com.dod.service.model.MatchStatus;
 
 import java.sql.SQLException;
@@ -99,5 +100,13 @@ public class MatchService implements IMatchService {
         }
 
         return matchStatuses;
+    }
+
+    @Override
+    public MatchResultModel getMatchResult(Player player) {
+        Match match = matchList.getMatchForPlayer(player.getUsername());
+        Character winner = match.getCharacterWithHighestCoins();
+
+        return new MatchResultModel(winner.getPlayer().getUsername(), winner.getCollectedCoins());
     }
 }
