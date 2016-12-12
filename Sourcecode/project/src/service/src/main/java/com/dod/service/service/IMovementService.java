@@ -2,6 +2,7 @@ package com.dod.service.service;
 
 import com.dod.models.Character;
 import com.dod.models.Map;
+import com.dod.models.Player;
 import com.dod.models.Point;
 
 /**
@@ -10,6 +11,6 @@ import com.dod.models.Point;
  */
 public interface IMovementService {
 
-    Point Move(String direction, Character pChar, Map dungeonMap); //todo add required params- eg map, character, target point
+    Point Move(String direction, Player player); //todo add required params- eg map, character, target point
 
 }

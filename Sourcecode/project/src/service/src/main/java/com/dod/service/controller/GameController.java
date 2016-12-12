@@ -1,8 +1,10 @@
 package com.dod.service.controller;
 
 import com.dod.game.MatchList;
+import com.dod.models.Map;
 import com.dod.models.Player;
 import com.dod.service.model.GameStateModel;
+import com.dod.service.service.MovementService;
 import com.dod.service.service.StateService;
 import com.dod.service.service.VisibilityService;
 import org.glassfish.grizzly.http.server.Request;
@@ -45,10 +47,15 @@ public class GameController {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Path("move")
-    public Response move() {
+    public Response move(String direction) {
+        MovementService moveService = new MovementService();
+        String username = (String)request.getSession().getAttribute("player");
+        moveService.Move(direction, new Player(username));
+        GameStateModel state = stateService.GetState(new Player(username));
+
         return Response
                 .ok()
-                .entity("unimplemented")
+                .entity(state)
                 .build();
     }
 }

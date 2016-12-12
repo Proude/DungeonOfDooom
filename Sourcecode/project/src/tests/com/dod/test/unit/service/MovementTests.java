@@ -45,24 +45,24 @@ public class MovementTests {
     @Test
     public void shouldReturnTrueIfPlayerMovedToRightTile() {
         MovementService moveService = new MovementService();
-        Assert.assertTrue(moveService.Move("D", pChar, dungeonMap).equals(new Point(5,4)));
+        Assert.assertTrue(moveService.Move("D", new Player("test")).equals(new Point(5,4)));
     }
 
     @Test
     public void shouldReturnFalseIfPlayerMovedToRightTile() {
         MovementService moveService = new MovementService();
-        Assert.assertFalse(moveService.Move("D", pChar, dungeonMap).equals(new Point(4,4)));
+        Assert.assertFalse(moveService.Move("D", new Player("test")).equals(new Point(4,4)));
     }
 
     @Test
     public void shouldReturnFalseIfPlayerMovesToWall() {
         MovementService moveService = new MovementService();
-        Assert.assertFalse(moveService.Move("D", pChar2, dungeonMap).equals(new Point(3,0)));
+        Assert.assertFalse(moveService.Move("D", new Player("test")).equals(new Point(3,0)));
     }
 
     @Test
     public void shouldReturnTrueIfPlayerCantMoveToWall() {
         MovementService moveService = new MovementService();
-        Assert.assertFalse(moveService.Move("D", pChar2, dungeonMap).equals(new Point(3,1)));
+        Assert.assertFalse(moveService.Move("D", new Player("test")).equals(new Point(3,1)));
     }
 }
