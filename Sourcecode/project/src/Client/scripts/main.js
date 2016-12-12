@@ -203,7 +203,7 @@ game.menu.initGameScreen = function() {
     requestAnimationFrame(game.updateGame);
 };
 
-game.initPlayerTitles = function( characters ) {
+game.initPlayerTitle = function( character ) {
     var style = {
         fontFamily : 'Arial',
         fontSize : '18px',
@@ -218,10 +218,8 @@ game.initPlayerTitles = function( characters ) {
         dropShadowDistance : 4
     };
 
-    $.each( characters, function(i, character) {
-        game.var.playerTitles[character.playerName] = new PIXI.Text(character.playerName, style);
-        game.var.stage.addChild(game.var.playerTitles[character.playerName]);
-    });
+    game.var.playerTitles[character.playerName] = new PIXI.Text(character.playerName, style);
+    game.var.stage.addChild(game.var.playerTitles[character.playerName]);
 };
 
 game.render = function() {
@@ -264,8 +262,14 @@ game.render = function() {
                         game.var.graphics.drawCircle(positionX, positionY, game.var.scale / 2);
                         game.var.graphics.endFill();
 
-                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].x = positionX - game.var.scale;
-                        game.var.playerTitles[game.var.tiles[x][y].character.playerName].y = positionY - game.var.scale;
+                        var character = game.var.tiles[x][y].character;
+                        var playerTitle = game.var.playerTitles[character.playerName];
+                        if(typeof playerTitle === 'undefined') {
+                            game.initPlayerTitle(character);
+                        }
+
+                        playerTitle.x = positionX - game.var.scale;
+                        playerTitle.y = positionY - game.var.scale;
                     }
                 }
             }
@@ -291,10 +295,6 @@ game.updateStatus = function( status ) {
     $.each( status.characters, function( i, character) {
         game.var.tiles[character.position.x][character.position.y].character = character;
     });
-
-    if(Object.keys(game.var.playerTitles).length == 0) {
-        game.initPlayerTitles(status.characters);
-    }
 
     game.render();
 };
