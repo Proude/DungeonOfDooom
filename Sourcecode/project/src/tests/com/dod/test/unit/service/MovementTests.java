@@ -43,25 +43,25 @@ public class MovementTests {
     }
 
     @Test
-    public void shouldReturnTrueIfPlayerMovedToRightTile() {
+    public void shouldReturnTrueIfPlayerMovedToRightTile() throws Exception {
         MovementService moveService = new MovementService();
         Assert.assertTrue(moveService.Move("D", new Player("test")).equals(new Point(5,4)));
     }
 
     @Test
-    public void shouldReturnFalseIfPlayerMovedToRightTile() {
+    public void shouldReturnFalseIfPlayerMovedToRightTile() throws Exception {
         MovementService moveService = new MovementService();
         Assert.assertFalse(moveService.Move("D", new Player("test")).equals(new Point(4,4)));
     }
 
     @Test
-    public void shouldReturnFalseIfPlayerMovesToWall() {
+    public void shouldReturnFalseIfPlayerMovesToWall() throws Exception {
         MovementService moveService = new MovementService();
         Assert.assertFalse(moveService.Move("D", new Player("test")).equals(new Point(3,0)));
     }
 
     @Test
-    public void shouldReturnTrueIfPlayerCantMoveToWall() {
+    public void shouldReturnTrueIfPlayerCantMoveToWall() throws Exception {
         MovementService moveService = new MovementService();
         Assert.assertFalse(moveService.Move("D", new Player("test")).equals(new Point(3,1)));
     }

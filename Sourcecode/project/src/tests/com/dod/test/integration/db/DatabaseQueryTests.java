@@ -61,7 +61,7 @@ public class DatabaseQueryTests {
         Player nPlayer = new Player("test", "1234", new byte[0]);
         Score temp = new Score(nPlayer.getUsername(), 20);
         try {
-            Assert.assertTrue(pr.insert(nPlayer, temp));
+            Assert.assertTrue(pr.insert(temp));
         } catch (SQLException e) {
             Assert.fail(e.toString());
             e.printStackTrace();

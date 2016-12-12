@@ -1,9 +1,13 @@
 package com.dod.service.service;
 
+import com.dod.db.repositories.IScoreRepository;
+import com.dod.db.repositories.ScoreRepository;
 import com.dod.game.IMatchList;
 import com.dod.game.MatchList;
 import com.dod.models.*;
 import com.dod.models.Character;
+
+import java.sql.SQLException;
 
 /**
  * Implementation of IMovementService
@@ -11,11 +15,15 @@ import com.dod.models.Character;
 public class MovementService implements IMovementService {
 
     IMatchList matchList;
+    IScoreRepository scoreRepository;
 
-    public MovementService() { this.matchList = MatchList.instance(); }
+    public MovementService() {
+        this.matchList = MatchList.instance();
+        this.scoreRepository = (IScoreRepository)new ScoreRepository();
+    }
 
     @Override
-    public Point Move(String direction, Player player) {
+    public Point Move(String direction, Player player) throws SQLException {
         Match match = matchList.getMatchForPlayer(player.getUsername());
         Character pChar = match.getCharacter(player.getUsername());
         Map dungeonMap = match.getMap();
@@ -40,7 +48,7 @@ public class MovementService implements IMovementService {
         }
     }
 
-    private Point updatePosition(Point newPoint, Map dungeonMap, Character pChar) {
+    private Point updatePosition(Point newPoint, Map dungeonMap, Character pChar) throws SQLException {
         if (dungeonMap.getTile(newPoint).getType() == TileType.Empty.getValue()) {
             pChar.setPosition(newPoint);
         } else if (dungeonMap.getTile(newPoint).getType() == TileType.Coin.getValue()){
@@ -52,6 +60,7 @@ public class MovementService implements IMovementService {
             if(pChar.getCollectedCoins() > dungeonMap.getCoinWin()) {
                 pChar.setPosition(newPoint);
                 matchList.getMatchForPlayer(pChar.getPlayer().getUsername()).setState(MatchState.Over);
+                scoreRepository.insert(new Score(pChar.getPlayer().getUsername(), pChar.getCollectedCoins()));
             }
         }
         return pChar.getPosition();

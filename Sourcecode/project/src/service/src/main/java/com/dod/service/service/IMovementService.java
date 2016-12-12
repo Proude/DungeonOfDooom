@@ -5,12 +5,14 @@ import com.dod.models.Map;
 import com.dod.models.Player;
 import com.dod.models.Point;
 
+import java.sql.SQLException;
+
 /**
  * Interface for MovementService.
  * Handles game logic to move a character from one point to another.
  */
 public interface IMovementService {
 
-    Point Move(String direction, Player player); //todo add required params- eg map, character, target point
+    Point Move(String direction, Player player) throws SQLException; //todo add required params- eg map, character, target point
 
 }

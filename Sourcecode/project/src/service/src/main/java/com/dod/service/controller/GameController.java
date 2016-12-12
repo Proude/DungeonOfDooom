@@ -14,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 
 /**
  * Manages game functionality
@@ -24,9 +25,11 @@ public class GameController {
     @Context
     private Request request;
     StateService stateService;
+    MovementService movementService;
 
     public GameController() {
         stateService = new StateService(new VisibilityService(), MatchList.instance());
+        movementService = new MovementService();
     }
 
     @GET
@@ -46,9 +49,14 @@ public class GameController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("move")
     public Response move(@NotNull @FormParam("key") String direction) {
-        MovementService moveService = new MovementService();
         String username = (String)request.getSession().getAttribute("player");
-        moveService.Move(direction, new Player(username));
+        try {
+            movementService.Move(direction, new Player(username));
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            return Response.serverError().build();
+        }
         GameStateModel state = stateService.GetState(new Player(username));
 
         return Response

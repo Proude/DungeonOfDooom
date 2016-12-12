@@ -22,16 +22,16 @@ public class ScoreRepository extends DatabaseRepository<Score> implements IScore
     /**
      * Inserts a score value to score table of database based on player's
      * username.
-     * @param playerObject current player
      * @param scoreObject current score that we need to score
      * @return true if insertion was successful else false
      * @throws SQLException
      */
-    public boolean insert(Player playerObject, Score scoreObject) throws SQLException {
+    @Override
+    public boolean insert(Score scoreObject) throws SQLException {
 
         PreparedStatement statement = getStatement(insertQuery);
 
-        statement.setString(1, playerObject.getUsername());
+        statement.setString(1, scoreObject.getUsername());
         statement.setInt(2, scoreObject.getValue());
 
         try {

@@ -1,8 +1,11 @@
 package com.dod.models;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This class is a model of Score that is used by the player.
  */
+@XmlRootElement
 public class Score {
     private int id;
     private String username;
