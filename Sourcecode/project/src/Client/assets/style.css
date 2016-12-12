@@ -22,7 +22,7 @@ li {
 
 li a {
   display: block;
-  color: white;
+  color: #EEE;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -45,8 +45,8 @@ body {
   background-image: url('header.jpg');
   background-color: #cccccc;
   background-size: cover;
-
-  color: rgba(175, 69, 19, 0.71);
+  font-family: 'VT323', monospace;
+  color: #EEE;
 }
 
 section {
@@ -71,13 +71,11 @@ section {
 
 h1 {
   text-decoration: underline;
-  color: rgba(175, 69, 19, 0.71);
+  color: #EEE;
   font-size: 40px;
-
 }
 
 #score-table {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
@@ -87,10 +85,12 @@ h1 {
   font-size: 20px;
   text-align: center;
   padding: 8px;
-  color: #2e6da4;
+  color: #EEE;
 }
 
-#score-table tr:hover {background-color: #ddd;}
+#score-table tr:hover {
+  background-color: #333;
+}
 
 #score-table th {
   padding-top: 12px;
@@ -98,7 +98,7 @@ h1 {
   text-align: center;
   font-size: 30px;
 
-  color: white;
+  color: #EEE;
 }
 
 footer {
@@ -127,9 +127,13 @@ input[type=text], input[type=password] {
   font-size: medium;
 }
 
+input {
+  color:#000;
+}
+
 button {
   background-color: rgba(0, 0, 0, 0.69);
-  color: white;
+  color: #EEE;
   padding: 14px 20px;
   margin: 10px;
   border: none;
@@ -150,4 +154,8 @@ ul#guest-header li {
   text-align: center;
   color:white;
   font-size: 32px;
+}
+
+h3 {
+  text-decoration: underline;
 }

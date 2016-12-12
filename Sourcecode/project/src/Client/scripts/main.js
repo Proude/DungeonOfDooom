@@ -397,7 +397,7 @@ game.menu.displayMatchMenu = function( data ) {
     matchDeatils.empty();
 
     matchDeatils.append($("<h2>Waiting to start.</h2>"));
-    matchDeatils.append($("<h3>Players</h3>"));
+    matchDeatils.append($("<h3>Players:</h3>"));
 
     $.each( data.playerNames, function( i, name ) {
         var entry = $( String.format("<p>{0}</p>", name) );
