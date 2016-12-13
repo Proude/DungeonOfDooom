@@ -19,6 +19,8 @@ game.var.init = function() {
     game.var.scale = 50;
     game.var.tiles = [];
     game.var.characters = [];
+    game.var.minCoins = {};
+    game.var.winText = [];
     game.var.renderer = {};
     game.var.stage = {};
     game.var.graphics = {};
@@ -222,6 +224,25 @@ game.menu.initGameScreen = function() {
     requestAnimationFrame(game.updateGame);
 };
 
+game.initTextWinCondition = function( character ) {
+    var style = {
+        fontFamily : 'Arial',
+        fontSize : '18px',
+        fontStyle : 'italic',
+        fontWeight : 'bold',
+        fill : '#F7EDCA',
+        stroke : '#4a1850',
+        strokeThickness : 5,
+        dropShadow : true,
+        dropShadowColor : '#000000',
+        dropShadowAngle : Math.PI / 6,
+        dropShadowDistance : 4
+    };
+
+    game.var.winText[character.playerName] = new PIXI.Text('You have to collect '+ game.var.minCoins +' coins minimum to win! You collected ' + game.var.playerCharacter.noCoins + ' coins!', style);
+    game.var.stage.addChild(game.var.winText[character.playerName]);
+}
+
 game.initPlayerTitle = function( character ) {
     var style = {
         fontFamily : 'Arial',
@@ -303,6 +324,8 @@ game.render = function() {
                             playerTitle.x = positionX - game.var.scale;
                             playerTitle.y = positionY - game.var.scale;
                         }
+
+                        game.initTextWinCondition(game.var.tiles[x][y].character);
                     }
                 }
             }
@@ -328,6 +351,7 @@ game.setAllTilesNotVisible = function() {
 game.updateStatus = function( status ) {
     game.var.characters = status.characters;
     game.var.playerCharacter = status.playerCharacter;
+    game.var.minCoins = status.minNumOfCoins;
 
     game.camera.x = (game.var.playerCharacter.position.x * game.var.scale) - (game.var.xSize / 2);
     game.camera.y = (game.var.playerCharacter.position.y * game.var.scale) - (game.var.ySize / 2);
@@ -504,19 +528,19 @@ $( document ).ready(function() {
     window.addEventListener('keydown', function(event) {
         if (game.var.isRunning) {
             switch (event.keyCode) {
-                case 65: // Left
+                case 65 || 37: // Left
                     game.menu.move('A');
                     break;
 
-                case 87: // Up
+                case 87 || 38: // Up
                     game.menu.move('W');
                     break;
 
-                case 68: // Right
+                case 68 || 39: // Right
                     game.menu.move('D');
                     break;
 
-                case 83: // Down
+                case 83 || 40: // Down
                     game.menu.move('S');
                     break;
             }
