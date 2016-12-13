@@ -3,7 +3,7 @@ package com.dod.models;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * This class is a model of Score that is used by the player.
+ * This class is a model of Score that is used by the client via JSON.
  */
 @XmlRootElement
 public class Score {

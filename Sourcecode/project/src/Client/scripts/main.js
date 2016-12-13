@@ -431,6 +431,7 @@ game.menu.displayMatchMenu = function( data ) {
     matchDeatils.empty();
 
     matchDeatils.append($("<h2>Waiting to start.</h2>"));
+    matchDeatils.append($(String.format("<p>To add a bot use the following ID: {0}</p>", data.id)));
     matchDeatils.append($("<h3>Players:</h3>"));
 
     $.each( data.playerNames, function( i, name ) {
