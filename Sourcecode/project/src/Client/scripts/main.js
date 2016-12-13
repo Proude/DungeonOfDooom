@@ -148,9 +148,10 @@ game.menu.openScoreboard = function() {
 };
 
 game.menu.displayScoreboard = function( scoreBoard ) {
+    $('#score-table tbody td').remove();
     $.each(scoreBoard.scores, function(i, score) {
         if(score != null) {
-            $('#score-table').append($(String.format("<tr><td>{0}</td><td>{1}</td></tr>", score.username, score.value)))
+            $('#score-table tbody').append($(String.format("<tr><td>{0}</td><td>{1}</td></tr>", score.username, score.value)))
         }
     });
 
