@@ -9,6 +9,7 @@ import com.dod.service.model.MatchResultModel;
 import com.dod.service.model.MatchStatus;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,6 +58,8 @@ public class MatchService implements IMatchService {
     @Override
     public void startMatch(Player player) {
         Match match = matchList.getMatchForPlayer(player.getUsername());
+        Date temp = new Date();
+        match.setTimer(temp.getTime());
         match.setState(MatchState.Ingame);
     }
 

@@ -8,6 +8,7 @@ import com.dod.models.*;
 import com.dod.models.Character;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  * Implementation of IMovementService
@@ -62,7 +63,10 @@ public class MovementService implements IMovementService {
             if(pChar.getCollectedCoins() > dungeonMap.getCoinWin()) {
                 pChar.setPosition(newPoint);
                 matchList.getMatchForPlayer(pChar.getPlayer().getUsername()).setState(MatchState.Over);
-                scoreRepository.insert(new Score(pChar.getPlayer().getUsername(), pChar.getCollectedCoins()));
+                Match match = matchList.getMatchForPlayer(pChar.getPlayer().getUsername());
+                Date temp = new Date();
+                match.setTimer(temp.getTime() - match.getTimer());
+                scoreRepository.insert(new Score(pChar.getPlayer().getUsername(), (int) (((double)pChar.getCollectedCoins() / match.getTimer()) * 10000000)));
             }
         }
         return pChar.getPosition();

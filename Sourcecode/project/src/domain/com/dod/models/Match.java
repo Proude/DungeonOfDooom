@@ -1,6 +1,7 @@
 package com.dod.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,12 +14,14 @@ public class Match {
     private Map map;
     private List<Character> characters;
     private MatchState state;
+    private long timer;
 
     public Match(Map map) {
         this.id = UUID.randomUUID();
         this.map = map;
         this.characters = new ArrayList();
         state = MatchState.Lobbying;
+        timer = 0;
     }
 
     public Map getMap() {
@@ -103,5 +106,13 @@ public class Match {
         }
 
         return character;
+    }
+
+    public long getTimer() {
+        return timer;
+    }
+
+    public void setTimer(long timer) {
+        this.timer = timer;
     }
 }

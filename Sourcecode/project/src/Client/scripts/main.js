@@ -478,7 +478,6 @@ game.match.leave = function() {
 
 game.menu.move = function( key ) {
     var endpoint = game.func.getApiPath("game","move");
-    console.log(key);
     game.var.status = game.func.post(endpoint, {"key" : key}, game.updateStatus, game.func.error);
 };
 
@@ -528,19 +527,20 @@ $( document ).ready(function() {
     window.addEventListener('keydown', function(event) {
         if (game.var.isRunning) {
             switch (event.keyCode) {
-                case 65 || 37: // Left
+                case 65:
+                case 37: // Left
                     game.menu.move('A');
                     break;
-
-                case 87 || 38: // Up
+                case 87:
+                case 38: // Up
                     game.menu.move('W');
                     break;
-
-                case 68 || 39: // Right
+                case 68:
+                case 39: // Right
                     game.menu.move('D');
                     break;
-
-                case 83 || 40: // Down
+                case 83:
+                case 40: // Down
                     game.menu.move('S');
                     break;
             }
