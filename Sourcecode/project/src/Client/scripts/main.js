@@ -489,7 +489,7 @@ $( document ).ready(function() {
     $('#new-match-btn').click(game.match.new);
     $('#start-match-btn').click(game.match.start);
     $('#match-leave-btn').click(game.match.leave);
-    $('#return-btn').click(game.menu.openMatchLobby);
+    $('#return-btn').click(game.match.leave);
     $('#lobby-link').click(game.menu.openMatchLobby);
     $('#tutorial-link').click(game.menu.openTutorial);
     $('#score-link').click(game.menu.openScoreboard);
