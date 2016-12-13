@@ -437,6 +437,11 @@ game.menu.displayMatchMenu = function( data ) {
         var entry = $( String.format("<p>{0}</p>", name) );
         matchDeatils.append(entry);
     });
+
+    if(data.state == 'Ingame') {
+        game.match.var.isWaitingTostart = false;
+        game.menu.initGameScreen();
+    }
 };
 
 game.match.leave = function() {

@@ -15,12 +15,14 @@ public class MatchStatus
     private String[] playerNames;
     @XmlID
     private UUID id;
+    private String state;
 
     public MatchStatus() {}
 
     public MatchStatus(Match match) {
         this.playerNames = match.getPlayerNames();
         this.id = match.getId();
+        this.state = match.getState().toString();
     }
 
     public String[] getPlayerNames() {
@@ -37,5 +39,13 @@ public class MatchStatus
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
