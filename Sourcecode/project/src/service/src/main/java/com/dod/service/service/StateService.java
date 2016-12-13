@@ -57,6 +57,7 @@ public class StateService implements IStateService {
                         character.getPlayer().getUsername(),
                         character.getCollectedCoins(),
                         character.getPosition()),
-                match.getState() == MatchState.Over);
+                match.getState() == MatchState.Over,
+                match.getMap().getCoinWin());
     }
 }

@@ -3,6 +3,7 @@ package com.dod.service.service;
 import com.dod.models.Map;
 import com.dod.models.Character;
 import com.dod.models.Point;
+import com.dod.models.Tile;
 
 /**
  * Implements IVisibilityService
@@ -14,7 +15,10 @@ public class VisibilityService implements IVisibilityService {
         Map returnValue = new Map(dungeonMap.getName(), dungeonMap.getCoinNo(), dungeonMap.getCoinWin(), dungeonMap.getWidth(), dungeonMap.getHeight(), new Point(dungeonMap.getWidth(), dungeonMap.getHeight()));
         for (int i = 0; i < dungeonMap.getWidth(); i++) {
             for (int j = 0; j < dungeonMap.getHeight(); j++) {
-                returnValue.setTile(new Point(i,j), dungeonMap.getTile(new Point(i, j)));
+                if (pchar.getCollectedCoinsPos().contains(new Point(i, j)))
+                    returnValue.setTile(new Point(i, j), new Tile(1, true));
+                else
+                    returnValue.setTile(new Point(i,j), dungeonMap.getTile(new Point(i, j)));
                 if (pchar.getPosition().x - 2 > i || pchar.getPosition().x + 2 < i||pchar.getPosition().y -2 > j||pchar.getPosition().y+2 < j)
                     returnValue.getTile(new Point(i, j)).setVisibility(false);
                 else
