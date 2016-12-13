@@ -298,9 +298,10 @@ game.render = function() {
                         if(typeof playerTitle === 'undefined') {
                             game.initPlayerTitle(character);
                         }
-
-                        playerTitle.x = positionX - game.var.scale;
-                        playerTitle.y = positionY - game.var.scale;
+                        else {
+                            playerTitle.x = positionX - game.var.scale;
+                            playerTitle.y = positionY - game.var.scale;
+                        }
                     }
                 }
             }
@@ -458,7 +459,7 @@ game.menu.showEndGameScreen = function( result ) {
         $('#end-game-title').html("YOU LOOSE!")
     }
     $('#end-game-detail').html(String.format("{0} wins with {1} coins", result.winner, result.winnerCoins));
-    game.menu.game.empty();
+    game.menu.gameContainer.empty();
     game.menu.game.css('display','none');
     game.menu.end.css('display','block');
 };
