@@ -33,6 +33,8 @@ game.var.init = function() {
     game.var.delta = 0;
     game.var.timeStep = 1000 / 20;
     game.var.lastFrameTimestamp = 0;
+    game.var.opacityVis = 1.0;
+    game.var.opacityInvis = 0.3;
 };
 game.var.init();
 game.var.colours = [];
@@ -283,28 +285,28 @@ game.render = function() {
                         var wall = PIXI.Sprite.fromImage('assets/wall.png');
                         wall.x = tilePositionX;
                         wall.y = tilePositionY;
-                        wall.alpha = tile.visible ? 1.0 : 0.5;
+                        wall.alpha = tile.visible ? game.var.opacityVis : game.var.opacityInvis;
                         game.var.stage.addChild(wall);
                     }
                     else if (tile.type == 1) {
                         var floor = PIXI.Sprite.fromImage('assets/floor.png');
                         floor.x = tilePositionX;
                         floor.y = tilePositionY;
-                        floor.alpha = tile.visible ? 1.0 : 0.5;
+                        floor.alpha = tile.visible ? game.var.opacityVis : game.var.opacityInvis;
                         game.var.stage.addChild(floor);
                     }
                     else if (tile.type == 2) {
                         var coin = PIXI.Sprite.fromImage('assets/coin.png');
                         coin.x = tilePositionX;
                         coin.y = tilePositionY;
-                        coin.alpha = tile.visible ? 1.0 : 0.5;
+                        coin.alpha = tile.visible ? game.var.opacityVis : game.var.opacityInvis;
                         game.var.stage.addChild(coin);
                     }
                     else if(tile.type == 3) {
                         var exit = PIXI.Sprite.fromImage('assets/exit.png');
                         exit.x = tilePositionX;
                         exit.y = tilePositionY;
-                        exit.alpha = tile.visible ? 1.0 : 0.5;
+                        exit.alpha = tile.visible ? game.var.opacityVis : game.var.opacityInvis;
                         game.var.stage.addChild(exit);
                     }
 
