@@ -3,24 +3,29 @@ package com.dod.models;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Map implements Serializable{
+/**
+ * <pre>
+        A Map stores a 2-dimensional grid of Tiles.
+        A Map has a name, width, height and numbe rof coins total and required to win.
+ * </pre>
+ */
+public class Map {
 
-	private static final long serialVersionUID = 1L;
 	protected int width;
 	protected int height;
 	protected String name;
-	protected int coin_no;
-	protected int coin_win;
+	protected int totalNumberOfCoins;
+	protected int numberOfCoinsNeededToWin;
 	protected Tile[][] tiles;
 
 	public Map(int width, int height) {
 		tiles = new Tile[width][height];
 	}
 
-	public Map(String name, int coin_no, int coin_win, int width, int height, Point mapSize) {
+	public Map(String name, int totalNumberOfCoins, int numberOfCoinsNeededToWin, int width, int height, Point mapSize) {
 		this.name = name;
-		this.coin_no = coin_no;
-		this.coin_win = coin_win;
+		this.totalNumberOfCoins = totalNumberOfCoins;
+		this.numberOfCoinsNeededToWin = numberOfCoinsNeededToWin;
 		this.width = width;
 		this.height = height;
 		tiles = new Tile[mapSize.x][mapSize.y];
@@ -38,20 +43,36 @@ public class Map implements Serializable{
 		this.name = name;
 	}
 
+    /**
+     * The total number of coins that should be created in the map.
+     * @return int
+     */
 	public int getCoinNo(){
-		return coin_no;
+		return totalNumberOfCoins;
 	}
 
+    /**
+     * The total number of coins that should be created in the map.
+     * @param coin_no int
+     */
 	public void setCoinNo(int coin_no){
-		this.coin_no = coin_no;
+		this.totalNumberOfCoins = coin_no;
 	}
 
+    /**
+     * The total number of coins needed to win on this map
+     * @return int
+     */
 	public int getCoinWin(){
-		return coin_win;
+		return numberOfCoinsNeededToWin;
 	}
 
+    /**
+     * The total number of coins needed to win on this map
+     * @param coin_win int
+     */
 	public void setCoinWin(int coin_win){
-		this.coin_win = coin_win;
+		this.numberOfCoinsNeededToWin = coin_win;
 	}
 
 	public Tile getTile(Point point) {
@@ -66,6 +87,10 @@ public class Map implements Serializable{
 		return height;
 	}
 
+    /**
+     * Gets a random position of a tile that is not a wall, coin or exit.
+     * @return Point
+     */
 	public Point getRandomFreeTilePoint() {
 		Random random = new Random();
 		Point point = null;

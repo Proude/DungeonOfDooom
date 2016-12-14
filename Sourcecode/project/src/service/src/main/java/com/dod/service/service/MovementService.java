@@ -56,7 +56,7 @@ public class MovementService implements IMovementService {
             pChar.setPosition(newPoint);
             if (!pChar.getCollectedCoinsPos().contains(newPoint)) {
                 pChar.setCollectedCoins(pChar.getCollectedCoins() + 1);
-                pChar.setCollectedCoinsPos(newPoint);
+                pChar.addCollectedCoinsPos(newPoint);
             }
         }
         else if(dungeonMap.getTile(newPoint).getType() == TileType.Exit.getValue()) {

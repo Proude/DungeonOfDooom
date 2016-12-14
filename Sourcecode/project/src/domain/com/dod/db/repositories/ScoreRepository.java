@@ -8,8 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *  ScoreRepository is used to establish connection with database
- *  and store, delete or get items from it.
+ * <pre>
+ *     Implements IPlayerRepository.
+ *     Follows the Repository pattern.
+ *     Intended for selecting/inserting/deleting "Score" entries from the database.
+ * </pre>
  */
 public class ScoreRepository extends DatabaseRepository<Score> implements IScoreRepository {
 
@@ -24,7 +27,7 @@ public class ScoreRepository extends DatabaseRepository<Score> implements IScore
      * username.
      * @param scoreObject current score that we need to score
      * @return true if insertion was successful else false
-     * @throws SQLException
+     * @throws SQLException when the statement fails
      */
     @Override
     public boolean insert(Score scoreObject) throws SQLException {
@@ -49,7 +52,7 @@ public class ScoreRepository extends DatabaseRepository<Score> implements IScore
      * !! We should not use that.
      * @param object score object to delete
      * @return true if the deletion was successful else false
-     * @throws SQLException
+     * @throws SQLException when the statement fails
      */
     @Override
     public boolean delete(Score object) throws SQLException {
@@ -64,12 +67,11 @@ public class ScoreRepository extends DatabaseRepository<Score> implements IScore
     }
 
     /**
-     * return 10 highest scores from database so they
-     * can be printed on ScoreView
-     * @return maximum 10 scores
-     * @throws SQLException
+     * Get the 10 highest scores from database
+     * @return Score[] array of 10 Score objects
+     * @throws SQLException when the statement fails
      */
-    public Score[] getHighestScore() throws SQLException {
+    public Score[] getHighestScores() throws SQLException {
         PreparedStatement statement = getStatement(getQuery);
 
         //statement.setString(1, object.getUsername());
@@ -85,13 +87,12 @@ public class ScoreRepository extends DatabaseRepository<Score> implements IScore
     }
 
     /**
-     * returns 10 highest scores of the player from database
-     * so they can be printed on ScoreView
+     * Get the 10 highest scores of the player
      * @param object Player object
-     * @return maximum 10 scores
-     * @throws SQLException
+     * @return Score[] array of 10 Score objects
+     * @throws SQLException when the statement fails
      */
-    public Score[] getPlayerScore (Player object) throws SQLException {
+    public Score[] getPlayerScores(Player object) throws SQLException {
         PreparedStatement statement = getStatement(getPlayerQuery);
 
         statement.setString(1, object.getUsername());
@@ -107,10 +108,10 @@ public class ScoreRepository extends DatabaseRepository<Score> implements IScore
     }
 
     /**
-     * returns a score based on id from the database
-     * @param object score object
-     * @return score object
-     * @throws SQLException
+     * returns a Score based on id from the database
+     * @param Score to be fetched must have unique identifier populated
+     * @return Score object
+     * @throws SQLException when the statement fails
      */
     @Override
     public Score get(Score object) throws SQLException {

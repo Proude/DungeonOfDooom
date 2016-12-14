@@ -1,5 +1,6 @@
 package com.dod.service.controller;
 
+import com.dod.db.repositories.IScoreRepository;
 import com.dod.db.repositories.ScoreRepository;
 import com.dod.service.model.ScoreboardModel;
 
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 @Path("score")
 public class ScoreController {
 
-    private ScoreRepository repository;
+    private IScoreRepository repository;
 
     public ScoreController() {
         this.repository = new ScoreRepository();
@@ -29,7 +30,7 @@ public class ScoreController {
         ScoreboardModel scoreBoard = null;
 
         try {
-            scoreBoard = new ScoreboardModel(repository.getHighestScore());
+            scoreBoard = new ScoreboardModel(repository.getHighestScores());
         }
         catch(SQLException e) {
             e.printStackTrace();

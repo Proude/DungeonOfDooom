@@ -3,7 +3,7 @@ package com.dod.models;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Bean class for storing a point in the map.
+ * Bean class for storing a point (or vertex) in the map.
  */
 @XmlRootElement
 public class Point {

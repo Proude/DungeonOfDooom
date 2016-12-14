@@ -3,7 +3,11 @@ package com.dod.models;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * This class is a model of Score that is used by the client via JSON.
+ * <pre>
+ *     A Score stores the points a Player achieved when they completed a Match.
+ *     A Score as an ID in order to store the Score as a unique databaes record
+ *     A Score also has a value and the username of the player that the score is related to.
+ * </pre>
  */
 @XmlRootElement
 public class Score {

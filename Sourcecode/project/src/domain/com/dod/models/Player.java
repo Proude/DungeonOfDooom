@@ -1,7 +1,12 @@
 package com.dod.models;
 
 /**
- * This is the model of the User.
+ * <pre>
+ *     A Player represents the user that is in control of the game client
+ *     A Player can sign in with a username or password
+ *     A Player has a level and a password salt
+ *     A Player's password is always hashed
+ * </pre>
  */
 public class Player {
 
@@ -9,7 +14,6 @@ public class Player {
     private String hashedPassword;
     private int level;
     private byte[] salt;
-    private Score[] scoreData;
 
     public Player(String name) {
         this.username = name;

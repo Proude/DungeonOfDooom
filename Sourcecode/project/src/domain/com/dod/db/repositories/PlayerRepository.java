@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * PlayeRepository is used to establish connection with database
- *  and store, delete or get items from it.
+ * <pre>
+ *     Implements IPlayerRepository.
+ *     Follows the Repository pattern.
+ *     Intended for selecting/inserting/deleting "Player" entries from the database.
+ * </pre>
  */
 public class PlayerRepository extends DatabaseRepository<Player> implements IPlayerRepository {
 
@@ -17,10 +20,47 @@ public class PlayerRepository extends DatabaseRepository<Player> implements IPla
     private final String insertQuery = "INSERT INTO player (username, password, level, salt) VALUES (?, ?, 0, ?)";
 
     /**
-     * Inserts a player info to player table of database.
-     * @param object player object
-     * @return true if insertion was successful else false
-     * @throws SQLException
+     * Make a SELECT query to fetch the unique Player in question from the database
+     * @param object an instance of the Player in question with the unique field (but not necessarily others) filled out
+     * @return Player object fetched from the database
+     * @throws SQLException if the statement fails or connection cannot be established
+     */
+    @Override
+    public Player get(Player object) throws SQLException {
+        PreparedStatement statement = getStatement(getQuery);
+
+        statement.setString(1, object.getUsername());
+        ResultSet rs = statement.executeQuery();
+        if (rs.next())
+            return new Player(rs.getString("username"), rs.getString("password"), rs.getBytes("salt"));
+        else
+            return null;
+    }
+
+    /**
+     * Make an INSERT query to insert the Player in question into the database
+     * @param object the Player in question
+     * @return true if successful, false otherwise
+     * @throws SQLException when the statement fails
+     */
+    @Override
+    public boolean delete(Player object) throws SQLException {
+        PreparedStatement statement = getStatement(deleteQuery);
+
+        statement.setString(1, object.getUsername());
+        if (statement.executeUpdate() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    /**
+     * Make a DELETE query to delete the Player in question from the database
+     * @param object the Player in question with the unique field (but not necessarily others) filled out
+     * @return true if successful, false otherwise
+     * @throws SQLException when the statement fails
      */
     @Override
     public boolean insert(Player object) throws SQLException{
@@ -38,43 +78,5 @@ public class PlayerRepository extends DatabaseRepository<Player> implements IPla
         }
         statement.close();
         return true;
-    }
-
-    /**
-     * Delete a player row from database
-     * !! We should not use that.
-     * @param object player object to delete
-     * @return true if the deletion was successful else false
-     * @throws SQLException
-     */
-    @Override
-    public boolean delete(Player object) throws SQLException {
-        PreparedStatement statement = getStatement(deleteQuery);
-
-        statement.setString(1, object.getUsername());
-        if (statement.executeUpdate() == 0) {
-            return false;
-        } else {
-            return true;
-        }
-
-    }
-
-    /**
-     * returns a player based on username from the database
-     * @param object player object
-     * @return player object
-     * @throws SQLException
-     */
-    @Override
-    public Player get(Player object) throws SQLException {
-        PreparedStatement statement = getStatement(getQuery);
-
-        statement.setString(1, object.getUsername());
-        ResultSet rs = statement.executeQuery();
-        if (rs.next())
-            return new Player(rs.getString("username"), rs.getString("password"), rs.getBytes("salt"));
-        else
-            return null;
     }
 }

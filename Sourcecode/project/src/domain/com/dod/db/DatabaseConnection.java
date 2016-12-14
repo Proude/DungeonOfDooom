@@ -12,6 +12,12 @@ public class DatabaseConnection {
 
     private static Connection connection;
 
+    /**
+     * A static connection to ensure that all sessions use the same MySql connection
+     * Could be done more intelligently with connection pooling
+     * @return Connection instance
+     * @throws SQLException when the database connection cannot be established
+     */
     public static Connection getConnection() throws SQLException {
         if(connection != null) {
             return connection;
@@ -29,6 +35,9 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Closes the connection
+     */
     public static void Close() {
         try {
             connection.close();

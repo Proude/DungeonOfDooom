@@ -1,7 +1,7 @@
 package com.dod.models;
 
 /**
- * The state of a match, allowing us to know whether it's started or lobbying.
+ * The state of a Match.
  */
 public enum MatchState {
     Lobbying,

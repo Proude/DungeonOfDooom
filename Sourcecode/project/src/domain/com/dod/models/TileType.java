@@ -1,7 +1,7 @@
 package com.dod.models;
 
 /**
- * The type of a tile, i.e is this tile a wall or something else.
+ * The type of a tile, i.e is this tile a wall, floor or something else.
  */
 public enum TileType {
     Wall(0),
@@ -10,7 +10,7 @@ public enum TileType {
     Exit(3);
 
     private final int value;
-    private TileType(int value) {
+    TileType(int value) {
         this.value = value;
     }
 
