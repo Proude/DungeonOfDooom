@@ -13,6 +13,14 @@ import java.sql.SQLException;
  */
 public interface IMovementService {
 
-    Point Move(String direction, Player player) throws SQLException; //todo add required params- eg map, character, target point
+    /**
+     * Moves the Player in a particular direction. Will increment player's gold if interacting with gold coins, can
+     * trigger end of the Match when player interacts with Exit.
+     * @param direction String a char from {W,S,A,D} pertaining to a particular direction in the WASD layout
+     * @param player Player whom's Character will be moved
+     * @return Point that the Player has moved to
+     * @throws SQLException if the database cannot be reached or statement fails while inserting new score
+     */
+    Point Move(String direction, Player player) throws SQLException;
 
 }

@@ -5,7 +5,7 @@ import com.dod.models.Point;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A simpler model of Character for JSON parsing
+ * A simpler model of Character for JSON encoding
  */
 @XmlRootElement
 public class CharacterModel {

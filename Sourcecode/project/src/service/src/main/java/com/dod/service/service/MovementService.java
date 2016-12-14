@@ -23,6 +23,14 @@ public class MovementService implements IMovementService {
         this.scoreRepository = (IScoreRepository)new ScoreRepository();
     }
 
+    /**
+     * Moves the Player in a particular direction. Will increment player's gold if interacting with gold coins, can
+     * trigger end of the Match when player interacts with Exit.
+     * @param direction String a char from {W,S,A,D} pertaining to a particular direction in the WASD layout
+     * @param player Player whom's Character will be moved
+     * @return Point that the Player has moved to
+     * @throws SQLException if the database cannot be reached or statement fails while inserting new score
+     */
     @Override
     public Point Move(String direction, Player player) throws SQLException {
         Match match = matchList.getMatchForPlayer(player.getUsername());
@@ -49,6 +57,14 @@ public class MovementService implements IMovementService {
         }
     }
 
+    /**
+     * Decides whether or not to update the Player's Position and interacts with special Tiles.
+     * @param newPoint Point the Point the Character wishes to move to
+     * @param dungeonMap Map that the Character is moving in
+     * @param pChar Character that is moving
+     * @return Point the Point that the Character is now in
+     * @throws SQLException if the database cannot be reached or statement fails while inserting new score
+     */
     private Point updatePosition(Point newPoint, Map dungeonMap, Character pChar) throws SQLException {
         if (dungeonMap.getTile(newPoint).getType() == TileType.Empty.getValue()) {
             pChar.setPosition(newPoint);
@@ -62,12 +78,14 @@ public class MovementService implements IMovementService {
         else if(dungeonMap.getTile(newPoint).getType() == TileType.Exit.getValue()) {
             if(pChar.getCollectedCoins() > dungeonMap.getCoinWin()) {
                 pChar.setPosition(newPoint);
-                matchList.getMatchForPlayer(pChar.getPlayer().getUsername()).setState(MatchState.Over);
                 Match match = matchList.getMatchForPlayer(pChar.getPlayer().getUsername());
-                Date temp = new Date();
-                match.setTimer(temp.getTime() - match.getTimer());
+                match.setState(MatchState.Over);
+
+                Date date = new Date();
+                match.setTimer(date.getTime() - match.getTimer());
                 int score = ((int) ((double)pChar.getCollectedCoins() / (double)match.getTimer() * 10000000));
-                matchList.getMatchForPlayer(pChar.getPlayer().getUsername()).setScore(score);
+
+                match.setScore(score);
                 scoreRepository.insert(new Score(pChar.getPlayer().getUsername(), score));
             }
         }

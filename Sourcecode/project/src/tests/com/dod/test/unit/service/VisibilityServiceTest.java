@@ -58,16 +58,4 @@ public class VisibilityServiceTest {
 
         Assert.assertFalse(visibleMap.getTile(new Point(7,7)).isVisible());
     }
-
-    @Test
-    public void shouldReturnTrueIfTheTile77BecomeVisible() {
-        VisibilityService vService = new VisibilityService();
-        visibleMap = vService.createVisibleMap(dungeonMap, pChar);
-
-        Assert.assertFalse(visibleMap.getTile(new Point(7, 7)).isVisible());
-        pChar.setPosition(new Point(5,5));
-
-        visibleMap = vService.getVisibleTilesForCharacter(visibleMap, dungeonMap, pChar);
-        Assert.assertTrue(visibleMap.getTile(new Point(7,7)).isVisible());
-    }
 }

@@ -5,13 +5,22 @@ import com.dod.service.model.LoginModel;
 import java.sql.SQLException;
 
 /**
- * Interface for AuthenticationService
- * Handles authentiticating a user against their hashed password/username
- *
+ * <pre>
+ *     Handles authenticating a user against their user/pass combo
+ * </pre>
  */
 public interface IAuthenticationService {
-
-    boolean Register(LoginModel model) throws SQLException;
+    /**
+     * Registers a new user
+     * @param model LoginModel containing the user/pass to be registered
+     * @return boolean true if successful otherwise false
+     */
+    boolean Register(LoginModel model);
+    /**
+     * Registers a new user
+     * @param model LoginModel containing the user/pass to be authorised
+     * @return boolean true if the user is authorised, otherwise false
+     */
     boolean Login(LoginModel model);
 
 }

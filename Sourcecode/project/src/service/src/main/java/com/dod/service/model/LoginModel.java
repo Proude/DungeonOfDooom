@@ -3,7 +3,7 @@ package com.dod.service.model;
 import com.dod.models.Player;
 
 /**
- * Used for logging in and registering.
+ * Simple model/bean used to pass information to/from the AuthorisationService
  */
 public class LoginModel {
 
@@ -31,6 +31,10 @@ public class LoginModel {
         this.password = password;
     }
 
+    /**
+     * Convenience method to return the LoginModel's username in the Player model
+     * @return Player
+     */
     public Player asPlayer() {
         return new Player(userName);
     }

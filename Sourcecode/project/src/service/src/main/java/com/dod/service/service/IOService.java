@@ -7,11 +7,10 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Implementation of IOService.
+ * Handles IO within the Service
  */
 public class IOService implements IIOService {
 
@@ -27,12 +26,25 @@ public class IOService implements IIOService {
         parser= new JSONParser();
     }
 
+    /**
+     * Fetches an asset as a String
+     * @param path String the path to the asset we are to fetch
+     * @return String the contents of the asset
+     * @throws IOException if the file is missing
+     */
     @Override
     public String getString(String path) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(pathToAssets + path));
         return new String(encoded, StandardCharsets.UTF_8);
     }
 
+    /**
+     * Fetches an asset as parsed JSON
+     * @param path String the path to the asset we are to fetch
+     * @return JSONObject the parsed content of the asset
+     * @throws IOException if the file is missing
+     * @throws ParseException if the file isn't encoded in valid JSON
+     */
     @Override
     public JSONObject getJsonObject(String path) throws IOException, ParseException {
         String input = getString(path);

@@ -76,22 +76,14 @@ public class PlayerController {
             @NotNull @Length(min = 1, max =255) @FormParam("username") String username,
             @NotNull @Length(min = 1, max = 255) @FormParam("password") String password
     ) {
-        try {
-            boolean success = service.Register(new LoginModel(username,password));
-            if(success) {
-                request.getSession(true);
-                request.getSession().setAttribute("player", username);
-                return Response.ok().build();
-            }
-            else {
-                return Response.status(400).build();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Response
-                    .serverError()
-                    .build();
+        boolean success = service.Register(new LoginModel(username,password));
+        if(success) {
+            request.getSession(true);
+            request.getSession().setAttribute("player", username);
+            return Response.ok().build();
         }
-
+        else {
+            return Response.status(400).build();
+        }
     }
 }

@@ -5,7 +5,7 @@ import com.dod.models.Point;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A simpler Tile model just for JSON communication
+ * A simpler Tile model just for JSON encoding
  */
 @XmlRootElement
 public class TileModel {

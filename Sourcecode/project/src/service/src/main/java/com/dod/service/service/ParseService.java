@@ -13,6 +13,12 @@ import java.util.Iterator;
  */
 public class ParseService implements IParseService {
 
+    /**
+     * Parses a Map object from it's JSON encoding
+     * @param input JSONObject a JSON encoding of the Map
+     * @return Map an initialised Map parsed from JSON
+     * @throws NullPointerException may be thrown by SimpleJson while parsing
+     */
     @Override
     public Map parseMap(JSONObject input) throws NullPointerException {
         JSONObject level = getLevel(input);
@@ -39,6 +45,11 @@ public class ParseService implements IParseService {
         return map;
     }
 
+    /**
+     * Figures out the level name based on the number of the level and returns the initial element
+     * @param input the level numer
+     * @return JSONObject of the Map object
+     */
     private JSONObject getLevel(JSONObject input) {
         Iterator<String> keys = input.keySet().iterator();
         String levelKey = keys.hasNext() ? keys.next() : "";

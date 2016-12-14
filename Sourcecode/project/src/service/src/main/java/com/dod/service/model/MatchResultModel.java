@@ -3,7 +3,7 @@ package com.dod.service.model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Used to inform the client about the details of a game end
+ * Models the information the client needs to display the end-game screen when the game ends.
  */
 @XmlRootElement
 public class MatchResultModel {

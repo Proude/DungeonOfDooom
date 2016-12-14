@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of StateService
+ * Generates a representation of the current game state form the perspective of a particular character
  */
 public class StateService implements IStateService {
 
@@ -23,6 +23,11 @@ public class StateService implements IStateService {
         this.matchList = matchList;
     }
 
+    /**
+     * Generates and returns a representation of the current game state form the perspective of a particular character
+     * @param player Player the Player a GameStateModel will be generated for
+     * @return GameStateModel a model of the current game state
+     */
     @Override
     public GameStateModel GetState(Player player) {
         Match match = matchList.getMatchForPlayer(player.getUsername());

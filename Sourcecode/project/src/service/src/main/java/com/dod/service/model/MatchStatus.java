@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.UUID;
 
 /**
- * The current state of a lobbying match, for communication with client
+ * Models the current state of a lobbying match.
  */
 @XmlRootElement
 public class MatchStatus

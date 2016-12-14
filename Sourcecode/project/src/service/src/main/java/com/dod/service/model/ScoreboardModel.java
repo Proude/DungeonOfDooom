@@ -5,7 +5,7 @@ import com.dod.models.Score;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Stores a number of scores for JSON representation
+ * Models a collection of scores to be displayed on a score table
  */
 @XmlRootElement
 public class ScoreboardModel {
