@@ -1,5 +1,9 @@
 /**
  * 2016 Dungeon of Dooom University of Bath.
+ * "Part of the graphic tiles used in this program is the Public domain roguelike tileset "RLTiles".
+ * Some of the tiles have been modified by our Team. You can find the original tileset at: http://rltiles.sf.net
+ * You can find Dungeon Crawl Stone Soup modified tilesets at: http://code.google.com/p/crawl-tiles/downloads/list"
+ * Tileset was downloaded from opengameart.org/content/dungeon-crawl-32x32-tiles
  */
 
 game = [];
@@ -211,7 +215,7 @@ game.menu.initGameScreen = function() {
 
     game.var.renderer = PIXI.autoDetectRenderer(game.var.xSize, game.var.ySize);
     game.var.renderer.backgroundColor = game.var.colours.background;
-    game.var.renderer.transparent = false;
+    game.var.renderer.transparent = true;
     game.menu.gameContainer.append(game.var.renderer.view);
 
     game.var.stage = new PIXI.Container();
@@ -281,9 +285,6 @@ game.render = function() {
                         wall.y = tilePositionY;
                         wall.alpha = tile.visible ? 1.0 : 0.5;
                         game.var.stage.addChild(wall);
-                        // game.var.graphics.beginFill(tile.visible ? game.var.colours.wall : game.var.colours.shaded.wall);
-                        // game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
-                        // game.var.graphics.endFill();
                     }
                     else if (tile.type == 1) {
                         var floor = PIXI.Sprite.fromImage('assets/floor.png');
@@ -291,48 +292,20 @@ game.render = function() {
                         floor.y = tilePositionY;
                         floor.alpha = tile.visible ? 1.0 : 0.5;
                         game.var.stage.addChild(floor);
-                        // game.var.graphics.beginFill(tile.visible ? game.var.colours.floor : game.var.colours.shaded.floor);
-                        // game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
-                        // game.var.graphics.endFill();
                     }
                     else if (tile.type == 2) {
-                        // var floor = PIXI.Sprite.fromImage('assets/floor.png');
-                        // floor.x = tilePositionX;
-                        // floor.y = tilePositionY;
-                        // game.var.stage.addChild(floor);
                         var coin = PIXI.Sprite.fromImage('assets/coin.png');
                         coin.x = tilePositionX;
                         coin.y = tilePositionY;
                         coin.alpha = tile.visible ? 1.0 : 0.5;
                         game.var.stage.addChild(coin);
-                        // game.var.graphics.beginFill(tile.visible ? game.var.colours.floor : game.var.colours.shaded.floor);
-                        // game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
-                        // game.var.graphics.endFill();
-                        //
-                        // game.var.graphics.beginFill(tile.visible ? game.var.colours.gold : game.var.colours.shaded.gold);
-                        // game.var.graphics.drawCircle(tilePositionX + game.var.scale / 2, tilePositionY + game.var.scale / 2, game.var.scale / 4);
-                        // game.var.graphics.endFill();
                     }
                     else if(tile.type == 3) {
-                        // var floor = PIXI.Sprite.fromImage('assets/floor.png');
-                        // floor.x = tilePositionX;
-                        // floor.y = tilePositionY;
-                        // game.var.stage.addChild(floor);
                         var exit = PIXI.Sprite.fromImage('assets/exit.png');
                         exit.x = tilePositionX;
                         exit.y = tilePositionY;
                         exit.alpha = tile.visible ? 1.0 : 0.5;
                         game.var.stage.addChild(exit);
-                        // game.var.graphics.beginFill(tile.visible ? game.var.colours.floor : game.var.colours.shaded.floor);
-                        // game.var.graphics.drawRect(tilePositionX, tilePositionY, game.var.scale, game.var.scale);
-                        // game.var.graphics.endFill();
-                        //
-                        // game.var.graphics.beginFill(tile.visible ? game.var.colours.exit : game.var.colours.shaded.exit);
-                        // game.var.graphics.moveTo(tilePositionX, tilePositionY + game.var.scale);
-                        // game.var.graphics.lineTo(tilePositionX + game.var.scale, tilePositionY);
-                        // game.var.graphics.lineTo(tilePositionX + game.var.scale, tilePositionY + game.var.scale);
-                        // game.var.graphics.lineTo(tilePositionX, tilePositionY + game.var.scale);
-                        // game.var.graphics.endFill();
                     }
 
                     if (tile.visible && tile.character !== null) {
@@ -343,9 +316,6 @@ game.render = function() {
                         char.x = positionX - game.var.scale / 2;
                         char.y = positionY - game.var.scale / 2;
                         game.var.stage.addChild(char);
-                        // game.var.graphics.beginFill(game.var.colours.player);
-                        // game.var.graphics.drawCircle(positionX, positionY, game.var.scale / 2);
-                        // game.var.graphics.endFill();
 
                         var character = game.var.tiles[x][y].character;
                         var playerTitle = game.var.playerTitles[character.playerName];
