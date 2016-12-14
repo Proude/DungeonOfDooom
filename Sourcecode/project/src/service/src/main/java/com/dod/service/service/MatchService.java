@@ -110,6 +110,6 @@ public class MatchService implements IMatchService {
         Match match = matchList.getMatchForPlayer(player.getUsername());
         Character winner = match.getCharacterWithHighestCoins();
 
-        return new MatchResultModel(winner.getPlayer().getUsername(), winner.getCollectedCoins());
+        return new MatchResultModel(winner.getPlayer().getUsername(), winner.getCollectedCoins(), match.getScore());
     }
 }

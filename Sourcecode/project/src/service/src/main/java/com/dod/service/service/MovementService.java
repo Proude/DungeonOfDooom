@@ -66,7 +66,9 @@ public class MovementService implements IMovementService {
                 Match match = matchList.getMatchForPlayer(pChar.getPlayer().getUsername());
                 Date temp = new Date();
                 match.setTimer(temp.getTime() - match.getTimer());
-                scoreRepository.insert(new Score(pChar.getPlayer().getUsername(), (int) (((double)pChar.getCollectedCoins() / match.getTimer()) * 10000000)));
+                int score = ((int) ((double)pChar.getCollectedCoins() / (double)match.getTimer() * 10000000));
+                matchList.getMatchForPlayer(pChar.getPlayer().getUsername()).setScore(score);
+                scoreRepository.insert(new Score(pChar.getPlayer().getUsername(), score));
             }
         }
         return pChar.getPosition();

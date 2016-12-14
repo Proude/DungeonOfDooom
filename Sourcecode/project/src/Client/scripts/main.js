@@ -493,7 +493,7 @@ game.menu.showEndGameScreen = function( result ) {
     else {
         $('#end-game-title').html("YOU LOOSE!")
     }
-    $('#end-game-detail').html(String.format("{0} wins with {1} coins", result.winner, result.winnerCoins));
+    $('#end-game-detail').html(String.format("{0} wins with {1} coins! Your score is {2} ", result.winner, result.winnerCoins, result.score));
     game.menu.gameContainer.empty();
     game.menu.game.css('display','none');
     game.menu.end.css('display','block');

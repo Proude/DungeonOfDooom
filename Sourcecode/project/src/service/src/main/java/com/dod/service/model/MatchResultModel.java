@@ -10,10 +10,12 @@ public class MatchResultModel {
 
     private String winner;
     private int winnerCoins;
+    private int score;
 
-    public MatchResultModel(String winner, int winnerCoins) {
+    public MatchResultModel(String winner, int winnerCoins, int score) {
         this.winner = winner;
         this.winnerCoins = winnerCoins;
+        this.score = score;
     }
 
     public MatchResultModel() { }
@@ -33,4 +35,8 @@ public class MatchResultModel {
     public void setWinnerCoins(int winnerCoins) {
         this.winnerCoins = winnerCoins;
     }
+
+    public int getScore() { return score; }
+
+    public void setScore(int score) { this.score = score; }
 }

@@ -15,6 +15,7 @@ public class Match {
     private List<Character> characters;
     private MatchState state;
     private long timer;
+    private int score;
 
     public Match(Map map) {
         this.id = UUID.randomUUID();
@@ -22,6 +23,7 @@ public class Match {
         this.characters = new ArrayList();
         state = MatchState.Lobbying;
         timer = 0;
+        score = 0;
     }
 
     public Map getMap() {
@@ -115,4 +117,8 @@ public class Match {
     public void setTimer(long timer) {
         this.timer = timer;
     }
+
+    public int getScore() { return this.score; }
+
+    public void setScore(int score) { this.score = score; }
 }
