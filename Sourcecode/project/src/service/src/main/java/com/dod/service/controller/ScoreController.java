@@ -23,6 +23,10 @@ public class ScoreController {
         this.repository = new ScoreRepository();
     }
 
+    /**
+     * Fetches the top 10 scores across all players.
+     * @return Response 200 OK with a JSON encoded ScoreboardModel or 500 if an error occurred
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("top")

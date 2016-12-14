@@ -21,8 +21,10 @@ import org.glassfish.grizzly.http.server.Request;
 import org.hibernate.validator.constraints.Length;
 
 /**
- * Manages registering and logging in a player
- * Creates the session that other controllers can use to fetch user details
+ * <pre>
+ *      Manages registering and logging in a player
+ *      Creates the session that other controllers can use to fetch user details
+ * </pre>
  */
 @Path("player")
 public class PlayerController {
@@ -39,7 +41,7 @@ public class PlayerController {
      * Authorises a user and starts a session with them
      * @param username must be unique, not empty and less than 256 characters
      * @param password must not be empty and less than 256 characters
-     * @return blank http response, 200 if successful
+     * @return Response with blank body, 200 if successful otherwise 400 or 500
      */
     @POST
     @Produces(MediaType.TEXT_PLAIN)
@@ -65,7 +67,7 @@ public class PlayerController {
      * Registers a user for the service. Username must be unique.
      * @param username must be unique, not empty and less than 256 characters
      * @param password must not be empty and less than 256 characters
-     * @return blank http response, 200 if successful
+     * @return Response with blank body, 200 if successful otherwise 400 or 500
      */
     @POST
     @Produces(MediaType.TEXT_PLAIN)

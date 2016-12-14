@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
 /**
- * Manages game functionality
+ * A controller to manage in-game game-related functionality ie getting the current state of the world or moving.
  */
 @Path("game")
 public class GameController {
@@ -32,6 +32,11 @@ public class GameController {
         movementService = new MovementService();
     }
 
+    /**
+     * Responds with the current gamestate from the Player's Character's perspective, i.e. only returning visible tiles
+     * If Player has no current ongoing Match returns 500 error.
+     * @return Response 200 OK with GameStateModel as a JSON object
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("status")
@@ -45,6 +50,13 @@ public class GameController {
                 .build();
     }
 
+    /**
+     * An endpoint to request the Player's Character move once in a particular direction.
+     * Responds with game status after move.
+     * If Player has no current ongoing Match returns 500 error.
+     * @param direction a char from {W,S,A,D} pertaining to a particular direction in the WASD layout, must not be null
+     * @return Response 200 OK with GameStateModel as a JSON object
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("move")

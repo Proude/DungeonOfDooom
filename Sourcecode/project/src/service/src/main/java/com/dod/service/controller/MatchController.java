@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 /**
- * Manages starting/joining matches
+ * A controller to manage Matches- joining, listing, starting a new one etc.
  */
 @Path("match")
 public class MatchController {
@@ -38,6 +38,11 @@ public class MatchController {
                 MatchList.instance());
     }
 
+    /**
+     * Responds with the status of the player's current Match.
+     * If Player has no current Match returns a 500 error.
+     * @return Response 200 OK with MatchStatus encoded in JSON
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("status")
@@ -49,6 +54,11 @@ public class MatchController {
             .build();
     }
 
+    /**
+     * Starts a new Match in a particular level and responds with that Match's status
+     * @param level int the level to load for this Match, must not be null
+     * @return Response 200 OK with MatchStatus encoded in JSON or null if a Match cannot be crated
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("new")
@@ -70,6 +80,10 @@ public class MatchController {
         }
     }
 
+    /**
+     * Changes a Match's status to Ingame (marking the start of the Match for all players)
+     * @return MatchStatus encoded in JSON
+     */
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Path("start")
@@ -83,6 +97,10 @@ public class MatchController {
                 .build();
     }
 
+    /**
+     * Lists all currently lobbying matches in a JSON array
+     * @return Response 200 OK JSON array with encoded MatchStatus for each lobbying Match
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("list")
@@ -95,6 +113,11 @@ public class MatchController {
                 .build();
     }
 
+    /**
+     * Joins the Player in an ongoing Match
+     * @param matchId the UUID ID of the Match, must not be null
+     * @return Response 200 OK with the latest MatchStatus encoded in JSON
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("join")
@@ -117,6 +140,10 @@ public class MatchController {
         }
     }
 
+    /**
+     * Removes the Player from their current Match
+     * @return Response 200 OK with a blank body
+     */
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Path("leave")
@@ -129,6 +156,10 @@ public class MatchController {
                 .build();
     }
 
+    /**
+     * Fetches the result of a Match from memory
+     * @return Resepons 200 OK with JSON encoded MatchResultModel
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("result")
