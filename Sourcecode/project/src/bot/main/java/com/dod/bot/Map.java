@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Map for the bot modeled on the responses from the server
+ * <pre>
+ * Map for the bot modeled on the responses from the server.
+ * Should work in theory but not tested as we ran out of time.
+ * </pre>
  */
 public class Map {
     private ArrayList<List<TileModel>> map;
@@ -16,6 +19,10 @@ public class Map {
         map = new ArrayList<List<TileModel>>();
     }
 
+    /**
+     * Add a tile to the map. Expands the map to the correct size of necessary.
+     * @param tiles TileModel[] a collection of Tiles to add to the Map.
+     */
     public void addTile(TileModel[] tiles) {
         int xMax = 0;
         int yMax = 0;

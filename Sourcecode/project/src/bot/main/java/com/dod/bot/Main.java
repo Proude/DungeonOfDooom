@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Main {
 
     /**
-     * Start the bot
+     * Parses the input and starts the Bot
      * @param args expects 1 argument of ID for match to join
      */
     public static void main(String args[]) {
