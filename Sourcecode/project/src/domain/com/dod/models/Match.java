@@ -6,7 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Represents a match
+ * <pre>
+ *     A Match represents a particular collection of Players that are playing on a particular Map stored in memory
+ *     A Match has a Map
+ *     A Match has a unique ID
+ *     A Match
+ * </pre>
  */
 public class Match {
 
@@ -26,10 +31,16 @@ public class Match {
         score = 0;
     }
 
+
     public Map getMap() {
         return map;
     }
 
+    /**
+     * Adds a Player to this Match with a new Character
+     * @param player Player the Player who will join this Match as a Character
+     * @param position Point the position the new Character will occupy
+     */
     public void addCharacter(Player player, Point position) {
         characters.add(new Character(position, player));
     }
@@ -42,6 +53,7 @@ public class Match {
             }
         }
     }
+
 
     public Character getCharacter(String username) {
         Character result = null;
@@ -56,6 +68,10 @@ public class Match {
         return result;
     }
 
+    /**
+     * Gets a list of names of each Player currently in this Match
+     * @return String[] array of players names
+     */
     public String[] getPlayerNames() {
         String[] names = new String[characters.size()];
 
@@ -66,6 +82,11 @@ public class Match {
         return names;
     }
 
+    /**
+     * Returns where or not a character is in this Match
+     * @param userName String the name of the Player to check
+     * @return boolean true if the Player is in this Match otherwise false
+     */
     public boolean hasCharacter(String userName) {
         return getCharacter(userName) != null;
     }
@@ -86,6 +107,11 @@ public class Match {
         this.state = state;
     }
 
+    /**
+     * Returns all Characters on a particular Tile
+     * @param point Point the location of the Tile to check
+     * @return List\<Character\> a list of Characters that are presently standing on that tile
+     */
     public List<Character> getCharactersOnTile(Point point) {
         List<Character> charactersOnTile = new ArrayList();
 
@@ -98,6 +124,10 @@ public class Match {
         return charactersOnTile;
     }
 
+    /**
+     * Gets the Caracter with the highest score
+     * @return Character with the highest score
+     */
     public Character getCharacterWithHighestCoins() {
         Character character = null;
 
