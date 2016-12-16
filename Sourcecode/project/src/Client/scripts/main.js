@@ -61,6 +61,13 @@ game.constants.api = "http://localhost:8080/";
 game.constants.loginFailed = "Oops, that didn't work. Make sure your username/password are correct.";
 game.constants.registrationFailed = "Oops, that didn't work. Fields cannot be empty or more than 255 characters.";
 
+/**
+ * Generic method to make a GET request. Uses xhr fields to ensure cookies are sent across domain.
+ * @param url  {string}to send the request to
+ * @param data {string}to send with the request
+ * @param success function to execute on success
+ * @param error function to execute on failure
+ */
 game.func.get = function(url, data, success, error) {
     $.ajax({
         type: "GET",
@@ -74,6 +81,13 @@ game.func.get = function(url, data, success, error) {
     });
 };
 
+/**
+ * Generic method to make a POST request. Uses xhr fields to ensure cookies are sent across domain.
+ * @param url  {string}to send the request to
+ * @param data {string}to send with the request
+ * @param success function to execute on success
+ * @param error function to execute on failure
+ */
 game.func.post = function(url, data, success, error) {
     $.ajax({
         type: "POST",
@@ -87,6 +101,12 @@ game.func.post = function(url, data, success, error) {
     });
 };
 
+/**
+ * Constructs an url of an endpoint given the endpoint's controller and action names.
+ * @param controller {string}the controller to contact
+ * @param action {string}the action to contact
+ * @returns {string} the constructed path
+ */
 game.func.getApiPath = function(controller, action) {
     return game.constants.api + controller + "/" + action;
 };
@@ -155,6 +175,10 @@ game.menu.openScoreboard = function() {
     game.func.get(endpoint, { }, game.menu.displayScoreboard, game.func.error);
 };
 
+/**
+ * Renders the scoreboard in the #score-table table.
+ * @param scoreBoard the JSON object returned from a query to the score/top endpoint
+ */
 game.menu.displayScoreboard = function( scoreBoard ) {
     $('#score-table tbody td').remove();
     $.each(scoreBoard.scores, function(i, score) {
@@ -195,6 +219,9 @@ game.match.join = function( data ) {
     requestAnimationFrame(game.match.updateStatus);
 };
 
+/**
+ * Starts a new Match by sending a request to the web service
+ */
 game.match.new = function() {
     var endpoint = game.func.getApiPath("match","new");
     game.match.var.isLobbying = false;
@@ -205,12 +232,18 @@ game.match.new = function() {
     requestAnimationFrame(game.match.updateStatus);
 };
 
+/**
+ * Starts the player's current Match by sending a request to the web service
+ */
 game.match.start = function() {
     game.match.var.isWaitingTostart = false;
     var endpoint = game.func.getApiPath("match","start");
     requestAnimationFrame(function() {game.func.post(endpoint, null, game.menu.initGameScreen, game.func.error) });
 };
 
+/**
+ * Initialises the game screen. Resets game variables and creates a new HTML5 canvas. Begins the game loop.
+ */
 game.menu.initGameScreen = function() {
     game.var.init();
     game.menu.gameContainer.empty();
@@ -267,6 +300,9 @@ game.initPlayerTitle = function( character ) {
     game.var.playerTitles[character.playerName] = new PIXI.Text(character.playerName, style);
 };
 
+/**
+ * Renders the current game state to the canvas.
+ */
 game.render = function() {
     //game.var.graphics.clear();
     game.var.stage = new PIXI.Container();
@@ -352,7 +388,11 @@ game.setAllTilesNotVisible = function() {
     });
 };
 
-
+/**
+ * Updates the current game status based on the result from a status request.
+ * Will end the gam eif the status response indicates that the game is over.
+ * @param status
+ */
 game.updateStatus = function( status ) {
     game.var.characters = status.characters;
     game.var.playerCharacter = status.playerCharacter;
@@ -380,6 +420,11 @@ game.updateStatus = function( status ) {
     }
 };
 
+/**
+ * Adds a tile if it doesn't already exist in memory, or updates the tile if it does.
+ * Will expand the size of game.var.tiles if it isn't large enough.
+ * @param tile
+ */
 game.var.addTile = function( tile ) {
     var pos = tile.position;
 
@@ -396,6 +441,11 @@ game.fetchStatus = function() {
     game.func.get(endpoint, {}, game.updateStatus, game.func.error);
 };
 
+/**
+ * Makes a game status request if game.var.timestep has passed since the last request.
+ * Loops while game.var.isRunning
+ * @param timestamp
+ */
 game.updateGame = function( timestamp ) {
     if(game.var.lastFrameTimestamp == 0) {
         game.var.lastFrameTimestamp = timestamp + game.var.timeStep;
@@ -413,6 +463,11 @@ game.updateGame = function( timestamp ) {
     }
 };
 
+/**
+ * Makes a match list request if game.match.var.timeStep has passed since the last request
+ * Loops while game.match.var.isLobbying
+ * @param timestamp
+ */
 game.match.updateMatchList = function( timestamp ) {
     if(game.match.var.lastFrameTimestamp == 0) {
         game.match.var.lastFrameTimestamp = timestamp + game.match.var.timeStep;
@@ -430,6 +485,11 @@ game.match.updateMatchList = function( timestamp ) {
     }
 };
 
+/**
+ * Makes a Match Status request if game.match.var.timeStep has passed since the last request.
+ * Loops while game.match.var.isWaitingToStart
+ * @param timestamp
+ */
 game.match.updateStatus = function( timestamp ) {
     if(game.match.var.lastFrameTimestamp == 0) {
         game.match.var.lastFrameTimestamp = timestamp + game.match.var.timeStep;
@@ -452,6 +512,10 @@ game.match.fetchStatus = function() {
     game.func.get(endpoint, {}, game.menu.displayMatchMenu, game.func.error);
 };
 
+/**
+ * Generates the Match Status details on the Match screen.
+ * @param data Match Status as a JSON object
+ */
 game.menu.displayMatchMenu = function( data ) {
     game.menu.lobby.css('display','none');
     game.menu.match.css('display','block');
@@ -486,6 +550,10 @@ game.menu.move = function( key ) {
     game.var.status = game.func.post(endpoint, {"key" : key}, game.updateStatus, game.func.error);
 };
 
+/**
+ * Builds the end-game screen and switches to it
+ * @param result a MatchResultModel object
+ */
 game.menu.showEndGameScreen = function( result ) {
     if(result.winner == game.var.playerCharacter.playerName) {
         $('#end-game-title').html("YOU WIN!")
